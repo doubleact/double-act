@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Double Act</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="card">
+            <div class="card-front">
+                <div class="actor-names"></div>
+                <div class="score-display">Score: <span id="current-score">0</span></div>
+                <div class="card-counter"><span id="current-card">0</span>/<span id="total-cards">0</span></div>
+                <button class="pass-button">Pass</button>
+            </div>
+            <div class="card-back">
+                <div class="character-info"></div>
+                <button class="got-it-button">Correct</button>
+            </div>
+        </div>
+    </div>
+    <script src="cardData.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

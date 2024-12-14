@@ -1,0 +1,375 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 400px;
+    height: 600px;
+    perspective: 1000px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-title {
+    color: #2c3e50;
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.card-front {
+    background-color: #FFE0B2; /* Light Orange */
+    color: #2c3e50;
+}
+
+.card-back {
+    background-color: #C8E6C9; /* Light Green */
+    color: #2c3e50;
+    transform: rotateY(180deg);
+}
+
+.type-1 .card-front {
+    background-color: #BBDEFB; /* Light Blue */
+}
+
+.type-2 .card-front {
+    background-color: #F48FB1; /* Stronger Light Pink */
+}
+
+.type-3 .card-front {
+    background-color: #E1BEE7; /* Light Purple */
+}
+
+.type-4 .card-front {
+    background-color: #FFF9C4; /* Light Yellow */
+}
+
+.type-5 .card-front {
+    background-color: #EF9A9A; /* Stronger Light Red */
+}
+
+.actor-names,
+.character-info {
+    text-align: center;
+    width: 100%;
+    pointer-events: none;
+}
+
+.actor,
+.character-name {
+    font-size: 24px;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.and {
+    font-size: 20px;
+    margin: 10px 0;
+    font-style: italic;
+    color: #666;
+}
+
+.actor,
+.character-name,
+.movie {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.character-name {
+    color: #000000;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.card-front.start-screen,
+.card-front.end-screen {
+    background-color: #ffecd9;
+}
+
+.end-screen .card-front {
+    background-color: #ffecd9;
+    height: 100%;
+    width: 100%;
+}
+
+.start-message, .end-message {
+    text-align: center;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffecd9;
+}
+
+.start-title {
+    font-size: 48px;
+    color: #2c3e50;
+    font-weight: bold;
+    margin: auto;
+}
+
+.start-text {
+    font-size: 20px;
+    color: #666;
+    font-style: italic;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.end-text-container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.end-text-large {
+    font-size: 30px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.end-text-medium {
+    font-size: 26px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.end-text-small {
+    font-size: 20px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.restart-text {
+    pointer-events: auto !important;
+    font-size: 1.4em;
+    color: #4CAF50;
+    margin-top: 30px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.restart-text:hover {
+    color: #45a049;
+}
+
+.end-screen {
+    pointer-events: none !important;
+}
+
+.end-screen .restart-button {
+    pointer-events: auto !important;
+}
+
+.score-display {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.2em;
+    color: #666;
+}
+
+.card-counter {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.2em;
+    color: #666;
+}
+
+.got-it-button, .pass-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+.got-it-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.got-it-button:hover {
+    background-color: #45a049;
+}
+
+.pass-button {
+    color: white;
+    background-color: #dc3545;
+    color: white;
+}
+
+.pass-button:hover {
+    background-color: #c82333;
+}
+
+/* Mobile-specific styles */
+@media screen and (max-width: 480px) {
+    .game-container {
+        height: 90vh; /* 10% smaller */
+        max-width: 90%; /* 10% smaller */
+        padding: 10px;
+        margin: 0 auto;
+    }
+
+    .card {
+        height: calc(90vh - 40px); /* 10% smaller */
+    }
+
+    .actor,
+    .character-name {
+        font-size: 20px;
+        margin: 10px 0;
+    }
+
+    .movie {
+        font-size: 16px;
+        line-height: 1.4;
+        margin: 8px 0;
+    }
+
+    .and {
+        font-size: 16px;
+        margin: 5px 0;
+    }
+
+    .start-title {
+        font-size: 36px;
+    }
+
+    .start-text,
+    .tap-text {
+        font-size: 16px;
+    }
+
+    .game-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .score-display {
+        font-size: 16px;
+        top: 10px;
+    }
+
+    .card-counter {
+        font-size: 16px;
+        bottom: 10px;
+    }
+
+    .got-it-button,
+    .pass-button {
+        padding: 8px 16px;
+        font-size: 16px;
+        bottom: 15px;
+    }
+
+    /* Prevent text selection on mobile */
+    * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Improve touch handling */
+    .card {
+        touch-action: manipulation;
+    }
+
+    /* Better visibility for movie titles */
+    .movies {
+        padding: 0 10px;
+    }
+
+    /* Adjust end screen for mobile */
+    .end-text-large {
+        font-size: 24px;
+    }
+
+    .end-text-medium {
+        font-size: 20px;
+    }
+
+    .end-text-small {
+        font-size: 16px;
+    }
+
+    .restart-text {
+        font-size: 18px;
+        margin-top: 20px;
+    }
+}
+
+/* Fix for iOS Safari 100vh issue */
+@supports (-webkit-touch-callout: none) {
+    .game-container {
+        height: calc(-webkit-fill-available * 0.9); /* 10% smaller */
+    }
+    
+    .card {
+        height: calc((-webkit-fill-available * 0.9) - 40px); /* 10% smaller */
+    }
+}
