@@ -640,7 +640,12 @@ const cardData = [
         character: "Frank Castle/The Punisher", 
         movies: ["The Punisher (1989)", "Daredevil (TV), The Punisher (TV), Daredevil: Born Again"],
         type: 5   // 107    
-    }
-
+    },
+    {        
+        actors: ["Mckenna Grace", "Brie Larson"], 
+        character: "Carol Danvers", 
+        movies: ["Captain Marvel", "Captain Marvel"],
+        type: 5   // 108    
+    },
 
 ];

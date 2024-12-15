@@ -2,25 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Double Act</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Double Act 4</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="game-container">
-        <div class="card">
-            <div class="card-front">
-                <div class="actor-names"></div>
-                <div class="score-display">Score: <span id="current-score">0</span></div>
-                <div class="card-counter"><span id="current-card">0</span>/<span id="total-cards">0</span></div>
-                <button class="pass-button">Pass</button>
+        <div id="currentCard" class="card">
+            <div class="front">
+                <!-- Front content will be dynamically inserted -->
             </div>
-            <div class="card-back">
-                <div class="character-info"></div>
-                <button class="got-it-button">Correct</button>
+            <div class="back">
+                <!-- Back content will be dynamically inserted -->
             </div>
         </div>
     </div>
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
     <script src="cardData.js"></script>
     <script src="script.js"></script>
 </body>
