@@ -923,14 +923,14 @@ const cardData = [
         type: 1   // 154    
     },
     { 
-        actors: ["Alicia Silverstone", " Rachel Blanchard"], 
+        actors: ["Alicia Silverstone", "Rachel Blanchard"], 
         character: "Cher Horowitz", 
         movies: ["Clueless", "Clueless (TV)"],
         type: 2   // 155    
     },
     { 
         actors: ["Chevy Chase", "Jon Hamm"], 
-        character: "Irwin "Fletch" Fletcher", 
+        character: "Irwin 'Fletch' Fletcher", 
         movies: ["Fletch, Fletch Lives", "Confess, Fletch"],
         type: 1   // 156    
     },
@@ -1291,13 +1291,13 @@ const cardData = [
     { 
         actors: ["Giovanni Ribisi", "Michael Cole"], 
         character: "Pete Cochran", 
-        movies: ["The Mod Squad", "The Mod Squad (TV"],
+        movies: ["The Mod Squad", "The Mod Squad (TV)"],
         type: 2   // 216    
     },
     { 
         actors: ["Omar Epps", "Clarence Williams III"], 
         character: "Linc Hayes", 
-        movies: ["The Mod Squad", "The Mod Squad (TV"],
+        movies: ["The Mod Squad", "The Mod Squad (TV)"],
         type: 2   // 217    
     },
     { 
