@@ -930,7 +930,7 @@ const cardData = [
     },
     { 
         actors: ["Chevy Chase", "Jon Hamm"], 
-        character: "Irwin "Fletch" Fletcher", 
+        character: "Irwin 'Fletch' Fletcher", 
         movies: ["Fletch, Fletch Lives", "Confess, Fletch"],
         type: 1   // 156    
     },
@@ -1264,15 +1264,4 @@ const cardData = [
         movies: ["Mary Poppins", "Mary Poppins Returns"],
         type: 1   // 211    
     }
-
-
-
-
-
-
-
-
-
-
-
 ];
