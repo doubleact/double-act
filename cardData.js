@@ -81,13 +81,13 @@ const cardData = [
         actors: ["Daniel Day-Lewis", "Benjamin Walker"], 
         character: "Abraham Lincoln", 
         movies: ["Lincoln", "Abraham Lincoln: Vampire Hunter"],   
-        type: 1   // 014    
+        type: 4   // 014    
     },    
     {
         actors: ["Imelda Staunton", "Olivia Colman"], 
         character: "Queen Elizabeth II", 
         movies: ["The Crown", "The Crown"],         
-        type: 3   // 015
+        type: 4   // 015
     },    
     {
         actors: ["Kevin Costner", "Russell Crowe"], 
@@ -111,7 +111,7 @@ const cardData = [
         actors: ["Helen Mirren", "Claire Foy"], 
         character: "Queen Elizabeth II", 
         movies: ["The Queen", "The Crown"],         
-        type: 3   // 019
+        type: 4   // 019
     },    
     {   
         actors: ["Katherine McNamara", "Lilly Collins"], 
@@ -135,7 +135,7 @@ const cardData = [
         actors: ["Sam Rockwell", "Josh Brolin"], 
         character: "George W. Bush", 
         movies: ["Vice", "W."],
-        type: 1   // 023
+        type: 4   // 023
     },    
     { 
         actors: ["Morgan Freeman", "Tyler Perry"], 
@@ -195,7 +195,7 @@ const cardData = [
         actors: ["Elisabeth Shue", "Claudia Wells"], 
         character: "Jennifer Parker", 
         movies: ["Back to the Future II/Back to the Future III", "Back to the Future"],
-        type: 2   // 033
+        type: 1   // 033
     },
     { 
         actors: ["Tyler Mane", "Liev Schreiber"], 
@@ -207,13 +207,13 @@ const cardData = [
         actors: ["Kiefer Sutherland", "Jon Voight"], 
         character: "Franklin D. Roosevelt", 
         movies: ["The First Lady", "Pearl Harbor"],
-        type: 2   // 035
+        type: 4   // 035
     },
     { 
         actors: ["Dennis Quaid", "Clive Owen"], 
         character: "Bill Clinton", 
         movies: ["The Special Relationship", "Impeachment: American Crime Story"],
-        type: 2   // 036
+        type: 4   // 036
     },
     { 
         actors: ["Sean Connery", "Taron Egerton"], 
@@ -237,7 +237,7 @@ const cardData = [
         actors: ["Kurt Russell", "Tim Allen"], 
         character: "Santa Claus", 
         movies: ["The Christmas Chronicles, The Christmas Chronicles: Part 2", "The Santa Clause, The Santa Clause 2, The Santa Clause 3: The Escape Clause"],
-        type: 2   // 040
+        type: 1   // 040
     },
     { 
         actors: ["Christian Bale", "Ben Affleck"], 
@@ -600,7 +600,7 @@ const cardData = [
         type: 5   // 100    
     },
     { 
-        actors: ["Ben Afflceck", "Charlie Cox"], 
+        actors: ["Ben Affleck", "Charlie Cox"], 
         character: "Matthew Murdoch/Daredevil", 
         movies: ["Daredevil (2003)", "Daredevil (2015), The Defenders, Spider-Man: No Way Home, She-Hulk: Attorney at Law, Echo, Daredevil: Born Again"],
         type: 5   // 101    
@@ -647,5 +647,632 @@ const cardData = [
         movies: ["Captain Marvel", "Captain Marvel"],
         type: 5   // 108    
     },
+    { 
+        actors: ["Lynda Carter", "Gal Gardot"], 
+        character: "Diana Prince/Wonder Woman", 
+        movies: ["Wonder Woman (TV)", "Batman v Superman: Dawn of Justice, Justice League, Wonder Woman, Wonder Woman 1984, Shazam!: Fury of the Gods, The Flash"],
+        type: 5   // 109
+    },
+    { 
+        actors: ["Christina Ricci ", "Lisa Loring"], 
+        character: "Wednesday Addams", 
+        movies: ["The Addams Family, The Addams Family Values", "The Addams Family (TV)"],
+        type: 2   // 110    
+    },
+    { 
+        actors: ["Christina Ricci ", "Jenna Ortega"], 
+        character: "Wednesday Addams", 
+        movies: ["The Addams Family, The Addams Family Values", "Wednesday (TV)"],
+        type: 2   // 111    
+    },
+    { 
+        actors: ["Lisa Loring ", "Jenna Ortega"], 
+        character: "Wednesday Addams", 
+        movies: ["The Addams Family (TV)", "Wednesday (TV)"],
+        type: 3   // 112    
+    },
+    { 
+        actors: ["Raul Julia", "John Astin"], 
+        character: "Gomez Addams", 
+        movies: ["The Addams Family, The Addams Family Values", "The Addams Family (TV)"],
+        type: 2   // 113    
+    },
+    { 
+        actors: ["Raul Julia", "Luis Guzmán"], 
+        character: "Gomez Addams", 
+        movies: ["The Addams Family, The Addams Family Values", "Wednesday (TV)"],
+        type: 2   // 114    
+    },
+    { 
+        actors: ["John Astin", "Luis Guzmán"], 
+        character: "Gomez Addams", 
+        movies: ["The Addams Family (TV)", "Wednesday (TV)"],
+        type: 2   // 115    
+    },
+    { 
+        actors: ["Anjelica Huston", "Carolyn Jones"], 
+        character: "Morticia Addams", 
+        movies: ["The Addams Family, The Addams Family Values", "The Addams Family (TV)"],
+        type: 2   // 116    
+    },
+    { 
+        actors: ["Anjelica Huston", "Catherine Zeta-Jones"], 
+        character: "Morticia Addams", 
+        movies: ["The Addams Family, The Addams Family Values", "Wednesday (TV)"],
+        type: 2   // 117    
+    },
+    { 
+        actors: ["Carolyn Jones", "Catherine Zeta-Jones"], 
+        character: "Morticia Addams", 
+        movies: ["The Addams Family (TV)", "Wednesday (TV)"],
+        type: 2   // 118    
+    },
+    { 
+        actors: ["Jimmy Workmann", "Ken Weatherwax"], 
+        character: "Pugsley Addams", 
+        movies: ["The Addams Family, The Addams Family Values", "The Addams Family (TV)"],
+        type: 2   // 119    
+    },
+    { 
+        actors: ["Jimmy Workman", "Isaac Ordonez"], 
+        character: "Pugsley Addams", 
+        movies: ["The Addams Family, The Addams Family Values", "Wednesday (TV)"],
+        type: 2   // 120    
+    },
+    { 
+        actors: ["Ken Weatherwax", "Isaac Ordonez"], 
+        character: "Pugsley Addams", 
+        movies: ["The Addams Family (TV)", "Wednesday (TV)"],
+        type: 2   // 121    
+    },
+    { 
+        actors: ["Christopher Lloyd", "Jackie Coogan"], 
+        character: "Uncle Fester Addams", 
+        movies: ["The Addams Family, The Addams Family Values", "The Addams Family (TV)"],
+        type: 2   // 122    
+    },
+    { 
+        actors: ["Christopher Lloyd", "Fred Armisen"], 
+        character: "Uncle Fester Addams", 
+        movies: ["The Addams Family, The Addams Family Values", "Wednesday (TV)"],
+        type: 2   // 123    
+    },
+    { 
+        actors: ["Jackie Coogan", "Fred Armisen"], 
+        character: "Uncle Fester Addams", 
+        movies: ["The Addams Family (TV)", "Wednesday (TV)"],
+        type: 2   // 124    
+    },
+    { 
+        actors: ["James Brolin", "Ryan Reynolds"], 
+        character: "George Lutz", 
+        movies: ["The Amityville Horror (1979)", "The Amityville Horror (2005)"],
+        type: 1   // 125    
+    },
+    { 
+        actors: ["Margot Kidder", " Melissa George"], 
+        character: "Kathy Lutz", 
+        movies: ["The Amityville Horror (1979)", "The Amityville Horror (2005)"],
+        type: 1   // 126    
+    },
+    { 
+        actors: ["Leonardo DiCaprio", "Tommy Lee Jones"], 
+        character: "Howard Hughes", 
+        movies: ["The Aviator", "Melvin and Howard"],
+        type: 4   // 127    
+    },
+    { 
+        actors: ["Leonardo DiCaprio", "Terry O’Quinn"], 
+        character: "Howard Hughes", 
+        movies: ["The Aviator", "The Rocketeer "],
+        type: 4   // 128    
+    },
+    { 
+        actors: ["Tommy Lee Jones", "Terry O’Quinn"], 
+        character: "Howard Hughes", 
+        movies: ["Melvin and Howard", "The Rocketeer "],
+        type: 4   // 129   
+    },
+    { 
+        actors: ["Dwayne Johnson", "David Hasselhoff"], 
+        character: "Mitch Buchannon", 
+        movies: ["Baywatch (2017)", "Baywatch (TV)"],
+        type: 2   // 130    
+    },
+    { 
+        actors: ["Zac Efron", "David Charvet"], 
+        character: "Matt Brody", 
+        movies: ["Baywatch (2017)", "Baywatch (TV)"],
+        type: 2   // 131    
+    },    { 
+        actors: [" Alexandra Daddario", "Nicole Eggert"], 
+        character: "Summer Quinn", 
+        movies: ["Baywatch (2017)", "Baywatch (TV)"],
+        type: 2   // 132    
+    },
+    { 
+        actors: ["Kelly Rohrbach", "Pamela Anderson"], 
+        character: "CJ Parker", 
+        movies: ["Baywatch (2017)", "Baywatch (TV)"],
+        type: 2   // 133    
+    },
+    { 
+        actors: ["Wesley Snipes", "Mahershala Ali"], 
+        character: "Blade", 
+        movies: ["Blade (1998)", "Blade (2026)"],
+        type: 5   // 134    
+    },
+    { 
+        actors: ["Wesley Snipes", "Sticky Fingaz"], 
+        character: "Blade", 
+        movies: ["Blade (1998)", "Blade: The Series (TV)"],
+        type: 5   // 135    
+    },
+    { 
+        actors: ["Mahershala Ali", "Sticky Fingaz"], 
+        character: "Blade", 
+        movies: ["Blade (2026)", "Blade: The Series (TV)"],
+        type: 5   // 136    
+    },
+    { 
+        actors: ["Ana de Armas", "Michelle Williams"], 
+        character: "Marilyn Monroe", 
+        movies: ["Blonde (2022)", "My Week with Marilyn (2011)"],
+        type: 4   // 137    
+    },
+    { 
+        actors: ["Denzel Washington", "Russell Hornsby"], 
+        character: "Lincoln Rhyme", 
+        movies: ["The Bone Collector", "Lincoln Rhyme: Hunt for the Bone Collector"],
+        type: 2   // 138    
+    },
+    { 
+        actors: ["Angelina Jolie", "Arielle Kebbel"], 
+        character: "Amelia Sachs", 
+        movies: ["The Bone Collector", "Lincoln Rhyme: Hunt for the Bone Collector"],
+        type: 2   // 139    
+    },
+    { 
+        actors: ["Gerard Butler", "Nicolas Cage"], 
+        character: "Dracula", 
+        movies: ["Dracula 2000 ", "Renfield"],
+        type: 1   // 140    
+    },
+    { 
+        actors: ["Gerard Butler", "Luke Evans"], 
+        character: "Dracula", 
+        movies: ["Dracula 2000 ", "Dracula Untold"],
+        type: 1   // 141    
+    },
+    { 
+        actors: ["Gerard Butler", "Jonathan Rhys Meyers"], 
+        character: "Dracula", 
+        movies: ["Dracula 2000", "Dracula (2013) (TV)"],
+        type: 2   // 142    
+    },
+    { 
+        actors: ["Gerard Butler", "Gary Oldman"], 
+        character: "Dracula", 
+        movies: ["Dracula 2000", "Bram Stoker's Dracula"],
+        type: 2   // 143    
+    },
+    { 
+        actors: ["Gerard Butler", "Bill Skarsgård"], 
+        character: "Dracula", 
+        movies: ["Dracula 2000", "Nosferatu (2024)"],
+        type: 1   // 144    
+    },
+    { 
+        actors: ["Gary Oldman", "Luke Evans"], 
+        character: "Dracula", 
+        movies: ["Bram Stoker's Dracula", "Dracula Untold"],
+        type: 1   // 145    
+    },
+    { 
+        actors: ["Gary Oldman", "Bill Skarsgård"], 
+        character: "Dracula", 
+        movies: ["Bram Stoker's Dracula", "Nosferatu (2024)"],
+        type: 1   // 146    
+    },
+    { 
+        actors: ["Gary Oldman", "Nicolas Cage"], 
+        character: "Dracula", 
+        movies: ["Bram Stoker's Dracula", "Renfield"],
+        type: 1   // 147    
+    },
+    { 
+        actors: ["Gary Oldman", "Jonathan Rhys Meyers"], 
+        character: "Dracula", 
+        movies: ["Bram Stoker's Dracula", "Dracula (2013) (TV)"],
+        type: 3   // 148    
+    },
+    { 
+        actors: ["Bill Skarsgård", "Jonathan Rhys Meyers"], 
+        character: "Dracula", 
+        movies: ["Nosferatu (2024)", "Dracula (2013) (TV)"],
+        type: 3   // 149    
+    },
+    { 
+        actors: ["Bill Skarsgård", "Nicolas Cage"], 
+        character: "Dracula", 
+        movies: ["Nosferatu (2024)", "Renfield"],
+        type: 1   // 150    
+    },
+    { 
+        actors: ["Luke Evans", "Jonathan Rhys Meyers"], 
+        character: "Dracula", 
+        movies: ["Dracula Untold", "Dracula (2013) (TV)"],
+        type: 3   // 151   
+    },
+    { 
+        actors: ["Nicolas Cage", "Jonathan Rhys Meyers"], 
+        character: "Dracula", 
+        movies: ["Renfield", "Dracula (2013) (TV)"],
+        type: 3   // 152  
+    },
+    { 
+        actors: ["Bill Skarsgård", "Luke Evans"], 
+        character: "Dracula", 
+        movies: ["Nosferatu (2024)", "Dracula Untold"],
+        type: 1   // 153    
+    },
+    { 
+        actors: ["Nicolas Cage", "Luke Evans"], 
+        character: "Dracula", 
+        movies: ["Renfield", "Dracula Untold"],
+        type: 1   // 154    
+    },
+    { 
+        actors: ["Alicia Silverstone", " Rachel Blanchard"], 
+        character: "Cher Horowitz", 
+        movies: ["Clueless", "Clueless (TV)"],
+        type: 2   // 155    
+    },
+    { 
+        actors: ["Chevy Chase", "Jon Hamm"], 
+        character: "Irwin "Fletch" Fletcher", 
+        movies: ["Fletch, Fletch Lives", "Confess, Fletch"],
+        type: 1   // 156    
+    },
+    { 
+        actors: ["Keanu Reeves", "Matt Ryan"], 
+        character: "John Constantine", 
+        movies: ["Constantine", "Constantine, Arrow, Batwoman, The Flash, Legends of Tomorrow"],
+        type: 5   // 157    
+    },
+    { 
+        actors: ["Michael Cain", "Jeremy Irons"], 
+        character: "Alfred Pennyworth", 
+        movies: ["Batman Begins, The Dark Knight, The Dark Knight Rises", "Batman v Superman: Dawn of Justice, Justice League"],
+        type: 5   // 158    
+    },
+    { 
+        actors: ["Michael Cain", "Andy Serkis"], 
+        character: "Alfred Pennyworth", 
+        movies: ["Batman Begins, The Dark Knight, The Dark Knight Rises", "The Batman"],
+        type: 5   // 159    
+    },
+    { 
+        actors: ["Jeromy Irons", "Andy Serkis"], 
+        character: "Alfred Pennyworth", 
+        movies: ["Batman v Superman: Dawn of Justice, Justice League", "The Batman"],
+        type: 5   // 160    
+    },
+    { 
+        actors: ["Gary Oldman", "JK Simmons"], 
+        character: "Jim Gordon", 
+        movies: ["Batman Begins, The Dark Knight, The Dark Knight Rises", "Justice League"],
+        type: 5   // 161   
+    },
+    { 
+        actors: ["Gary Oldman", "Jeffrey Wright"], 
+        character: "Jim Gordon", 
+        movies: ["Batman Begins, The Dark Knight, The Dark Knight Rises", "The Batman"],
+        type: 5   // 162    
+    },
+    { 
+        actors: ["JK Simmons", "Jeffrey Wright"], 
+        character: "Jim Gordon", 
+        movies: ["Justice League", "The Batman"],
+        type: 5   // 163    
+    },
+    { 
+        actors: ["Rex Harrison", "Eddie Murphy"], 
+        character: "Doctor Dolittle", 
+        movies: ["Doctor Dolittle (1967)", "Dr. Dolittle, Dr. Dolittle 2"],
+        type: 1   // 164    
+    },
+    { 
+        actors: ["Robert Downey Jr. ", "Eddie Murphy"], 
+        character: "Doctor Dolittle", 
+        movies: ["Dolittle", "Dr. Dolittle, Dr. Dolittle 2"],
+        type: 1   // 165    
+    },
+    { 
+        actors: ["Jim Carrey", "Eric Christian Olsen"], 
+        character: "Lloyd Christmas", 
+        movies: ["Dumb and Dumber, Dumb and Dumber To", "Dumb and Dumberer: When Harry Met Lloyd"],
+        type: 1   // 166    
+    },
+    { 
+        actors: ["Jeff Daniels", "Derek Richardson"], 
+        character: "Harry Dunne", 
+        movies: ["Dumb and Dumber, Dumb and Dumber To", "Dumb and Dumberer: When Harry Met Lloyd"],
+        type: 1   // 167
+    },
+    { 
+        actors: ["Denzel Washington", "Edward Woodward"], 
+        character: "Robert McCall", 
+        movies: ["The Equalizer, The Equalizer 2, The Equalizer 3", "The Equalizer (TV)"],
+        type: 2   // 168    
+    },
+    { 
+        actors: [" Drew Barrymore", " Ryan Kiera Armstrong"], 
+        character: "Charlie McGee", 
+        movies: ["Firestarter (1984)", "Firestarter (2022)"],
+        type: 1   // 169    
+    },
+    { 
+        actors: ["David Keith", " Zac Efron"], 
+        character: "Andrew McGee", 
+        movies: ["Firestarter (1984)", "Firestarter (2022)"],
+        type: 1   // 170    
+    },
+    { 
+        actors: ["Steve Carell", " Don Adams"], 
+        character: "Maxwell Smart", 
+        movies: ["Get Smart", "Get Smart (TV), Get Smart, Again!, Get Smart (1995("],
+        type: 2   // 171    
+    },
+    { 
+        actors: ["Anne Hathaway", "Barbara Feldon"], 
+        character: "Agent 99", 
+        movies: ["Get Smart", "Get Smart (TV), Get Smart, Again!, Get Smart (1995("],
+        type: 2   // 172    
+    },
+    { 
+        actors: [" Ron Perlman", "David Harbour"], 
+        character: "Hellboy", 
+        movies: ["Hellboy, Hellboy II: The Golden Army", "Hellboy (2019)"],
+        type: 5   // 173    
+    },
+    { 
+        actors: ["Martin Freeman", "Ian Holm"], 
+        character: "Bilbo Baggins", 
+        movies: ["The Hobbit: An Unexpected Journey, The Hobbit: The Desolation of Smaug, The Hobbit: The Battle of the Five Armies", "The Lord of the Rings: The Fellowship of the Ring, The Lord of the Rings: The Return of the King, The Hobbit: An Unexpected Journey, The Hobbit: The Battle of the Five Armies"],
+        type: 1   // 174    
+    },
+    { 
+        actors: [" Donald Sutherland", "Tom Blyth"], 
+        character: "Coriolanus Snow", 
+        movies: ["The Hunger Games, The Hunger Games: Catching Fire, The Hunger Games: Mockingjay – Part 1, The Hunger Games: Mockingjay – Part 2", "The Hunger Games: The Ballad of Songbirds & Snakes"],
+        type: 1   // 175    
+    },
+    { 
+        actors: ["Tim Curry", "Bill Skarsgård"], 
+        character: "Pennywise", 
+        movies: ["It (1990)", "It, It: Chapter 2"],
+        type: 1   // 176    
+    },
+    { 
+        actors: ["Richard Thomas", "Jaeden Martell"], 
+        character: "Bill Denbrough", 
+        movies: ["It (1990)", "It, It: Chapter 2"],
+        type: 1   // 177    
+    },
+    { 
+        actors: ["Richard Thomas", "James McAvoy"], 
+        character: "Bill Denbrough", 
+        movies: ["It (1990)", "It: Chapter 2"],
+        type: 1   // 178    
+    },
+    { 
+        actors: ["Jaeden Martell", "James McAvoy"], 
+        character: "Bill Denbrough", 
+        movies: ["It, It: Chapter 2", "It: Chapter 2"],
+        type: 1   // 179    
+    },
+    { 
+        actors: ["Tim Reid", "Chosen Jacobs"], 
+        character: "Mike Hanlon", 
+        movies: ["It (1990)", "It, It: Chapter 2"],
+        type: 1   // 180    
+    },
+    { 
+        actors: ["Tim Reid", "Isaiah Mustafa"], 
+        character: "Mike Hanlon", 
+        movies: ["It (1990)", "It: Chapter 2"],
+        type: 1   // 181    
+    },
+    { 
+        actors: ["Chosen Jacobs", "Isaiah Mustafa"], 
+        character: "Mike Hanlon", 
+        movies: ["It, It: Chapter 2", "It: Chapter 2"],
+        type: 1   // 182    
+    },
+    { 
+        actors: ["Annette O'Toole", "Sophia Lillis"], 
+        character: "Beverly Marsh", 
+        movies: ["It (1990)", "It, It: Chapter 2"],
+        type: 1   // 183    
+    },
+    { 
+        actors: ["Annette O'Toole", "Jessica Chastain"], 
+        character: "Beverly Marsh", 
+        movies: ["It (1990)", "It: Chapter 2"],
+        type: 1   // 184    
+    },
+    { 
+        actors: ["Sophia Lillis", "Jessica Chastain"], 
+        character: "Beverly Marsh", 
+        movies: ["It, It: Chapter 2", "It: Chapter 2"],
+        type: 1   // 185    
+    },
+    { 
+        actors: ["Harry Anderson", "Finn Wolfhard"], 
+        character: "Richie Tozier", 
+        movies: ["It (1990)", "It, It: Chapter 2"],
+        type: 1   // 186    
+    },
+    { 
+        actors: ["Harry Anderson", "Bill Hader"], 
+        character: "Richie Tozier", 
+        movies: ["It (1990)", "It: Chapter 2"],
+        type: 1   // 187    
+    },
+    { 
+        actors: ["Finn Wolfhard", "Bill Hader"], 
+        character: "Richie Tozier", 
+        movies: ["It, It: Chapter 2", "It: Chapter 2"],
+        type: 1   // 188    
+    },
+    { 
+        actors: ["Dennis Christopher", "Jack Dylan Grazer"], 
+        character: "Eddie Kaspbrak", 
+        movies: ["It (1990)", "It, It: Chapter 2"],
+        type: 1   // 189    
+    },
+    { 
+        actors: ["Dennis Christopher", "James Ransone"], 
+        character: "Eddie Kaspbrak", 
+        movies: ["It (1990)", "It: Chapter 2"],
+        type: 1   // 190    
+    },
+    { 
+        actors: ["Jack Dylan Grazer", "James Ransone"], 
+        character: "Eddie Kaspbrak", 
+        movies: ["It, It: Chapter 2", "It: Chapter 2"],
+        type: 1   // 191    
+    },
+    { 
+        actors: ["Richard Masur", "Wyatt Oleff"], 
+        character: "Stanley Uris", 
+        movies: ["It (1990)", "It, It: Chapter 2"],
+        type: 1   // 192    
+    },
+    { 
+        actors: ["Richard Masur", "Andy Bean"], 
+        character: "Stanley Uris", 
+        movies: ["It (1990)", "It: Chapter 2"],
+        type: 1   // 193    
+    },
+    { 
+        actors: ["Wyatt Oleff", "Andy Bean"], 
+        character: "Stanley Uris", 
+        movies: ["It, It: Chapter 2", "It: Chapter 2"],
+        type: 1   // 194    
+    },
+    { 
+        actors: ["John Ritter", "Jeremy Ray Taylor"], 
+        character: "Ben Hanscom", 
+        movies: ["It (1990)", "It, It: Chapter 2"],
+        type: 1   // 195    
+    },
+    { 
+        actors: ["John Ritter", "Jay Ryan"], 
+        character: "Ben Hanscom", 
+        movies: ["It (1990)", "It: Chapter 2"],
+        type: 1   // 196    
+    },
+    { 
+        actors: ["Jeremy Ray Taylor", "Jay Ryan"], 
+        character: "Ben Hanscom", 
+        movies: ["It, It: Chapter 2", "It: Chapter 2"],
+        type: 1   // 197    
+    },
+    { 
+        actors: ["Heath Ledger", "Joaquin Phoenix"], 
+        character: "The Joker", 
+        movies: ["The Dark Night", "The Joker, The Joker: Folie a Deux"],
+        type: 5   // 198    
+    },
+    { 
+        actors: ["Heath Ledger", "Jared Leto"], 
+        character: "The Joker", 
+        movies: ["The Dark Night", "Suicide Squad"],
+        type: 5   // 199    
+    },
+    { 
+        actors: ["Heath Ledger", "Jack Nicholson"], 
+        character: "The Joker", 
+        movies: ["The Dark Night", "Batman"],
+        type: 5   // 200    
+    },
+    { 
+        actors: ["Joaquin Phoenix", "Jack Nicholson"], 
+        character: "The Joker", 
+        movies: ["The Joker, The Joker: Folie a Deux", "Batman"],
+        type: 5   // 201    
+    },
+    { 
+        actors: ["Joaquin Phoenix", "Jared Leto"], 
+        character: "The Joker", 
+        movies: ["The Joker, The Joker: Folie a Deux", "Suicide Squad"],
+        type: 5   // 202    
+    },
+    { 
+        actors: ["Jack Nicholson", "Jared Leto"], 
+        character: "The Joker", 
+        movies: ["Batman", "Suicide Squad"],
+        type: 5   // 203    
+    },
+    { 
+        actors: ["Sylvester Stallone", "Karl Urban"], 
+        character: "Judge Dredd", 
+        movies: ["Judge Dredd", "Dredd"],
+        type: 1   // 204    
+    },
+    { 
+        actors: ["Christopher Lambert", " Alexander Skarsgård"], 
+        character: "John Clayton/Tarzan", 
+        movies: ["Greystoke: The Legend of Tarzan, Lord of the Apes", "The Legend of Tarzan"],
+        type: 1   // 205    
+    },
+    { 
+        actors: ["Andie MacDowell", "Margot Robbie"], 
+        character: "Jane Porter/Jane Clayton", 
+        movies: ["Greystoke: The Legend of Tarzan, Lord of the Apes", "The Legend of Tarzan"],
+        type:  1  // 206    
+    },
+    { 
+        actors: ["Mel Gibson", "Clayne Crawford"], 
+        character: "Martin Riggs", 
+        movies: ["Leathal Weapon", "Leathal Weapon (TV)"],
+        type: 2   // 207    
+    },
+    { 
+        actors: [" Danny Glover", "Damon Wayans"], 
+        character: "Roger Murtaugh", 
+        movies: ["Leathal Weapon", "Leathal Weapon (TV)"],
+        type: 2   // 208    
+    },
+    { 
+        actors: ["Joseph Gordon-Levitt", "Bruce Willis"], 
+        character: "Joe", 
+        movies: ["Looper", "Looper"],
+        type: 1   // 209    
+    },
+    { 
+        actors: ["Tom Hardy", "Mel Gibson"], 
+        character: "Max Rockatansky", 
+        movies: ["Mad Max: Fury Road", "Mad Mad, Mad Max 2: The Road Warrior, Mad Max: Beyond Thunderdome"],
+        type: 1   // 210    
+    },
+    { 
+        actors: ["Julie Andrews", "Emily Blunt"], 
+        character: "Mary Poppins", 
+        movies: ["Mary Poppins", "Mary Poppins Returns"],
+        type: 1   // 211    
+    }
+
+
+
+
+
+
+
+
+
+
 
 ];
