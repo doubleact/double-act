@@ -38,7 +38,7 @@ const cardData = [
     {
         actors: ["Brian Cox", "Anthony Hopkins"],
         character: 'Hannibal Lecter',
-        movies: ["Manhunter", "The Silence of the Lambs/Hannibal"],
+        movies: ["Manhunter", "The Silence of the Lambs/Red Dragon/Hannibal"],
         type: 1   // 007
     },
     { 
@@ -930,7 +930,7 @@ const cardData = [
     },
     { 
         actors: ["Chevy Chase", "Jon Hamm"], 
-        character: "Irwin 'Fletch' Fletcher", 
+        character: "Irwin "Fletch" Fletcher", 
         movies: ["Fletch, Fletch Lives", "Confess, Fletch"],
         type: 1   // 156    
     },
@@ -1263,5 +1263,216 @@ const cardData = [
         character: "Mary Poppins", 
         movies: ["Mary Poppins", "Mary Poppins Returns"],
         type: 1   // 211    
+    },
+    { 
+        actors: ["Lindsay Lohan", "Angourie Rice"], 
+        character: "Cady Heron", 
+        movies: ["Mean Girls (2004)", "Mean Girls (2024)"],
+        type: 1   // 212    
+    },
+    { 
+        actors: [" Rachel McAdams", "Reneé Rapp"], 
+        character: "Regina George", 
+        movies: ["Mean Girls (2004)", "Mean Girls (2024)"],
+        type: 1   // 213    
+    },
+    { 
+        actors: ["Tommy Lee Jones", "Josh Brolin"], 
+        character: "Agent K", 
+        movies: ["Men in Black 3", "Men in Black 3"],
+        type: 1   // 214    
+    },
+    { 
+        actors: ["Claire Danes", "Peggy Lipton"], 
+        character: "Julie Barnes", 
+        movies: ["The Mod Squad", "The Mod Squad (TV)"],
+        type: 2   // 215    
+    },
+    { 
+        actors: ["Giovanni Ribisi", "Michael Cole"], 
+        character: "Pete Cochran", 
+        movies: ["The Mod Squad", "The Mod Squad (TV"],
+        type: 2   // 216    
+    },
+    { 
+        actors: ["Omar Epps", "Clarence Williams III"], 
+        character: "Linc Hayes", 
+        movies: ["The Mod Squad", "The Mod Squad (TV"],
+        type: 2   // 217    
+    },
+    { 
+        actors: ["George Clooney", "Frank Sinatra"], 
+        character: "Danny Ocean", 
+        movies: ["Ocean's Eleven (2001)", "Ocean's Eleven (1960)"],
+        type: 1   // 218    
+    },
+    { 
+        actors: [" Brad Pitt", "Dean Martin"], 
+        character: "Rusty Ryan", 
+        movies: ["Ocean's Eleven (2001)", "Ocean's Eleven (1960)"],
+        type: 1   // 219    
+    },
+    { 
+        actors: ["Patrick Swayze", "Edgar Ramírez"], 
+        character: "Bodhi", 
+        movies: ["Point Break (1991)", "Point Break (2015)"],
+        type: 1   // 220    
+    },
+    { 
+        actors: ["Keanu Reeves", "Luke Bracey"], 
+        character: "Johnny Utah", 
+        movies: ["Point Break (1991)", "Point Break (2015)"],
+        type: 1   // 221    
+    },
+    { 
+        actors: ["Dacre Montgomery", "Austin St. John"], 
+        character: "Jason Lee Scott/Red Ranger", 
+        movies: ["Power Rangers (2017)", "Mighty Morphin Power Rangers"],
+        type: 2   // 222    
+    },
+    { 
+        actors: ["Naomi Scott", "Amy Jo Johnson"], 
+        character: "Kimberley Hart/Pink Ranger", 
+        movies: ["Power Rangers (2017)", "Mighty Morphin Power Rangers"],
+        type: 2   // 223    
+    },
+    { 
+        actors: ["Ludi Lin", "Walter Emanuel Jones"], 
+        character: "Zack Taylor/Black Ranger", 
+        movies: ["Power Rangers (2017)", "Mighty Morphin Power Rangers"],
+        type: 2   // 224    
+    },
+    { 
+        actors: ["Becky G", "Thuy Trang"], 
+        character: "Trini Kwan/Yellow Ranger", 
+        movies: ["Power Rangers (2017)", "Mighty Morphin Power Rangers"],
+        type: 2   // 225    
+    },
+    { 
+        actors: ["RJ Cyler", "David Yost"], 
+        character: "Billy Cranston/Blue Ranger", 
+        movies: ["Power Rangers (2017)", "Mighty Morphin Power Rangers"],
+        type: 2   // 226    
+    },
+    { 
+        actors: ["Judy Garland", "Fairuza Balk"], 
+        character: "Dorothy Gale", 
+        movies: ["The Wizard of Oz", "Return to Oz"],
+        type: 1   // 227    
+    },
+    { 
+        actors: ["Jackie Chan", "Jon Foo"], 
+        character: "Jonathan Lee", 
+        movies: ["Rush Hour", "Rush Hour (TV)"],
+        type: 2   // 228    
+    },
+    { 
+        actors: ["Chris Tucker", " Justin Hires"], 
+        character: "James Carter", 
+        movies: ["Rush Hour", "Rush Hour (TV)"],
+        type: 2   // 229    
+    },
+    { 
+        actors: ["Ben Stiller", "Paul Michael Glaser"], 
+        character: "David Starsky", 
+        movies: ["Starsky & Hutch", "Starsky & Hutch (TV)"],
+        type: 2   // 230    
+    },
+    { 
+        actors: ["Owen Wilson", "David Soul"], 
+        character: "Ken Hutchinson", 
+        movies: ["Starsky & Hutch", "Starsky & Hutch (TV)"],
+        type: 2   // 231    
+    },
+    { 
+        actors: ["Seann William Scott", "John Schneider"], 
+        character: "Bo Duke", 
+        movies: ["The Dukes of Hazzard", "The Dukes of Hazzard (TV)"],
+        type: 2   // 232    
+    },
+    { 
+        actors: ["Johnny Knoxville", "Tom Wopat"], 
+        character: "Luke Duke", 
+        movies: ["The Dukes of Hazzard", "The Dukes of Hazzard (TV)"],
+        type: 2   // 233    
+    },
+    { 
+        actors: ["Jessica Simpson", "Catherine Bach"], 
+        character: "Daisy Duke", 
+        movies: ["The Dukes of Hazzard", "The Dukes of Hazzard (TV)"],
+        type: 2   // 234    
+    },
+    { 
+        actors: ["Alex O'Loughlin", " Jack Lord"], 
+        character: "Steve McGarrett", 
+        movies: ["Hawaii Five-0 (2010)", "Hawaii Five-0 (1968)"],
+        type: 3   // 235    
+    },
+    { 
+        actors: ["Scott Caan", "James MacArthur"], 
+        character: "Danny Williams", 
+        movies: ["Hawaii Five-0 (2010)", "Hawaii Five-0 (1968)"],
+        type: 3   // 236    
+    },
+    { 
+        actors: ["Ben Stiller", "Danny Kaye"], 
+        character: "Walter Mitty", 
+        movies: ["The Secret Life of Walter Mitty (2013)", "The Secret Life of Walter Mitty (1947)"],
+        type: 1   // 237    
+    },
+    { 
+        actors: ["Mark Wahlberg", "Ryan Phillippe"], 
+        character: "Bob Lee Swagger", 
+        movies: ["Shooter", "Shooter (TV)"],
+        type: 2   // 238    
+    },
+    { 
+        actors: ["Liam Neeson", "Clive Standen"], 
+        character: "Bryan Mills", 
+        movies: ["Taken", "Taken (TV)"],
+        type: 2   // 239    
+    },
+    { 
+        actors: ["Ewan McGregor", "Danny Lloyd"], 
+        character: "Danny Torrance", 
+        movies: ["Doctor Sleep", "The Shining"],
+        type: 1   // 240    
+    },
+    { 
+        actors: ["Kristen Stewart", "Rachel Zegler"], 
+        character: "Snow White", 
+        movies: ["Snow White and the Huntsman", "Snow White"],
+        type: 1   // 241    
+    },
+    { 
+        actors: ["Arnold Schwarzenegger", " Colin Farrell"], 
+        character: "Douglas Quaid", 
+        movies: ["Total Recall (1990)", "Total Recall (2012)"],
+        type: 1   // 242    
+    },
+    { 
+        actors: [" Sharon Stone", "Kate Beckinsale"], 
+        character: "Lori Quaid", 
+        movies: ["Total Recall (1990)", "Total Recall (2012)"],
+        type: 1   // 243    
+    },
+    { 
+        actors: ["Arnold Schwarzenegger", "Steve Howey"], 
+        character: "Harry Tasker", 
+        movies: ["True Lies ", "True Lies (TV)"],
+        type: 2   // 244    
+    },
+    { 
+        actors: ["Jamie Lee Curtis", "Ginger Gonzaga"], 
+        character: "Helen Tasker", 
+        movies: ["True Lies ", "True Lies (TV)"],
+        type: 2   // 245    
+    },
+    { 
+        actors: ["Eliza Dushku", "Annabella Didion"], 
+        character: "Dana Tasker", 
+        movies: ["True Lies ", "True Lies (TV)"],
+        type: 2   // 246    
     }
+
 ];
