@@ -27,6 +27,26 @@ class DoubleActGame {
                     this.showRules();
                 }
             } else if (this.currentCardIndex < this.cards.length) {
+                const card = document.getElementById('currentCard');
+                const isShowingAnswer = card.classList.contains('flipped');
+                const isShowingRules = card.classList.contains('rules-flipped');
+
+                if (isShowingAnswer) {
+                    // Only allow up arrow to toggle back when showing answer
+                    if (e.key === 'ArrowUp') {
+                        this.toggleAnswer();
+                    }
+                    return;
+                }
+
+                if (isShowingRules) {
+                    // Only allow down arrow to exit rules
+                    if (e.key === 'ArrowDown') {
+                        this.exitRules();
+                    }
+                    return;
+                }
+
                 switch(e.key) {
                     case 'ArrowUp':
                         this.toggleAnswer();
@@ -57,6 +77,25 @@ class DoubleActGame {
                     this.startGame();
                 }
             } else if (this.currentCardIndex < this.cards.length) {
+                const isShowingAnswer = card.classList.contains('flipped');
+                const isShowingRules = card.classList.contains('rules-flipped');
+
+                if (isShowingAnswer) {
+                    // Only allow up swipe to toggle back when showing answer
+                    if (e.direction === Hammer.DIRECTION_UP) {
+                        this.toggleAnswer();
+                    }
+                    return;
+                }
+
+                if (isShowingRules) {
+                    // Only allow swipe down to exit rules
+                    if (e.direction === Hammer.DIRECTION_DOWN) {
+                        this.exitRules();
+                    }
+                    return;
+                }
+
                 switch(e.direction) {
                     case Hammer.DIRECTION_UP:
                         this.toggleAnswer();
@@ -77,7 +116,10 @@ class DoubleActGame {
         // Double tap to show answer
         hammer.on('doubletap', () => {
             if (this.currentCardIndex >= 0 && this.currentCardIndex < this.cards.length) {
-                this.toggleAnswer();
+                const isShowingRules = card.classList.contains('rules-flipped');
+                if (!isShowingRules) {
+                    this.toggleAnswer();
+                }
             }
         });
     }
@@ -123,6 +165,27 @@ class DoubleActGame {
         const currentCard = this.cards[this.currentCardIndex];
         const front = card.querySelector('.front');
         front.className = `front clue-type-${currentCard.type}`;
+
+        // Create the type-specific image HTML
+        let typeImages = '';
+        switch(currentCard.type) {
+            case 1:
+                typeImages = '<img src="images/type1.png" class="type-icon" alt="Movie to Movie">';
+                break;
+            case 2:
+                typeImages = '<img src="images/type1.png" class="type-icon" alt="Movie"><img src="images/type3.png" class="type-icon" alt="TV">';
+                break;
+            case 3:
+                typeImages = '<img src="images/type3.png" class="type-icon" alt="TV"><img src="images/type3.png" class="type-icon" alt="TV">';
+                break;
+            case 4:
+                typeImages = '<img src="images/type4.png" class="type-icon" alt="Real Life">';
+                break;
+            case 5:
+                typeImages = '<img src="images/type5.png" class="type-icon" alt="Superhero">';
+                break;
+        }
+
         front.innerHTML = `
             <div class="card-content">
                 <div>
@@ -133,6 +196,9 @@ class DoubleActGame {
                     <div class="clue-text">
                         ${currentCard.actors[0]}<br>&<br>${currentCard.actors[1]}
                     </div>
+                </div>
+                <div class="type-icons">
+                    ${typeImages}
                 </div>
                 <div class="bottom-content">
                     <div class="button-container">
@@ -164,14 +230,30 @@ class DoubleActGame {
 
     showRules() {
         const card = document.getElementById('currentCard');
-        card.classList.toggle('rules-flipped');
-        
         const back = card.querySelector('.back');
-        back.className = 'back rules';
-        if (!card.classList.contains('rules-flipped')) {
-            back.className = 'back';
+        
+        // If showing answer, return to front first
+        if (card.classList.contains('flipped')) {
+            card.classList.remove('flipped');
+            setTimeout(() => {
+                back.className = 'back rules';
+                this.displayRulesContent(back);
+                setTimeout(() => {
+                    card.classList.add('rules-flipped');
+                }, 20);
+            }, 200);
+            return;
         }
-        back.innerHTML = `
+        
+        back.className = 'back rules';
+        this.displayRulesContent(back);
+        setTimeout(() => {
+            card.classList.add('rules-flipped');
+        }, 20);
+    }
+
+    displayRulesContent(backElement) {
+        backElement.innerHTML = `
             <div class="card-content">
                 <div class="title-container">
                     <div class="rules-text">
@@ -189,6 +271,68 @@ class DoubleActGame {
                 </div>
             </div>
         `;
+    }
+
+    exitRules() {
+        const card = document.getElementById('currentCard');
+        const back = card.querySelector('.back');
+        
+        card.classList.remove('rules-flipped');
+        setTimeout(() => {
+            back.className = 'back';
+            setTimeout(() => {
+                this.showCurrentCard();
+            }, 20);
+        }, 200);
+    }
+
+    correctAnswer() {
+        this.score += 10;
+        this.correctAnswers++;
+        const card = document.getElementById('currentCard');
+        const back = card.querySelector('.back');
+        
+        card.classList.remove('flipped');
+        setTimeout(() => {
+            back.className = 'back';
+            this.currentCardIndex++;
+            setTimeout(() => {
+                this.showCurrentCard();
+            }, 20);
+        }, 200);
+    }
+
+    toggleAnswer() {
+        const card = document.getElementById('currentCard');
+        const back = card.querySelector('.back');
+        
+        if (!card.classList.contains('flipped')) {
+            back.className = 'back';
+            setTimeout(() => {
+                card.classList.add('flipped');
+            }, 20);
+        } else {
+            card.classList.remove('flipped');
+        }
+    }
+
+    passCard() {
+        this.passedAnswers++;
+        this.nextCard();
+    }
+
+    nextCard() {
+        if (this.currentCardIndex < this.cards.length) {
+            this.currentCardIndex++;
+            this.showCurrentCard();
+        }
+    }
+
+    previousCard() {
+        if (this.currentCardIndex > 0) {
+            this.currentCardIndex--;
+            this.showCurrentCard();
+        }
     }
 
     showEndCard() {
@@ -216,36 +360,6 @@ class DoubleActGame {
                 </div>
             </div>
         `;
-    }
-
-    toggleAnswer() {
-        const card = document.getElementById('currentCard');
-        card.classList.toggle('flipped');
-    }
-
-    correctAnswer() {
-        this.score += 10;
-        this.correctAnswers++;
-        this.nextCard();
-    }
-
-    passCard() {
-        this.passedAnswers++;
-        this.nextCard();
-    }
-
-    nextCard() {
-        if (this.currentCardIndex < this.cards.length) {
-            this.currentCardIndex++;
-            this.showCurrentCard();
-        }
-    }
-
-    previousCard() {
-        if (this.currentCardIndex > 0) {
-            this.currentCardIndex--;
-            this.showCurrentCard();
-        }
     }
 }
 

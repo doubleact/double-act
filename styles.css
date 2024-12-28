@@ -27,7 +27,7 @@ body {
     height: 80vh;
     max-height: 800px;
     transform-style: preserve-3d;
-    transition: transform 0.6s;
+    transition: transform 0.4s ease-in-out;
 }
 
 .front, .back {
@@ -42,6 +42,8 @@ body {
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: rotateY(0deg);
+    transition: visibility 0s 0.2s;
 }
 
 .card-content {
@@ -67,39 +69,6 @@ body {
     margin-top: auto;
 }
 
-/* Card type backgrounds */
-.front.start-card, .front.end-card {
-    background-color: #FFE0B2;
-}
-
-.front.clue-type-1 { background-color: #BBDEFB; }
-.front.clue-type-2 { background-color: #F48FB1; }
-.front.clue-type-3 { background-color: #E1BEE7; }
-.front.clue-type-4 { background-color: #FFF9C4; }
-.front.clue-type-5 { background-color: #EF9A9A; }
-
-.back {
-    background-color: #A5D6A7;
-    transform: rotateY(180deg);
-}
-
-/* Specific transform for rules back to keep text upright */
-.back.rules {
-    transform: rotateX(180deg);
-    background-color: #FFE0B2;
-}
-
-/* Card flipping for answer (from left side) */
-.card.flipped {
-    transform: rotateY(180deg);
-}
-
-/* Card flipping for rules (from right side) */
-.card.rules-flipped {
-    transform: rotateX(180deg);
-}
-
-/* Text styles */
 .title {
     font-size: 3em;
     margin-bottom: 30px;
@@ -120,6 +89,78 @@ body {
     margin-top: 20px;
 }
 
+/* Card type backgrounds */
+.front.start-card, .front.end-card {
+    background-color: #ffd966;
+}
+
+.front.clue-type-1 { background-color: #6bacfe; }
+.front.clue-type-2 { background-color: #fe88b1; }
+.front.clue-type-3 { background-color: #dcb0f2; }
+.front.clue-type-4 { background-color: #87c55f; }
+.front.clue-type-5 { background-color: #ff7061; }
+
+.back {
+    background-color: #c9db74;
+    transform: rotateY(180deg);
+    visibility: hidden;
+}
+
+.back.rules {
+    transform: rotateX(180deg);
+    background-color: #FFE0B2;
+}
+
+/* Card flipping for answer (from left side) */
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card.flipped .back {
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+.card.flipped .front {
+    visibility: hidden;
+}
+
+/* Card flipping for rules (from right side) */
+.card.rules-flipped {
+    transform: rotateX(180deg);
+}
+
+.card.rules-flipped .front {
+    visibility: hidden;
+}
+
+.card.rules-flipped .back {
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+.card:not(.flipped):not(.rules-flipped) .back {
+    visibility: hidden;
+}
+
+/* Type icons styles */
+.type-icons {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.type-icon {
+    width: 80x;
+    height: 80px;
+    object-fit: contain;
+}
+
 /* Button styles */
 .button-container {
     width: 100%;
@@ -134,7 +175,7 @@ button {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 button:active {
