@@ -190,18 +190,24 @@ class DoubleActGame {
                     <div class="score">Score: ${this.score}</div>
                 </div>
                 <div class="main-content">
-                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small">
-                    <div class="clue-text">
-                        ${currentCard.actors[0]}
-                        <div style="margin: 15px 0;">&</div>
-                        ${currentCard.actors[1]}
+                    <div class="logo-container">
+                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small">
                     </div>
+                    <div class="clue-content">
+                        <div class="clue-text">
+                            ${currentCard.actors[0]}<br>
+                            <div style="margin: 5px 0;">&</div>
+                            ${currentCard.actors[1]}
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-content">
                     <div class="type-icons">
                         ${typeImages}
                     </div>
-                </div>
-                <div class="button-container">
-                    <button class="pass-button" onclick="game.passCard()">Pass</button>
+                    <div class="button-container">
+                        <button class="pass-button" onclick="game.passCard()">Pass</button>
+                    </div>
                 </div>
             </div>
         `;
@@ -213,8 +219,8 @@ class DoubleActGame {
                     <div>
                         <div class="character">${currentCard.character}</div>
                         <div class="movies">
-                            ${currentCard.movies[0]}
-                            <div style="margin: 15px 0;">&</div>
+                            ${currentCard.movies[0]}<br>
+                            <div style="margin: 5px 0;">&</div>
                             ${currentCard.movies[1]}
                         </div>
                     </div>
@@ -253,44 +259,44 @@ class DoubleActGame {
     displayRulesContent(backElement) {
         backElement.innerHTML = `
             <div class="card-content">
-                <div class="main-content">
-                    <img src="images/doubleactlogo.png" alt="Double Act" style="width: 120px; height: auto; margin: 15px 0;">
-                    <h1 style="font-size: 1.6em; margin: 15px 0; text-align: center;">How to Play</h1>
+                <div class="main-content rules-content">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small">
+                    <h1 class="rules-title">How to Play</h1>
                     
-                    <div style="color: #6bacfe; margin: 12px 0; text-align: center;">
-                        <div style="font-size: 1.1em; margin-bottom: 5px;">Blue Cards</div>
-                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same character in movies</div>
-                        <img src="images/type1.png" style="width: 30px; height: 30px;" alt="Movie to Movie">
+                    <div class="rules-section" style="color: #6bacfe;">
+                        <div class="rules-type-title">Blue Cards</div>
+                        <div class="rules-type-desc">Actors who have played the same character in movies</div>
+                        <img src="images/type1.png" class="type-icon" alt="Movie to Movie">
                     </div>
 
-                    <div style="color: #fe88b1; margin: 12px 0; text-align: center;">
-                        <div style="font-size: 1.1em; margin-bottom: 5px;">Pink Cards</div>
-                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same character in movies and TV</div>
+                    <div class="rules-section" style="color: #fe88b1;">
+                        <div class="rules-type-title">Pink Cards</div>
+                        <div class="rules-type-desc">Actors who have played the same character in movies and TV</div>
                         <div style="display: flex; justify-content: center; gap: 8px;">
-                            <img src="images/type1.png" style="width: 30px; height: 30px;" alt="Movie">
-                            <img src="images/type3.png" style="width: 30px; height: 30px;" alt="TV">
+                            <img src="images/type1.png" class="type-icon" alt="Movie">
+                            <img src="images/type3.png" class="type-icon" alt="TV">
                         </div>
                     </div>
 
-                    <div style="color: #dcb0f2; margin: 12px 0; text-align: center;">
-                        <div style="font-size: 1.1em; margin-bottom: 5px;">Purple Cards</div>
-                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same character in TV shows</div>
+                    <div class="rules-section" style="color: #dcb0f2;">
+                        <div class="rules-type-title">Purple Cards</div>
+                        <div class="rules-type-desc">Actors who have played the same character in TV shows</div>
                         <div style="display: flex; justify-content: center; gap: 8px;">
-                            <img src="images/type3.png" style="width: 30px; height: 30px;" alt="TV">
-                            <img src="images/type3.png" style="width: 30px; height: 30px;" alt="TV">
+                            <img src="images/type3.png" class="type-icon" alt="TV">
+                            <img src="images/type3.png" class="type-icon" alt="TV">
                         </div>
                     </div>
 
-                    <div style="color: #87c55f; margin: 12px 0; text-align: center;">
-                        <div style="font-size: 1.1em; margin-bottom: 5px;">Green Cards</div>
-                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same real life figure</div>
-                        <img src="images/type4.png" style="width: 30px; height: 30px;" alt="Historical">
+                    <div class="rules-section" style="color: #87c55f;">
+                        <div class="rules-type-title">Green Cards</div>
+                        <div class="rules-type-desc">Actors who have played the same historical figure</div>
+                        <img src="images/type4.png" class="type-icon" alt="Historical">
                     </div>
 
-                    <div style="color: #ff7061; margin: 12px 0; text-align: center;">
-                        <div style="font-size: 1.1em; margin-bottom: 5px;">Red Cards</div>
-                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same comic book character</div>
-                        <img src="images/type5.png" style="width: 30px; height: 30px;" alt="Superhero">
+                    <div class="rules-section" style="color: #ff7061;">
+                        <div class="rules-type-title">Red Cards</div>
+                        <div class="rules-type-desc">Actors who have played the same superhero</div>
+                        <img src="images/type5.png" class="type-icon" alt="Superhero">
                     </div>
                 </div>
             </div>
