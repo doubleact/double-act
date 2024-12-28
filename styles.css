@@ -52,8 +52,6 @@ body {
     align-items: center;
     height: 100%;
     padding: 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 .card-header {
@@ -61,16 +59,16 @@ body {
     justify-content: space-between;
     width: 100%;
     padding: 10px 20px;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .main-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    padding: 0 10px;
     flex-grow: 1;
+    justify-content: center;
+    width: 100%;
 }
 
 .title-container {
@@ -82,11 +80,7 @@ body {
 
 .bottom-content {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 15px;
+    margin-top: auto;
 }
 
 .title {
@@ -94,95 +88,26 @@ body {
     margin-bottom: 30px;
 }
 
-.clue-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-}
-
 .clue-text {
-    font-size: 2em;
+    font-size: 1.5em;
+    margin: 30px 0;
+    line-height: 1.8;
     text-align: center;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-}
-
-.actor-name {
-    line-height: 1;
-}
-
-.ampersand {
-    font-size: 0.5em;
-    line-height: 1;
-    margin: 0;
-}
-
-.movies {
-    font-size: 1.4em;
-    line-height: 1;
-    text-align: center;
-    width: 100%;
-    white-space: pre-line;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    max-height: 4.2em;
-    word-wrap: break-word;
 }
 
 .character {
-    font-size: 2.8em;
+    font-size: 2em;
+    margin-bottom: 20px;
     text-align: center;
-    margin-bottom: 40px;
 }
 
-.logo-container {
-    margin-top: 5px;
-    margin-bottom: 15px;
-}
-
-.logo-small {
-    width: 120px;
-    height: auto;
-}
-
-.start-card .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    margin: 0;
-}
-
-.start-card .logo-small {
-    width: 200px;
-}
-
-.type-icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.type-icon {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-}
-
-.button-container {
+.movies {
+    font-size: 1.5em;
+    margin: 30px 0;
+    line-height: 1.8;
+    text-align: center;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
 }
 
 /* Card type backgrounds */
@@ -239,7 +164,32 @@ body {
     visibility: hidden;
 }
 
+/* Type icons styles */
+.type-icons {
+    position: static;
+    transform: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 30px 0;
+}
+
+.type-icon {
+    width: 80x;
+    height: 80px;
+    object-fit: contain;
+}
+
 /* Button styles */
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    margin-bottom: 40px;
+}
+
 button {
     padding: 10px 30px;
     font-size: 1.2em;
@@ -293,83 +243,15 @@ button:hover {
     margin: 20px 0;
 }
 
-/* Rules card specific styles */
-.rules-content {
-    padding: 10px;
-    font-size: 0.9em;
+.logo-small {
+    width: 150px;
+    height: auto;
+    margin: 30px 0;
 }
 
-.rules-section {
-    margin: 8px 0;
-    text-align: center;
-}
-
-.rules-title {
-    font-size: 1.4em;
-    margin: 10px 0;
-}
-
-.rules-type-title {
-    font-size: 1.1em;
-    margin-bottom: 3px;
-}
-
-.rules-type-desc {
-    font-size: 0.85em;
-    margin-bottom: 3px;
-}
-
-/* Adjusting spacing for mobile */
-@media (max-height: 700px) {
-    .logo-small {
-        width: 100px;
-    }
-
-    .start-card .logo-small {
-        width: 160px;
-    }
-
-    .logo-container {
-        margin-top: 5px;
-        margin-bottom: 10px;
-    }
-
-    .clue-text {
-        font-size: 1.8em;
-    }
-
-    .movies {
-        font-size: 1.3em;
-        max-height: 3.9em;
-    }
-
-    .character {
-        font-size: 2.6em;
-        margin-bottom: 35px;
-    }
-
-    .type-icons {
-        margin-bottom: 10px;
-    }
-
-    .type-icon {
-        width: 50px;
-        height: 50px;
-    }
-
-    .button-container {
-        margin-bottom: 10px;
-    }
-
-    .bottom-content {
-        gap: 15px;
-        margin-bottom: 10px;
-    }
-}
-
-/* Add text fitting for very long movie names */
-@media (max-width: 400px) {
-    .movies {
-        font-size: calc(1em + 2vw);
-    }
+.start-card .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
 }
