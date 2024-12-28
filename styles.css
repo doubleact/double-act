@@ -110,7 +110,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 3px;
 }
 
 .actor-name {
@@ -304,11 +304,6 @@ button:hover {
     text-align: center;
 }
 
-.rules-section .type-icon {
-    width: 42px;
-    height: 42px;
-}
-
 .rules-title {
     font-size: 1.4em;
     margin: 10px 0;
@@ -369,11 +364,6 @@ button:hover {
     .bottom-content {
         gap: 15px;
         margin-bottom: 10px;
-    }
-
-    .rules-section .type-icon {
-        width: 35px;
-        height: 35px;
     }
 }
 
