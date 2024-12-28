@@ -126,20 +126,17 @@ class DoubleActGame {
 
     showStartCard() {
         const card = document.getElementById('currentCard');
-        card.classList.remove('flipped', 'rules-flipped');
-        
         const front = card.querySelector('.front');
         front.className = 'front start-card';
         front.innerHTML = `
             <div class="card-content">
-                <div class="title-container">
-                    <h1 class="title">Double Act</h1>
+                <div class="logo-container">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-large">
                 </div>
                 <div class="bottom-content">
                     <div class="button-container">
-                        <button class="start-button" onclick="game.startGame()">Start Game</button>
+                        <button onclick="game.startGame()">Start Game</button>
                     </div>
-                    <p style="margin-top: 20px;">Swipe up for rules</p>
                 </div>
             </div>
         `;
@@ -179,7 +176,7 @@ class DoubleActGame {
                 typeImages = '<img src="images/type3.png" class="type-icon" alt="TV"><img src="images/type3.png" class="type-icon" alt="TV">';
                 break;
             case 4:
-                typeImages = '<img src="images/type4.png" class="type-icon" alt="Real Life">';
+                typeImages = '<img src="images/type4.png" class="type-icon" alt="Historical">';
                 break;
             case 5:
                 typeImages = '<img src="images/type5.png" class="type-icon" alt="Superhero">';
@@ -188,22 +185,23 @@ class DoubleActGame {
 
         front.innerHTML = `
             <div class="card-content">
-                <div>
+                <div class="card-header">
                     <div class="card-info">${this.currentCardIndex + 1}/${this.cards.length}</div>
                     <div class="score">Score: ${this.score}</div>
                 </div>
-                <div class="title-container">
+                <div class="main-content">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small">
                     <div class="clue-text">
-                        ${currentCard.actors[0]}<br>&<br>${currentCard.actors[1]}
+                        ${currentCard.actors[0]}
+                        <div style="margin: 15px 0;">&</div>
+                        ${currentCard.actors[1]}
+                    </div>
+                    <div class="type-icons">
+                        ${typeImages}
                     </div>
                 </div>
-                <div class="type-icons">
-                    ${typeImages}
-                </div>
-                <div class="bottom-content">
-                    <div class="button-container">
-                        <button class="pass-button" onclick="game.passCard()">Pass</button>
-                    </div>
+                <div class="button-container">
+                    <button class="pass-button" onclick="game.passCard()">Pass</button>
                 </div>
             </div>
         `;
@@ -215,14 +213,14 @@ class DoubleActGame {
                     <div>
                         <div class="character">${currentCard.character}</div>
                         <div class="movies">
-                            ${currentCard.movies[0]}<br>&<br>${currentCard.movies[1]}
+                            ${currentCard.movies[0]}
+                            <div style="margin: 15px 0;">&</div>
+                            ${currentCard.movies[1]}
                         </div>
                     </div>
                 </div>
-                <div class="bottom-content">
-                    <div class="button-container">
-                        <button class="correct-button" onclick="game.correctAnswer()">Correct</button>
-                    </div>
+                <div class="button-container">
+                    <button class="correct-button" onclick="game.correctAnswer()">Correct</button>
                 </div>
             </div>
         `;
@@ -255,19 +253,45 @@ class DoubleActGame {
     displayRulesContent(backElement) {
         backElement.innerHTML = `
             <div class="card-content">
-                <div class="title-container">
-                    <div class="rules-text">
-                        <h2>How to Play</h2>
-                        <p>1. Each card shows two actors who have played the same character</p>
-                        <p>2. Try to guess the character they both played</p>
-                        <p>3. Swipe up or double tap to see the answer</p>
-                        <p>4. Mark if you got it correct or pass to skip</p>
-                        <p>5. Swipe left/right or use arrow keys to navigate</p>
-                        <p>6. Each correct answer is worth 10 points</p>
+                <div class="main-content">
+                    <img src="images/doubleactlogo.png" alt="Double Act" style="width: 120px; height: auto; margin: 15px 0;">
+                    <h1 style="font-size: 1.6em; margin: 15px 0; text-align: center;">How to Play</h1>
+                    
+                    <div style="color: #6bacfe; margin: 12px 0; text-align: center;">
+                        <div style="font-size: 1.1em; margin-bottom: 5px;">Blue Cards</div>
+                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same character in movies</div>
+                        <img src="images/type1.png" style="width: 30px; height: 30px;" alt="Movie to Movie">
                     </div>
-                </div>
-                <div class="bottom-content">
-                    <p>Swipe down or press down arrow to return</p>
+
+                    <div style="color: #fe88b1; margin: 12px 0; text-align: center;">
+                        <div style="font-size: 1.1em; margin-bottom: 5px;">Pink Cards</div>
+                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same character in movies and TV</div>
+                        <div style="display: flex; justify-content: center; gap: 8px;">
+                            <img src="images/type1.png" style="width: 30px; height: 30px;" alt="Movie">
+                            <img src="images/type3.png" style="width: 30px; height: 30px;" alt="TV">
+                        </div>
+                    </div>
+
+                    <div style="color: #dcb0f2; margin: 12px 0; text-align: center;">
+                        <div style="font-size: 1.1em; margin-bottom: 5px;">Purple Cards</div>
+                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same character in TV shows</div>
+                        <div style="display: flex; justify-content: center; gap: 8px;">
+                            <img src="images/type3.png" style="width: 30px; height: 30px;" alt="TV">
+                            <img src="images/type3.png" style="width: 30px; height: 30px;" alt="TV">
+                        </div>
+                    </div>
+
+                    <div style="color: #87c55f; margin: 12px 0; text-align: center;">
+                        <div style="font-size: 1.1em; margin-bottom: 5px;">Green Cards</div>
+                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same real life figure</div>
+                        <img src="images/type4.png" style="width: 30px; height: 30px;" alt="Historical">
+                    </div>
+
+                    <div style="color: #ff7061; margin: 12px 0; text-align: center;">
+                        <div style="font-size: 1.1em; margin-bottom: 5px;">Red Cards</div>
+                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same comic book character</div>
+                        <img src="images/type5.png" style="width: 30px; height: 30px;" alt="Superhero">
+                    </div>
                 </div>
             </div>
         `;

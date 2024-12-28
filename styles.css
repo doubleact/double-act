@@ -47,14 +47,28 @@ body {
 }
 
 .card-content {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    text-align: center;
-    padding: 20px;
     height: 100%;
+    padding: 0;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: center;
+    width: 100%;
 }
 
 .title-container {
@@ -76,17 +90,24 @@ body {
 
 .clue-text {
     font-size: 1.5em;
-    margin: 20px 0;
+    margin: 30px 0;
+    line-height: 1.8;
+    text-align: center;
+    width: 100%;
 }
 
 .character {
-    font-size: 1.5em;
+    font-size: 2em;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .movies {
-    font-size: 1.0em;
-    margin-top: 20px;
+    font-size: 1.5em;
+    margin: 30px 0;
+    line-height: 1.8;
+    text-align: center;
+    width: 100%;
 }
 
 /* Card type backgrounds */
@@ -145,14 +166,13 @@ body {
 
 /* Type icons styles */
 .type-icons {
-    position: absolute;
-    left: 50%;
-    top: 60%;
-    transform: translateX(-50%);
+    position: static;
+    transform: none;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    margin: 30px 0;
 }
 
 .type-icon {
@@ -166,49 +186,47 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin: 30px 0;
+    margin-bottom: 40px;
 }
 
 button {
-    padding: 15px 30px;
+    padding: 10px 30px;
     font-size: 1.2em;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-button:active {
-    transform: scale(0.95);
-}
-
-.start-button {
     background-color: #4CAF50;
     color: white;
+    transition: background-color 0.3s;
 }
 
-.pass-button {
-    background-color: #f44336;
-    color: white;
+button:hover {
+    background-color: #45a049;
 }
 
 .correct-button {
     background-color: #4CAF50;
-    color: white;
+}
+
+.correct-button:hover {
+    background-color: #45a049;
+}
+
+.pass-button {
+    background-color: #f44336;
+}
+
+.pass-button:hover {
+    background-color: #da190b;
 }
 
 /* Card counter and score */
 .card-info {
-    position: absolute;
-    top: 20px;
-    left: 20px;
     font-size: 1.2em;
 }
 
 .score {
-    position: absolute;
-    top: 20px;
-    right: 20px;
     font-size: 1.2em;
 }
 
@@ -216,4 +234,24 @@ button:active {
 .rules-text {
     font-size: 1.2em;
     line-height: 1.6;
+}
+
+/* Logo styles */
+.logo-large {
+    width: 300px;
+    height: auto;
+    margin: 20px 0;
+}
+
+.logo-small {
+    width: 150px;
+    height: auto;
+    margin: 30px 0;
+}
+
+.start-card .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
 }
