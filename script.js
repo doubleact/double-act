@@ -201,7 +201,7 @@ class DoubleActGame {
                     </div>
                 </div>
                 <div class="button-container">
-                    <button class="pass-button" onclick="game.passCard()">Something 3</button>
+                    <button class="pass-button" onclick="game.passCard()">Something 5</button>
                 </div>
             </div>
         `;
