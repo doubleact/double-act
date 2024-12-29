@@ -255,43 +255,42 @@ class DoubleActGame {
         backElement.innerHTML = `
             <div class="card-content">
                 <div class="main-content">
-                    <img src="images/doubleactlogo.png" alt="Double Act" style="width: 108px; height: auto; margin: 10px 0;">
-                    <h1 style="font-size: 1.6em; margin: 10px 0; text-align: center;">How to Play</h1>
+                    <h1 style="font-size: 1.5em; margin: 10px 0; text-align: center;">How to Play</h1>
                     
                     <div style="color: #6bacfe; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1.1em; margin-bottom: 5px;">Blue Cards</div>
-                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same character in movies</div>
-                        <img src="images/type1.png" style="width: 30px; height: 30px;" alt="Movie to Movie">
+                        <div style="font-size: 1em; margin-bottom: 3px;">Blue Cards</div>
+                        <div style="margin-bottom: 3px; font-size: 0.9em;">Actors who have played the same character in movies</div>
+                        <img src="images/type1.png" style="width: 25px; height: 25px;" alt="Movie to Movie">
                     </div>
 
                     <div style="color: #fe88b1; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1.1em; margin-bottom: 5px;">Pink Cards</div>
-                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same character in movies and TV</div>
-                        <div style="display: flex; justify-content: center; gap: 8px;">
-                            <img src="images/type1.png" style="width: 30px; height: 30px;" alt="Movie">
-                            <img src="images/type3.png" style="width: 30px; height: 30px;" alt="TV">
+                        <div style="font-size: 1em; margin-bottom: 3px;">Pink Cards</div>
+                        <div style="margin-bottom: 3px; font-size: 0.9em;">Actors who have played the same character in movies and TV</div>
+                        <div style="display: flex; justify-content: center; gap: 6px;">
+                            <img src="images/type1.png" style="width: 25px; height: 25px;" alt="Movie">
+                            <img src="images/type3.png" style="width: 25px; height: 25px;" alt="TV">
                         </div>
                     </div>
 
                     <div style="color: #dcb0f2; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1.1em; margin-bottom: 5px;">Purple Cards</div>
-                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same character in TV shows</div>
-                        <div style="display: flex; justify-content: center; gap: 8px;">
-                            <img src="images/type3.png" style="width: 30px; height: 30px;" alt="TV">
-                            <img src="images/type3.png" style="width: 30px; height: 30px;" alt="TV">
+                        <div style="font-size: 1em; margin-bottom: 3px;">Purple Cards</div>
+                        <div style="margin-bottom: 3px; font-size: 0.9em;">Actors who have played the same character in TV shows</div>
+                        <div style="display: flex; justify-content: center; gap: 6px;">
+                            <img src="images/type3.png" style="width: 25px; height: 25px;" alt="TV">
+                            <img src="images/type3.png" style="width: 25px; height: 25px;" alt="TV">
                         </div>
                     </div>
 
                     <div style="color: #87c55f; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1.1em; margin-bottom: 5px;">Green Cards</div>
-                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same real life figure</div>
-                        <img src="images/type4.png" style="width: 30px; height: 30px;" alt="Historical">
+                        <div style="font-size: 1em; margin-bottom: 3px;">Green Cards</div>
+                        <div style="margin-bottom: 3px; font-size: 0.9em;">Actors who have played the same real life figure</div>
+                        <img src="images/type4.png" style="width: 25px; height: 25px;" alt="Historical">
                     </div>
 
                     <div style="color: #ff7061; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1.1em; margin-bottom: 5px;">Red Cards</div>
-                        <div style="margin-bottom: 5px; font-size: 0.9em;">Actors who have played the same comic book character</div>
-                        <img src="images/type5.png" style="width: 30px; height: 30px;" alt="Superhero">
+                        <div style="font-size: 1em; margin-bottom: 3px;">Red Cards</div>
+                        <div style="margin-bottom: 3px; font-size: 0.9em;">Actors who have played the same comic book character</div>
+                        <img src="images/type5.png" style="width: 25px; height: 25px;" alt="Superhero">
                     </div>
                 </div>
             </div>
