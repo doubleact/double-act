@@ -23,10 +23,10 @@ body {
 /* Base card size (mobile) */
 .card {
     position: relative;
-    width: 95%;
+    width: 90%;
     max-width: 500px;
-    height: 140vh;
-    max-height: none;
+    height: 95vh;
+    max-height: 1000px;
     transform-style: preserve-3d;
     transition: transform 0.4s ease-in-out;
 }
@@ -157,18 +157,60 @@ body {
 }
 
 /* Card type backgrounds */
-.front.start-card, .front.end-card {
-    background-color: #ffd966;
+.type-1, .front.clue-type-1 {
+    background-color: #6bacfe;
+    background-image: url('images/background/type1background.png');
+    background-size: cover;
+    background-position: center;
 }
 
-.front.clue-type-1 { background-color: #6bacfe; }
-.front.clue-type-2 { background-color: #fe88b1; }
-.front.clue-type-3 { background-color: #dcb0f2; }
-.front.clue-type-4 { background-color: #87c55f; }
-.front.clue-type-5 { background-color: #ff7061; }
+.type-2, .front.clue-type-2 {
+    background-color: #fe88b1;
+    background-image: url('images/background/type2background.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.type-3, .front.clue-type-3 {
+    background-color: #dcb0f2;
+    background-image: url('images/background/type3background.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.type-4, .front.clue-type-4 {
+    background-color: #87c55f;
+    background-image: url('images/background/type4background.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.type-5, .front.clue-type-5 {
+    background-color: #ff7061;
+    background-image: url('images/background/type5background.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.rules, .back.rules {
+    background-color: #34495e;
+    background-image: url('images/background/rulescardbackground.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.start-card, .front.start-card, .front.end-card {
+    background-color: #34495e;
+    background-image: url('images/background/startcardbackground.png');
+    background-size: cover;
+    background-position: center;
+}
 
 .back {
     background-color: #c9db74;
+    background-image: url('images/background/answercardbackground.png');
+    background-size: cover;
+    background-position: center;
     transform: rotateY(180deg);
     visibility: hidden;
 }
@@ -176,6 +218,9 @@ body {
 .back.rules {
     transform: rotateX(180deg);
     background-color: #FFE0B2;
+    background-image: url('images/background/rulescardbackground.png');
+    background-size: cover;
+    background-position: center;
 }
 
 /* Card flipping for answer (from left side) */
@@ -360,9 +405,7 @@ button:hover {
 /* Mobile adjustments */
 @media screen and (max-height: 700px) {
     .card {
-        height: 140vh;
-        width: 98%;
-        max-height: none;
+        height: 95vh;
     }
     
     .counter, .score {
