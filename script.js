@@ -1,11 +1,45 @@
+import { cardDataType1 } from './carddatatype1.js';
+import { cardDataType2 } from './carddatatype2.js';
+import { cardDataType3 } from './carddatatype3.js';
+import { cardDataType4 } from './carddatatype4.js';
+import { cardDataType5 } from './carddatatype5.js';
+
+// Debug logging for imported data
+console.log('cardDataType1:', cardDataType1);
+console.log('cardDataType2:', cardDataType2);
+console.log('cardDataType3:', cardDataType3);
+console.log('cardDataType4:', cardDataType4);
+console.log('cardDataType5:', cardDataType5);
+
+console.log('Imported card types:', {
+    type1: cardDataType1.length,
+    type2: cardDataType2.length,
+    type3: cardDataType3.length,
+    type4: cardDataType4.length,
+    type5: cardDataType5.length
+});
+
+const cardData = [
+    ...cardDataType1,
+    ...cardDataType2,
+    ...cardDataType3,
+    ...cardDataType4,
+    ...cardDataType5
+];
+
+console.log('Total cards:', cardData.length);
+
 class DoubleActGame {
     constructor() {
+        console.log('Initializing game...');
         this.currentCardIndex = -1;
         this.cards = this.shuffleCards([...cardData]);
         this.score = 0;
         this.correctAnswers = 0;
         this.passedAnswers = 0;
+        console.log('Setting up event listeners...');
         this.setupEventListeners();
+        console.log('Showing start card...');
         this.showStartCard();
     }
 
@@ -18,8 +52,10 @@ class DoubleActGame {
     }
 
     setupEventListeners() {
+        console.log('Setting up event listeners...');
         // Keyboard controls
         document.addEventListener('keyup', (e) => {
+            console.log('Key pressed:', e.key);
             if (this.currentCardIndex === -1) {
                 if (['ArrowLeft', 'ArrowRight', 'Enter'].includes(e.key)) {
                     this.startGame();
@@ -70,6 +106,7 @@ class DoubleActGame {
         hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 
         hammer.on('swipe', (e) => {
+            console.log('Swipe detected:', e.type);
             if (this.currentCardIndex === -1) {
                 if (e.direction === Hammer.DIRECTION_UP) {
                     this.showRules();
@@ -115,6 +152,7 @@ class DoubleActGame {
 
         // Double tap to show answer
         hammer.on('doubletap', () => {
+            console.log('Double tap detected');
             if (this.currentCardIndex >= 0 && this.currentCardIndex < this.cards.length) {
                 const isShowingRules = card.classList.contains('rules-flipped');
                 if (!isShowingRules) {
@@ -125,6 +163,7 @@ class DoubleActGame {
     }
 
     showStartCard() {
+        console.log('Showing start card...');
         const card = document.getElementById('currentCard');
         const front = card.querySelector('.front');
         front.className = 'front start-card';
@@ -143,6 +182,7 @@ class DoubleActGame {
     }
 
     startGame() {
+        console.log('Starting game...');
         this.currentCardIndex = 0;
         this.score = 0;
         this.correctAnswers = 0;
@@ -151,6 +191,7 @@ class DoubleActGame {
     }
 
     showCurrentCard() {
+        console.log('Showing current card...');
         const card = document.getElementById('currentCard');
         card.classList.remove('flipped', 'rules-flipped');
         
@@ -227,6 +268,7 @@ class DoubleActGame {
     }
 
     showRules() {
+        console.log('Showing rules...');
         const card = document.getElementById('currentCard');
         
         // If showing answer, return to front first
@@ -252,45 +294,46 @@ class DoubleActGame {
     }
 
     displayRulesContent(backElement) {
+        console.log('Displaying rules content...');
         backElement.innerHTML = `
             <div class="card-content">
                 <div class="main-content">
-                    <h1 style="font-size: 1.5em; margin: 10px 0; text-align: center;">How to Play</h1>
+                    <h1 style="font-size: 1.5em; margin: 10px 0; text-align: center;">Rules</h1>
                     
                     <div style="color: #6bacfe; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1em; margin-bottom: 3px;">Blue Cards</div>
-                        <div style="margin-bottom: 3px; font-size: 0.9em;">Actors who have played the same character in movies</div>
+                        <div style="font-size: 1em; margin-bottom: 0px;">Blue Cards</div>
+                        <div style="margin-bottom: 0px; font-size: 0.8em;">Actors who have played the same character in movies</div>
                         <img src="images/type1.png" style="width: 25px; height: 25px;" alt="Movie to Movie">
                     </div>
 
                     <div style="color: #fe88b1; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1em; margin-bottom: 3px;">Pink Cards</div>
-                        <div style="margin-bottom: 3px; font-size: 0.9em;">Actors who have played the same character in movies and TV</div>
-                        <div style="display: flex; justify-content: center; gap: 6px;">
+                        <div style="font-size: 1em; margin-bottom: 0px;">Pink Cards</div>
+                        <div style="margin-bottom: 0px; font-size: 0.8em;">Actors who have played the same character in movies and TV</div>
+                        <div style="display: flex; justify-content: center; gap: 3px;">
                             <img src="images/type1.png" style="width: 25px; height: 25px;" alt="Movie">
                             <img src="images/type3.png" style="width: 25px; height: 25px;" alt="TV">
                         </div>
                     </div>
 
                     <div style="color: #dcb0f2; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1em; margin-bottom: 3px;">Purple Cards</div>
-                        <div style="margin-bottom: 3px; font-size: 0.9em;">Actors who have played the same character in TV shows</div>
-                        <div style="display: flex; justify-content: center; gap: 6px;">
+                        <div style="font-size: 1em; margin-bottom: 0px;">Purple Cards</div>
+                        <div style="margin-bottom: 0px; font-size: 0.8em;">Actors who have played the same character in TV shows</div>
+                        <div style="display: flex; justify-content: center; gap: 3px;">
                             <img src="images/type3.png" style="width: 25px; height: 25px;" alt="TV">
                             <img src="images/type3.png" style="width: 25px; height: 25px;" alt="TV">
                         </div>
                     </div>
 
                     <div style="color: #87c55f; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1em; margin-bottom: 3px;">Green Cards</div>
-                        <div style="margin-bottom: 3px; font-size: 0.9em;">Actors who have played the same real life figure</div>
-                        <img src="images/type4.png" style="width: 25px; height: 25px;" alt="Historical">
+                        <div style="font-size: 1em; margin-bottom: 0px;">Green Cards</div>
+                        <div style="margin-bottom: 0px; font-size: 0.8em;">Actors who have played the same real life figure</div>
+                        <img src="images/type4.png" style="width: 25px; height: 25px;" alt="Real Life Figure">
                     </div>
 
                     <div style="color: #ff7061; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1em; margin-bottom: 3px;">Red Cards</div>
-                        <div style="margin-bottom: 3px; font-size: 0.9em;">Actors who have played the same comic book character</div>
-                        <img src="images/type5.png" style="width: 25px; height: 25px;" alt="Superhero">
+                        <div style="font-size: 1em; margin-bottom: 0px;">Red Cards</div>
+                        <div style="margin-bottom: 0px; font-size: 0.8em;">Actors who have played the same comic book character</div>
+                        <img src="images/type5.png" style="width: 25px; height: 25px;" alt="Comic Book Characters">
                     </div>
                 </div>
             </div>
@@ -298,6 +341,7 @@ class DoubleActGame {
     }
 
     exitRules() {
+        console.log('Exiting rules...');
         const card = document.getElementById('currentCard');
         const back = card.querySelector('.back');
         
@@ -311,6 +355,7 @@ class DoubleActGame {
     }
 
     correctAnswer() {
+        console.log('Correct answer selected...');
         this.score += 10;
         this.correctAnswers++;
         const card = document.getElementById('currentCard');
@@ -327,6 +372,7 @@ class DoubleActGame {
     }
 
     toggleAnswer() {
+        console.log('Toggling answer...');
         const card = document.getElementById('currentCard');
         const back = card.querySelector('.back');
         
@@ -341,11 +387,13 @@ class DoubleActGame {
     }
 
     passCard() {
+        console.log('Passing card...');
         this.passedAnswers++;
         this.nextCard();
     }
 
     nextCard() {
+        console.log('Going to next card...');
         if (this.currentCardIndex < this.cards.length) {
             this.currentCardIndex++;
             this.showCurrentCard();
@@ -353,6 +401,7 @@ class DoubleActGame {
     }
 
     previousCard() {
+        console.log('Going to previous card...');
         if (this.currentCardIndex > 0) {
             this.currentCardIndex--;
             this.showCurrentCard();
@@ -360,6 +409,7 @@ class DoubleActGame {
     }
 
     showEndCard() {
+        console.log('Showing end card...');
         const card = document.getElementById('currentCard');
         const front = card.querySelector('.front');
         front.className = 'front end-card';
@@ -387,5 +437,8 @@ class DoubleActGame {
     }
 }
 
-// Initialize the game
-const game = new DoubleActGame();
+// Wait for DOM to be fully loaded before initializing
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, creating game...');
+    window.game = new DoubleActGame();
+});
