@@ -13,20 +13,22 @@ body {
 
 .game-container {
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: 1000px;
+    padding: 0;
+    margin: 0;
 }
 
-/* Base card size (mobile) */
 .card {
     position: relative;
     width: 90%;
     max-width: 500px;
     height: 95vh;
-    max-height: 1000px;
+    max-height: 800px;
+    margin: 0 auto;
+    perspective: 1000px;
     transform-style: preserve-3d;
     transition: transform 0.4s ease-in-out;
 }
@@ -57,32 +59,49 @@ body {
 
 .score {
     right: 15px;
+    cursor: pointer;
 }
 
 .front, .back {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    transition: transform 0.4s ease-in-out;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background: white;
-    transform: rotateY(0deg);
-    transition: visibility 0s 0.2s;
 }
 
 .card-content {
+    position: relative;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    padding: 0;
-    overflow: hidden;
+}
+
+.answer-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+}
+
+.rules-content {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+    text-align: center;
 }
 
 .main-content {
@@ -212,152 +231,33 @@ body {
     background-size: cover;
     background-position: center;
     transform: rotateY(180deg);
-    visibility: hidden;
 }
 
 .back.rules {
-    transform: rotateX(180deg);
-    background-color: #FFE0B2;
+    background-color: #34495e;
     background-image: url('images/background/rulescardbackground.png');
     background-size: cover;
     background-position: center;
+    transform: rotateY(180deg);
 }
 
-/* Card flipping for answer (from left side) */
-.card.flipped {
+.card.flipped .front {
     transform: rotateY(180deg);
 }
 
 .card.flipped .back {
-    visibility: visible;
-    transition-delay: 0s;
-}
-
-.card.flipped .front {
-    visibility: hidden;
-}
-
-/* Card flipping for rules (from right side) */
-.card.rules-flipped {
-    transform: rotateX(180deg);
+    transform: rotateY(0);
 }
 
 .card.rules-flipped .front {
-    visibility: hidden;
+    transform: rotateY(180deg);
 }
 
 .card.rules-flipped .back {
-    visibility: visible;
-    transition-delay: 0s;
-}
-
-.card:not(.flipped):not(.rules-flipped) .back {
-    visibility: hidden;
-}
-
-/* Type icons styles */
-.type-icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-    margin-top: 40px;
-    margin-bottom: 25px;
-}
-
-.type-icon {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-}
-
-/* Button styles */
-.button-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: min(4vw, 20px);
-    margin: min(4vw, 20px) 0;
-    padding: 0 min(4vw, 20px);
-}
-
-button {
-    font-size: clamp(0.8em, 3vw, 1.2em);
-    padding: min(2vw, 10px) min(4vw, 20px);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-.correct-button {
-    background-color: #4CAF50;
-}
-
-.correct-button:hover {
-    background-color: #45a049;
-}
-
-.pass-button {
-    background-color: #f44336;
-}
-
-.pass-button:hover {
-    background-color: #da190b;
-}
-
-/* Card counter and score */
-.card-info {
-    font-size: 1.2em;
-}
-
-/* Rules text */
-.rules-text {
-    font-size: 1.2em;
-    line-height: 1.6;
-}
-
-/* Logo styles */
-.logo-large {
-    width: 300px;
-    height: auto;
-    margin: 20px 0;
-}
-
-.logo-small {
-    width: 120px;
-    height: auto;
-    margin-bottom: 120px;
-}
-
-.logo-container {
-    text-align: center;
-    margin-top: 15px;
-}
-
-.start-card .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
+    transform: rotateY(0);
 }
 
 /* Rules card specific styles */
-.rules-content {
-    padding: 10px;
-    font-size: 0.85em;
-    height: 100%;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-}
-
 .rules-section {
     margin: 2px 0;
     text-align: center;
@@ -389,6 +289,641 @@ button:hover {
     width: 90%;
     max-width: 270px;
     margin: 5px auto;
+}
+
+/* Type icons styles */
+.type-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-top: 40px;
+    margin-bottom: 25px;
+}
+
+.type-icon {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+/* Button styles */
+.button-container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Base button styles */
+button {
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    width: fit-content !important;
+    min-width: min-content !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 4px 8px !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    position: relative !important;
+}
+
+button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+button:active {
+    transform: translateY(0) !important;
+    box-shadow: none !important;
+}
+
+/* Button colors */
+.green-button {
+    background-color: #4CAF50 !important;
+    color: white !important;
+}
+
+.red-button {
+    background-color: #ff4444 !important;
+    color: white !important;
+}
+
+/* Mode selection buttons */
+button[onclick*="singlePlayer"],
+button[onclick*="multiplayer"] {
+    width: 120px !important;
+    height: 30px !important;
+    font-size: 0.85em !important;
+    background-color: #4CAF50 !important;
+    color: white !important;
+}
+
+/* Game control buttons */
+button[onclick*="backToGame"],
+button[onclick*="endGame"] {
+    width: 85px !important;
+    height: 30px !important;
+    font-size: 0.85em !important;
+}
+
+/* Score card buttons */
+.correct-button,
+.pass-button {
+    width: 70px !important;
+    height: 30px !important;
+    font-size: 0.85em !important;
+    padding: 4px 8px !important;
+}
+
+.correct-button {
+    background-color: #4CAF50 !important;
+    color: white !important;
+}
+
+.pass-button {
+    background-color: #ff4444 !important;
+    color: white !important;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 780px) {
+    /* Mode selection buttons */
+    button[onclick*="singlePlayer"],
+    button[onclick*="multiplayer"] {
+        width: 110px !important;
+        height: 25px !important;
+        font-size: 0.75em !important;
+    }
+
+    /* Game control buttons */
+    button[onclick*="backToGame"],
+    button[onclick*="endGame"] {
+        width: 90px !important;
+        height: 25px !important;
+        font-size: 0.75em !important;
+    }
+
+    /* Score card buttons */
+    .correct-button,
+    .pass-button {
+        width: 80px !important;
+        height: 25px !important;
+        font-size: 0.75em !important;
+    }
+
+    /* Start new game button */
+    button[onclick*="showStartCard"] {
+        width: 110px !important;
+        height: 25px !important;
+        font-size: 0.75em !important;
+    }
+
+    /* Number buttons */
+    .number-button {
+        width: 70px !important;
+        height: 30px !important;
+        min-width: 70px !important;
+        font-size: 0.75em !important;
+    }
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    /* Score card buttons */
+    .button-container button,
+    .green-button,
+    .red-button {
+        font-size: 0.75em !important;
+        height: 25px !important;
+        padding: 2px 6px !important;
+    }
+
+    /* Specific button sizes for mobile */
+    button[onclick*="continue"],
+    button:contains("Continue") {
+        width: 60px !important;
+        height: 25px !important;
+    }
+
+    button[onclick*="singlePlayer"],
+    button:contains("Single Player") {
+        width: 100px !important;
+        height: 25px !important;
+    }
+
+    button[onclick*="multiplayer"],
+    button:contains("Multiplayer") {
+        width: 100px !important;
+        height: 25px !important;
+    }
+
+    button[onclick*="backToGame"],
+    button:contains("Back") {
+        width: 60px !important;
+        height: 25px !important;
+    }
+
+    button[onclick*="endGame"],
+    button:contains("End Game") {
+        width: 60px !important;
+        height: 25px !important;
+    }
+
+    .correct-button,
+    button:contains("Correct") {
+        width: 55px !important;
+        height: 25px !important;
+    }
+
+    .pass-button,
+    button:contains("Pass") {
+        width: 45px !important;
+        height: 25px !important;
+    }
+
+    button[onclick*="startNewGame"],
+    button:contains("Start New Game") {
+        width: 100px !important;
+        height: 25px !important;
+    }
+}
+
+/* Card counter and score */
+.card-info {
+    font-size: 1.2em;
+}
+
+/* Rules text */
+.rules-text {
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+/* Logo styles */
+.logo-container {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.logo-small {
+    width: 35%;
+    max-width: 150px;
+    height: auto;
+}
+
+.logo-medium {
+    width: 45%;
+    max-width: 200px;
+    height: auto;
+}
+
+.logo-large {
+    width: 300px;
+    height: auto;
+    margin: 20px 0;
+}
+
+.logo-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.start-card {
+    background: url('images/background.png') no-repeat center center;
+    background-size: cover;
+}
+
+.start-card .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+.start-card .logo-container {
+    width: 100%;
+    text-align: center;
+}
+
+.start-card .logo-large {
+    width: 80%;
+    max-width: 300px;
+    height: auto;
+    margin: 20px 0 40px 0;
+}
+
+.start-card .logo-small {
+    width: 40%;
+    max-width: 150px;
+    height: auto;
+    margin: 10px 0;
+}
+
+.start-card .main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.start-card .bottom-content {
+    width: 100%;
+    margin-top: auto;
+}
+
+.start-card .button-container {
+    text-align: center;
+}
+
+.start-card button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 200px;
+    margin: 10px 0;
+}
+
+.start-card button:hover {
+    background-color: #45a049;
+}
+
+.start-card h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.start-card input[type="number"] {
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Multiplayer specific styles */
+.card-counter {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    font-size: 1em;
+    color: #666;
+}
+
+.scores-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.score-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.score-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 120px);
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.score-grid.players-2 {
+    grid-template-columns: repeat(2, 120px);
+    max-width: 300px;
+}
+
+.score-grid .player-score:last-child:nth-child(3n - 1) {
+    grid-column: 2;
+}
+
+.score-grid .player-score:last-child:nth-child(3n - 2) {
+    grid-column: 2;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    .score-grid {
+        gap: 8px;
+        grid-template-columns: repeat(3, 80px);
+        max-width: 280px;
+    }
+
+    .score-grid.players-2 {
+        grid-template-columns: repeat(2, 80px);
+        max-width: 200px;
+    }
+}
+
+.player-score {
+    width: 120px;
+    padding: 4px;
+    text-align: center;
+    border: none;
+}
+
+.player-score h3 {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.player-score p {
+    font-size: 0.8em;
+    margin: 2px 0;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    .player-score {
+        width: 80px;
+        padding: 2px;
+    }
+
+    .player-score h3 {
+        font-size: 0.75em;
+        margin-bottom: 2px;
+    }
+
+    .player-score p {
+        font-size: 0.65em;
+        margin: 1px 0;
+    }
+}
+
+/* Player number selection grid */
+.player-number-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.number-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Mode selection buttons */
+.mode-selection-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+}
+
+/* End card styles */
+.end-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.end-card h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.end-card .logo-medium {
+    width: 150px;
+    height: auto;
+    margin: 20px 0;
+}
+
+.single-player-end-score {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 20px 0;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    button[onclick*="singlePlayer"],
+    button[onclick*="multiplayer"] {
+        width: 110px !important;
+        height: 25px !important;
+        font-size: 0.75em !important;
+    }
+}
+
+.number-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    flex: 1;
+    justify-content: center;
+}
+
+.number-selection h2 {
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.logo-container img.logo-medium {
+    width: 150px;
+    height: auto;
+}
+
+.number-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.number-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.end-card .score-grid {
+    display: grid;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    .player-score {
+        width: 120px;
+        padding: 8px;
+    }
+
+    .score-grid {
+        gap: 10px;
+    }
+}
+
+/* Mobile-specific styles */
+@media screen and (max-width: 768px) {
+    .card {
+        height: 90vh;
+        transform-style: preserve-3d;
+    }
+
+    /* Score card buttons with maximum specificity */
+    .button-container button.green-button,
+    .button-container button.red-button,
+    .score-card .button-container button,
+    .button-container button[onclick*="backToGame"],
+    .button-container button[onclick*="endGame"] {
+        width: 100px !important;
+        height: 25px !important;
+        min-width: 30px !important;
+        max-width: 30px !important;
+        padding: 2px !important;
+        font-size: 0.7em !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+    }
+
+    /* Number selection buttons */
+    .number-button {
+        width: 70px !important;
+        height: 30px !important;
+        min-width: 70px !important;
+        max-width: 70px !important;
+    }
+
+    /* Force all buttons to respect size */
+    button {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Mobile button styles */
+    .button-container button,
+    .green-button,
+    .red-button {
+        padding: 2px 6px !important;
+        font-size: 0.75em !important;
+        white-space: nowrap !important;
+    }
+
+    /* Specific button sizes for mobile */
+    button[onclick*="continue"],
+    button:contains("Continue") {
+        width: 30px !important;
+        height: 25px !important;
+    }
+
+    button[onclick*="singlePlayer"],
+    button:contains("Single Player") {
+        width: 80px !important;
+        height: 25px !important;
+    }
+
+    button[onclick*="multiplayer"],
+    button:contains("Multiplayer") {
+        width: 70px !important;
+        height: 25px !important;
+    }
+
+    button[onclick*="backToGame"],
+    button:contains("Back") {
+        width: 60px !important;
+        height: 25px !important;
+    }
+
+    button[onclick*="endGame"],
+    button:contains("End Game") {
+        width: 60px !important;
+        height: 25px !important;
+    }
+
+    .correct-button,
+    button:contains("Correct") {
+        width: 55px !important;
+        height: 25px !important;
+    }
+
+    .pass-button,
+    button:contains("Pass") {
+        width: 45px !important;
+        height: 25px !important;
+    }
+
+    button[onclick*="startNewGame"],
+    button:contains("Start New Game") {
+        width: 100px !important;
+        height: 25px !important;
+    }
 }
 
 /* Desktop size adjustments */
@@ -460,5 +995,24 @@ button:hover {
 @media (min-aspect-ratio: 3/2) {
     .card {
         height: min(120vw, 500px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .game-container {
+        padding: 10px;
+        box-sizing: border-box;
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        padding-bottom: 10vh;
+    }
+
+    .card {
+        width: 100%;
+        height: calc(93vh - 20px);
+        max-height: none;
+        margin: 0;
+        transform-style: preserve-3d;
     }
 }

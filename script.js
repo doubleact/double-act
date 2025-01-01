@@ -32,23 +32,31 @@ console.log('Total cards:', cardData.length);
 class DoubleActGame {
     constructor() {
         console.log('Initializing game...');
+        // Initialize cards without duplicates
+        const allCards = [...new Set([...cardData, ...cardDataType2, ...cardDataType3, ...cardDataType4, ...cardDataType5])];
+        this.cards = allCards;
         this.currentCardIndex = -1;
-        this.cards = this.shuffleCards([...cardData]);
         this.score = 0;
-        this.correctAnswers = 0;
         this.passedAnswers = 0;
+        this.isMultiplayer = false;
+        this.numberOfPlayers = 0;
+        this.currentPlayer = 1;
+        this.playerScores = [];
+        this.disableNavigation = false;
+        
         console.log('Setting up event listeners...');
         this.setupEventListeners();
         console.log('Showing start card...');
         this.showStartCard();
     }
 
-    shuffleCards(array) {
-        for (let i = array.length - 1; i > 0; i--) {
+    shuffleCards() {
+        console.log('Shuffling cards...');
+        // Fisher-Yates shuffle algorithm
+        for (let i = this.cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
         }
-        return array;
     }
 
     setupEventListeners() {
@@ -56,48 +64,46 @@ class DoubleActGame {
         // Keyboard controls
         document.addEventListener('keyup', (e) => {
             console.log('Key pressed:', e.key);
-            if (this.currentCardIndex === -1) {
-                if (['ArrowLeft', 'ArrowRight', 'Enter'].includes(e.key)) {
-                    this.startGame();
-                } else if (e.key === 'ArrowDown') {
-                    this.showRules();
-                }
-            } else if (this.currentCardIndex < this.cards.length) {
-                const card = document.getElementById('currentCard');
-                const isShowingAnswer = card.classList.contains('flipped');
-                const isShowingRules = card.classList.contains('rules-flipped');
-
-                if (isShowingAnswer) {
-                    // Only allow up arrow to toggle back when showing answer
-                    if (e.key === 'ArrowUp') {
-                        this.toggleAnswer();
-                    }
-                    return;
-                }
-
-                if (isShowingRules) {
-                    // Only allow down arrow to exit rules
-                    if (e.key === 'ArrowDown') {
-                        this.exitRules();
-                    }
-                    return;
-                }
-
-                switch(e.key) {
-                    case 'ArrowUp':
-                        this.toggleAnswer();
-                        break;
-                    case 'ArrowLeft':
-                        this.previousCard();
-                        break;
-                    case 'ArrowRight':
-                        this.nextCard();
-                        break;
-                    case 'ArrowDown':
-                        this.showRules();
-                        break;
-                }
+            
+            // If navigation is disabled (during score card), ignore all inputs
+            if (this.disableNavigation) {
+                return;
             }
+
+            // Don't allow controls on start screen or mode selection
+            if (this.isStartScreen() || this.isModeSelection()) {
+                return;
+            }
+
+            const card = document.getElementById('currentCard');
+            const isShowingAnswer = card.classList.contains('flipped');
+            const isShowingRules = card.classList.contains('rules-flipped');
+
+            // Handle player selection screen separately
+            if (this.isPlayerSelection()) {
+                if (e.key === 'ArrowRight') {
+                    this.showModeSelection();
+                }
+                return;
+            }
+
+            if (isShowingAnswer) {
+                // Only allow up arrow to toggle back when showing answer
+                if (e.key === 'ArrowUp') {
+                    this.toggleAnswer();
+                }
+                return;
+            }
+
+            if (isShowingRules) {
+                // Only allow down arrow to exit rules
+                if (e.key === 'ArrowDown') {
+                    this.exitRules();
+                }
+                return;
+            }
+
+            this.handleKeyPress(e);
         });
 
         // Touch controls using Hammer.js
@@ -107,59 +113,112 @@ class DoubleActGame {
 
         hammer.on('swipe', (e) => {
             console.log('Swipe detected:', e.type);
-            if (this.currentCardIndex === -1) {
+            
+            // If navigation is disabled (during score card), ignore all inputs
+            if (this.disableNavigation) {
+                return;
+            }
+
+            // Don't allow controls on start screen or mode selection
+            if (this.isStartScreen() || this.isModeSelection()) {
+                return;
+            }
+
+            // Handle player selection screen separately
+            if (this.isPlayerSelection()) {
+                if (e.direction === Hammer.DIRECTION_RIGHT) {
+                    this.showModeSelection();
+                }
+                return;
+            }
+
+            const isShowingAnswer = card.classList.contains('flipped');
+            const isShowingRules = card.classList.contains('rules-flipped');
+
+            if (isShowingAnswer) {
+                // Only allow up swipe to toggle back when showing answer
                 if (e.direction === Hammer.DIRECTION_UP) {
+                    this.toggleAnswer();
+                }
+                return;
+            }
+
+            if (isShowingRules) {
+                // Only allow swipe down to exit rules
+                if (e.direction === Hammer.DIRECTION_DOWN) {
+                    this.exitRules();
+                }
+                return;
+            }
+
+            switch(e.direction) {
+                case Hammer.DIRECTION_UP:
+                    this.toggleAnswer();
+                    break;
+                case Hammer.DIRECTION_LEFT:
+                    this.nextCard();
+                    break;
+                case Hammer.DIRECTION_RIGHT:
+                    this.previousCard();
+                    break;
+                case Hammer.DIRECTION_DOWN:
                     this.showRules();
-                } else {
-                    this.startGame();
-                }
-            } else if (this.currentCardIndex < this.cards.length) {
-                const isShowingAnswer = card.classList.contains('flipped');
-                const isShowingRules = card.classList.contains('rules-flipped');
-
-                if (isShowingAnswer) {
-                    // Only allow up swipe to toggle back when showing answer
-                    if (e.direction === Hammer.DIRECTION_UP) {
-                        this.toggleAnswer();
-                    }
-                    return;
-                }
-
-                if (isShowingRules) {
-                    // Only allow swipe down to exit rules
-                    if (e.direction === Hammer.DIRECTION_DOWN) {
-                        this.exitRules();
-                    }
-                    return;
-                }
-
-                switch(e.direction) {
-                    case Hammer.DIRECTION_UP:
-                        this.toggleAnswer();
-                        break;
-                    case Hammer.DIRECTION_LEFT:
-                        this.nextCard();
-                        break;
-                    case Hammer.DIRECTION_RIGHT:
-                        this.previousCard();
-                        break;
-                    case Hammer.DIRECTION_DOWN:
-                        this.showRules();
-                        break;
-                }
+                    break;
             }
         });
 
-        // Double tap to show answer
+        // Double tap to show answer (only during gameplay)
         hammer.on('doubletap', () => {
             console.log('Double tap detected');
-            if (this.currentCardIndex >= 0 && this.currentCardIndex < this.cards.length) {
+            // Ignore double tap if navigation is disabled
+            if (this.disableNavigation) {
+                return;
+            }
+            if (!this.isStartScreen() && !this.isModeSelection() && !this.isPlayerSelection()) {
                 const isShowingRules = card.classList.contains('rules-flipped');
                 if (!isShowingRules) {
                     this.toggleAnswer();
                 }
             }
         });
+    }
+
+    handleKeyPress(event) {
+        if (this.disableNavigation) return;
+
+        switch(event.key) {
+            case 'ArrowUp':
+                this.toggleAnswer();
+                break;
+            case 'ArrowLeft':
+                if (document.querySelector('.front').classList.contains('start-card')) {
+                    this.showModeSelection();
+                } else {
+                    this.previousCard();
+                }
+                break;
+            case 'ArrowRight':
+                this.nextCard();
+                break;
+            case 'ArrowDown':
+                this.showRules();
+                break;
+        }
+    }
+
+    // Helper methods to check current screen
+    isStartScreen() {
+        return this.currentCardIndex === -1;
+    }
+
+    isModeSelection() {
+        const front = document.querySelector('.front');
+        return front.innerHTML.includes('One Player') && front.innerHTML.includes('Multiplayer');
+    }
+
+    isPlayerSelection() {
+        const front = document.querySelector('.front');
+        return front.innerHTML.includes('Number of Players');
     }
 
     showStartCard() {
@@ -172,21 +231,104 @@ class DoubleActGame {
                 <div class="logo-container">
                     <img src="images/doubleactlogo.png" alt="Double Act" class="logo-large">
                 </div>
-                <div class="bottom-content">
-                    <div class="button-container">
-                        <button onclick="game.startGame()">Start Game</button>
+                <div class="button-container">
+                    <button onclick="game.showModeSelection()" class="green-button">Next</button>
+                </div>
+            </div>
+        `;
+    }
+
+    showModeSelection() {
+        console.log('Showing mode selection...');
+        const card = document.getElementById('currentCard');
+        const front = card.querySelector('.front');
+        front.className = 'front start-card';
+        front.innerHTML = `
+            <div class="card-content">
+                <div class="logo-container">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small">
+                </div>
+                <div class="main-content">
+                    <div class="mode-selection-container">
+                        <button onclick="game.startSinglePlayer()" class="green-button">Single Player</button>
+                        <button onclick="game.showPlayerSelection()" class="green-button">Multiplayer</button>
                     </div>
                 </div>
             </div>
         `;
     }
 
+    showPlayerSelection() {
+        console.log('Showing player selection...');
+        const card = document.getElementById('currentCard');
+        const front = card.querySelector('.front');
+        front.className = 'front start-card';
+        this.isMultiplayer = true;  // Set multiplayer mode immediately
+        
+        front.innerHTML = `
+            <div class="card-content">
+                <div class="logo-container">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
+                </div>
+                <div class="number-selection">
+                    <h2>Number of Players</h2>
+                    <div class="number-grid">
+                        <div class="number-row">
+                            <button class="number-button" onclick="game.selectPlayerCount(2); game.startGame()">2</button>
+                            <button class="number-button" onclick="game.selectPlayerCount(3); game.startGame()">3</button>
+                            <button class="number-button" onclick="game.selectPlayerCount(4); game.startGame()">4</button>
+                        </div>
+                        <div class="number-row">
+                            <button class="number-button" onclick="game.selectPlayerCount(5); game.startGame()">5</button>
+                            <button class="number-button" onclick="game.selectPlayerCount(6); game.startGame()">6</button>
+                            <button class="number-button" onclick="game.selectPlayerCount(7); game.startGame()">7</button>
+                        </div>
+                        <div class="number-row">
+                            <button class="number-button" onclick="game.selectPlayerCount(8); game.startGame()">8</button>
+                            <button class="number-button" onclick="game.selectPlayerCount(9); game.startGame()">9</button>
+                            <button class="number-button" onclick="game.selectPlayerCount(10); game.startGame()">10</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    selectPlayerCount(count) {
+        console.log('Setting player count to:', count);
+        this.numberOfPlayers = count;
+        this.playerScores = Array(count).fill().map(() => ({ correct: 0, passed: 0 }));
+    }
+
+    startSinglePlayer() {
+        console.log('Starting single player game...');
+        this.isMultiplayer = false;
+        this.score = 0;
+        this.passedAnswers = 0;
+        this.currentCardIndex = 0;
+        this.shuffleCards();
+        this.disableNavigation = false; // Enable navigation when starting game
+        this.showCurrentCard();
+    }
+
     startGame() {
         console.log('Starting game...');
         this.currentCardIndex = 0;
-        this.score = 0;
-        this.correctAnswers = 0;
-        this.passedAnswers = 0;
+        
+        if (this.isMultiplayer) {
+            this.currentPlayer = 1;
+            this.playerScores = Array(this.numberOfPlayers).fill().map(() => ({
+                correct: 0,
+                passed: 0
+            }));
+        } else {
+            this.score = 0;
+            this.correctAnswers = 0;
+            this.passedAnswers = 0;
+        }
+        
+        this.shuffleCards();
+        this.disableNavigation = false; // Enable navigation when starting game
         this.showCurrentCard();
     }
 
@@ -199,6 +341,9 @@ class DoubleActGame {
             this.showEndCard();
             return;
         }
+
+        // Enable navigation when showing a card
+        this.disableNavigation = false;
 
         const currentCard = this.cards[this.currentCardIndex];
         const front = card.querySelector('.front');
@@ -224,13 +369,20 @@ class DoubleActGame {
                 break;
         }
 
+        const headerContent = this.isMultiplayer ? 
+            `<div class="card-info">Player ${this.currentPlayer}'s Turn</div>
+             <div class="score" onclick="game.showScoreCard()">Scores</div>` :
+            `<div class="card-info">${this.currentCardIndex + 1}/${this.cards.length}</div>
+             <div class="score" onclick="game.showSinglePlayerScore()">Score: ${this.score}</div>`;
+
         front.innerHTML = `
             <div class="card-content">
                 <div class="card-header">
-                    <div class="card-info">${this.currentCardIndex + 1}/${this.cards.length}</div>
-                    <div class="score">Score: ${this.score}</div>
+                    ${headerContent}
                 </div>
                 <div class="main-content">
+                <br>
+                </br>
                     <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small">
                     <div class="clue-text">
                         ${currentCard.actors[0]}
@@ -244,6 +396,10 @@ class DoubleActGame {
                 <div class="button-container">
                     <button class="pass-button" onclick="game.passCard()">Pass</button>
                 </div>
+                ${this.isMultiplayer ? `
+                <div class="card-counter">
+                    ${this.currentCardIndex + 1}/${this.cards.length}
+                </div>` : ''}
             </div>
         `;
 
@@ -356,19 +512,41 @@ class DoubleActGame {
 
     correctAnswer() {
         console.log('Correct answer selected...');
-        this.score += 10;
-        this.correctAnswers++;
-        const card = document.getElementById('currentCard');
-        const back = card.querySelector('.back');
-        
-        card.classList.remove('flipped');
-        setTimeout(() => {
-            back.className = 'back';
-            this.currentCardIndex++;
+        if (this.isMultiplayer) {
+            this.playerScores[this.currentPlayer - 1].correct++;
+            const card = document.getElementById('currentCard');
+            const back = card.querySelector('.back');
+            
+            card.classList.remove('flipped');
             setTimeout(() => {
-                this.showCurrentCard();
-            }, 20);
-        }, 200);
+                back.className = 'back';
+                this.currentCardIndex++;
+                if (this.currentCardIndex >= this.cards.length) {
+                    setTimeout(() => {
+                        this.showEndCard();
+                    }, 20);
+                } else {
+                    this.currentPlayer = (this.currentPlayer % this.numberOfPlayers) + 1;
+                    setTimeout(() => {
+                        this.showCurrentCard();
+                    }, 20);
+                }
+            }, 200);
+        } else {
+            this.score += 10;
+            this.correctAnswers++;
+            const card = document.getElementById('currentCard');
+            const back = card.querySelector('.back');
+            
+            card.classList.remove('flipped');
+            setTimeout(() => {
+                back.className = 'back';
+                this.currentCardIndex++;
+                setTimeout(() => {
+                    this.showCurrentCard();
+                }, 20);
+            }, 200);
+        }
     }
 
     toggleAnswer() {
@@ -388,13 +566,17 @@ class DoubleActGame {
 
     passCard() {
         console.log('Passing card...');
-        this.passedAnswers++;
-        this.nextCard();
-    }
-
-    nextCard() {
-        console.log('Going to next card...');
-        if (this.currentCardIndex < this.cards.length) {
+        if (this.isMultiplayer) {
+            this.playerScores[this.currentPlayer - 1].passed++;
+            this.currentCardIndex++;
+            if (this.currentCardIndex >= this.cards.length) {
+                this.showEndCard();
+            } else {
+                this.currentPlayer = (this.currentPlayer % this.numberOfPlayers) + 1;
+                this.showCurrentCard();
+            }
+        } else {
+            this.passedAnswers++;
             this.currentCardIndex++;
             this.showCurrentCard();
         }
@@ -404,7 +586,124 @@ class DoubleActGame {
         console.log('Going to previous card...');
         if (this.currentCardIndex > 0) {
             this.currentCardIndex--;
+            if (this.isMultiplayer) {
+                this.currentPlayer = ((this.currentPlayer - 2 + this.numberOfPlayers) % this.numberOfPlayers) + 1;
+            }
             this.showCurrentCard();
+        }
+    }
+
+    nextCard() {
+        console.log('Going to next card...');
+        if (this.currentCardIndex < this.cards.length - 1) {
+            this.currentCardIndex++;
+            if (this.isMultiplayer) {
+                this.currentPlayer = (this.currentPlayer % this.numberOfPlayers) + 1;
+            }
+            this.showCurrentCard();
+        }
+    }
+
+    showScoreCard() {
+        console.log('Showing score card...');
+        const card = document.getElementById('currentCard');
+        const front = card.querySelector('.front');
+        front.className = 'front start-card';
+        
+        if (this.isMultiplayer) {
+            console.log('Number of players:', this.numberOfPlayers);
+            console.log('Player scores:', this.playerScores);
+            
+            const scores = this.playerScores.map((score, index) => `
+                <div class="player-score">
+                    <h3>Player ${index + 1}</h3>
+                    <p>Correct: ${score.correct}</p>
+                    <p>Passed: ${score.passed}</p>
+                </div>
+            `).join('');
+
+            front.innerHTML = `
+                <div class="card-content score-card">
+                    <h2 class="score-title">Score Card</h2>
+                    <div class="scores-content">
+                        <div class="score-grid ${this.numberOfPlayers === 2 ? 'players-2' : ''}">
+                            ${scores}
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button onclick="game.returnToGame()" class="green-button">Back To Game</button>
+                        <button onclick="game.showEndCard()" class="red-button">End Game</button>
+                    </div>
+                </div>
+            `;
+        } else {
+            front.innerHTML = `
+                <div class="card-content score-card">
+                    <h2 class="score-title">Score Card</h2>
+                    <div class="scores-content">
+                        <div class="player-score">
+                            <p>Correct: ${this.score}</p>
+                            <p>Passed: ${this.passedAnswers}</p>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button onclick="game.returnToGame()" class="green-button">Back To Game</button>
+                        <button onclick="game.showEndCard()" class="red-button">End Game</button>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    showSinglePlayerScore() {
+        console.log('Showing single player score...');
+        const card = document.getElementById('currentCard');
+        const front = card.querySelector('.front');
+        front.className = 'front start-card';
+        
+        front.innerHTML = `
+            <div class="card-content score-card">
+                <h2 class="score-title">Score Card</h2>
+                <div class="scores-content">
+                    <h3>Player</h3>
+                    <div class="player-score">
+                        <p>Correct: ${this.score}</p>
+                        <p>Passed: ${this.passedAnswers}</p>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button onclick="game.returnToGame()" class="green-button">Back To Game</button>
+                    <button onclick="game.showEndCard()" class="red-button">End Game</button>
+                </div>
+            </div>
+        `;
+
+        // Disable all navigation controls
+        this.disableNavigation = true;
+    }
+
+    returnToGame() {
+        this.disableNavigation = false;
+        this.showCurrentCard();
+    }
+
+    getWinnerText() {
+        const maxScore = Math.max(...this.playerScores.map(score => score.correct));
+        const winners = this.playerScores
+            .map((score, index) => ({ player: index + 1, score: score.correct }))
+            .filter(player => player.score === maxScore);
+
+        if (winners.length === 1) {
+            return `Winner! Player ${winners[0].player}`;
+        } else {
+            const winnerText = winners
+                .map(w => `Player ${w.player}`)
+                .join(winners.length > 2 ? ', ' : ' and ');
+            if (winners.length > 2) {
+                const lastComma = winnerText.lastIndexOf(',');
+                return `Winners! ${winnerText.substring(0, lastComma)} and${winnerText.substring(lastComma + 1)}`;
+            }
+            return `Winners! ${winnerText}`;
         }
     }
 
@@ -412,28 +711,50 @@ class DoubleActGame {
         console.log('Showing end card...');
         const card = document.getElementById('currentCard');
         const front = card.querySelector('.front');
-        front.className = 'front end-card';
-        front.innerHTML = `
-            <div class="card-content">
-                <div class="title-container">
-                    <div>
-                        <h1 class="title">No more cards left</h1>
-                        <p>Thank you for playing</p>
-                        <h2>Double Act</h2>
-                        <div style="margin-top: 30px;">
-                            <p>Correct Answers: ${this.correctAnswers}</p>
-                            <p>Answers Passed: ${this.passedAnswers}</p>
-                            <p>Final Score: ${this.score}/${this.cards.length * 10}</p>
-                        </div>
-                    </div>
+        front.className = 'front start-card';
+
+        if (this.isMultiplayer) {
+            console.log('Number of players:', this.numberOfPlayers);
+            console.log('Player scores:', this.playerScores);
+            
+            const scores = this.playerScores.map((score, index) => `
+                <div class="player-score">
+                    <h3>Player ${index + 1}</h3>
+                    <p>Correct: ${score.correct}</p>
+                    <p>Passed: ${score.passed}</p>
                 </div>
-                <div class="bottom-content">
+            `).join('');
+
+            front.innerHTML = `
+                <div class="card-content end-card">
+                    <h2>Game Over</h2>
+                    <div class="score-grid ${this.numberOfPlayers === 2 ? 'players-2' : ''}">
+                        ${scores}
+                    </div>
+                    <div class="winner-text">${this.getWinnerText()}</div>
+                    <p class="thank-you">Thank you for playing!</p>
                     <div class="button-container">
-                        <button class="start-button" onclick="game.showStartCard()">Play Again</button>
+                        <button onclick="game.showStartCard()" class="green-button" style="width: fit-content">Start New Game</button>
                     </div>
                 </div>
-            </div>
-        `;
+            `;
+        } else {
+            // Single player end card remains unchanged
+            front.innerHTML = `
+                <div class="card-content end-card">
+                    <h2>Game Over</h2>
+                    <div class="single-player-end-score">
+                        <p>Correct: ${this.score}</p>
+                        <p>Passed: ${this.passedAnswers}</p>
+                    </div>
+                    <p class="thank-you">Thank you for playing!</p>
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
+                    <div class="button-container">
+                        <button onclick="game.showStartCard()" class="green-button" style="width: fit-content">Start New Game</button>
+                    </div>
+                </div>
+            `;
+        }
     }
 }
 
