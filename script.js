@@ -4,21 +4,6 @@ import { cardDataType3 } from './carddatatype3.js';
 import { cardDataType4 } from './carddatatype4.js';
 import { cardDataType5 } from './carddatatype5.js';
 
-// Debug logging for imported data
-console.log('cardDataType1:', cardDataType1);
-console.log('cardDataType2:', cardDataType2);
-console.log('cardDataType3:', cardDataType3);
-console.log('cardDataType4:', cardDataType4);
-console.log('cardDataType5:', cardDataType5);
-
-console.log('Imported card types:', {
-    type1: cardDataType1.length,
-    type2: cardDataType2.length,
-    type3: cardDataType3.length,
-    type4: cardDataType4.length,
-    type5: cardDataType5.length
-});
-
 const cardData = [
     ...cardDataType1,
     ...cardDataType2,
@@ -27,14 +12,14 @@ const cardData = [
     ...cardDataType5
 ];
 
+// Debug logging for imported data
 console.log('Total cards:', cardData.length);
 
 class DoubleActGame {
     constructor() {
         console.log('Initializing game...');
         // Initialize cards without duplicates
-        const allCards = [...new Set([...cardData, ...cardDataType2, ...cardDataType3, ...cardDataType4, ...cardDataType5])];
-        this.cards = allCards;
+        this.cards = [...new Set(cardData)];
         this.currentCardIndex = -1;
         this.score = 0;
         this.passedAnswers = 0;
@@ -65,13 +50,7 @@ class DoubleActGame {
         document.addEventListener('keyup', (e) => {
             console.log('Key pressed:', e.key);
             
-            // If navigation is disabled (during score card), ignore all inputs
             if (this.disableNavigation) {
-                return;
-            }
-
-            // Don't allow controls on start screen or mode selection
-            if (this.isStartScreen() || this.isModeSelection()) {
                 return;
             }
 
@@ -79,16 +58,20 @@ class DoubleActGame {
             const isShowingAnswer = card.classList.contains('flipped');
             const isShowingRules = card.classList.contains('rules-flipped');
 
-            // Handle player selection screen separately
+            // Handle player selection screen
             if (this.isPlayerSelection()) {
-                if (e.key === 'ArrowRight') {
+                if (e.key === 'ArrowLeft' || e.key === 'Escape') {
                     this.showModeSelection();
+                    return;
                 }
+            }
+
+            // Don't allow controls on start screen or mode selection
+            if (this.isStartScreen() || this.isModeSelection()) {
                 return;
             }
 
             if (isShowingAnswer) {
-                // Only allow up arrow to toggle back when showing answer
                 if (e.key === 'ArrowUp') {
                     this.toggleAnswer();
                 }
@@ -96,7 +79,6 @@ class DoubleActGame {
             }
 
             if (isShowingRules) {
-                // Only allow down arrow to exit rules
                 if (e.key === 'ArrowDown') {
                     this.exitRules();
                 }
@@ -114,9 +96,16 @@ class DoubleActGame {
         hammer.on('swipe', (e) => {
             console.log('Swipe detected:', e.type);
             
-            // If navigation is disabled (during score card), ignore all inputs
             if (this.disableNavigation) {
                 return;
+            }
+
+            // Handle player selection screen
+            if (this.isPlayerSelection()) {
+                if (e.direction === Hammer.DIRECTION_LEFT || e.direction === Hammer.DIRECTION_RIGHT) {
+                    this.showModeSelection();
+                    return;
+                }
             }
 
             // Don't allow controls on start screen or mode selection
@@ -124,19 +113,10 @@ class DoubleActGame {
                 return;
             }
 
-            // Handle player selection screen separately
-            if (this.isPlayerSelection()) {
-                if (e.direction === Hammer.DIRECTION_RIGHT) {
-                    this.showModeSelection();
-                }
-                return;
-            }
-
             const isShowingAnswer = card.classList.contains('flipped');
             const isShowingRules = card.classList.contains('rules-flipped');
 
             if (isShowingAnswer) {
-                // Only allow up swipe to toggle back when showing answer
                 if (e.direction === Hammer.DIRECTION_UP) {
                     this.toggleAnswer();
                 }
@@ -144,7 +124,6 @@ class DoubleActGame {
             }
 
             if (isShowingRules) {
-                // Only allow swipe down to exit rules
                 if (e.direction === Hammer.DIRECTION_DOWN) {
                     this.exitRules();
                 }
@@ -191,7 +170,9 @@ class DoubleActGame {
                 this.toggleAnswer();
                 break;
             case 'ArrowLeft':
-                if (document.querySelector('.front').classList.contains('start-card')) {
+                if (this.isPlayerSelection()) {
+                    this.showModeSelection();
+                } else if (document.querySelector('.front').classList.contains('start-card')) {
                     this.showModeSelection();
                 } else {
                     this.previousCard();
@@ -231,8 +212,8 @@ class DoubleActGame {
                 <div class="logo-container">
                     <img src="images/doubleactlogo.png" alt="Double Act" class="logo-large">
                 </div>
-                <div class="button-container">
-                    <button onclick="game.showModeSelection()" class="green-button">Next</button>
+                <div class="card-footer">
+                    <button onclick="game.showModeSelection()" class="footer-button">Next</button>
                 </div>
             </div>
         `;
@@ -246,13 +227,11 @@ class DoubleActGame {
         front.innerHTML = `
             <div class="card-content">
                 <div class="logo-container">
-                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
                 </div>
-                <div class="main-content">
-                    <div class="mode-selection-container">
-                        <button onclick="game.startSinglePlayer()" class="green-button">Single Player</button>
-                        <button onclick="game.showPlayerSelection()" class="green-button">Multiplayer</button>
-                    </div>
+                <div class="mode-selection-container">
+                    <button onclick="game.startSinglePlayer()" class="footer-button">Single Player</button>
+                    <button onclick="game.showPlayerSelection()" class="footer-button">Multiplayer</button>
                 </div>
             </div>
         `;
@@ -272,22 +251,12 @@ class DoubleActGame {
                 </div>
                 <div class="number-selection">
                     <h2>Number of Players</h2>
-                    <div class="number-grid">
-                        <div class="number-row">
-                            <button class="number-button" onclick="game.selectPlayerCount(2); game.startGame()">2</button>
-                            <button class="number-button" onclick="game.selectPlayerCount(3); game.startGame()">3</button>
-                            <button class="number-button" onclick="game.selectPlayerCount(4); game.startGame()">4</button>
-                        </div>
-                        <div class="number-row">
-                            <button class="number-button" onclick="game.selectPlayerCount(5); game.startGame()">5</button>
-                            <button class="number-button" onclick="game.selectPlayerCount(6); game.startGame()">6</button>
-                            <button class="number-button" onclick="game.selectPlayerCount(7); game.startGame()">7</button>
-                        </div>
-                        <div class="number-row">
-                            <button class="number-button" onclick="game.selectPlayerCount(8); game.startGame()">8</button>
-                            <button class="number-button" onclick="game.selectPlayerCount(9); game.startGame()">9</button>
-                            <button class="number-button" onclick="game.selectPlayerCount(10); game.startGame()">10</button>
-                        </div>
+                    <div class="player-grid">
+                        ${[2,3,4,5,6,7,8,9,10].map(num => `
+                            <div class="player-grid-item" onclick="game.selectPlayerCount(${num}); game.startGame()">
+                                ${num}
+                            </div>
+                        `).join('')}
                     </div>
                 </div>
             </div>
@@ -371,7 +340,7 @@ class DoubleActGame {
 
         const headerContent = this.isMultiplayer ? 
             `<div class="card-info">Player ${this.currentPlayer}'s Turn</div>
-             <div class="score" onclick="game.showScoreCard()">Scores</div>` :
+             <div class="score" onclick="game.showMultiPlayerScore()">Scores</div>` :
             `<div class="card-info">${this.currentCardIndex + 1}/${this.cards.length}</div>
              <div class="score" onclick="game.showSinglePlayerScore()">Score: ${this.score}</div>`;
 
@@ -380,21 +349,25 @@ class DoubleActGame {
                 <div class="card-header">
                     ${headerContent}
                 </div>
-                <div class="main-content">
-                <br>
-                </br>
-                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small">
-                    <div class="clue-text">
-                        ${currentCard.actors[0]}
-                        <div style="margin: 10px 0;">&</div>
-                        ${currentCard.actors[1]}
+                <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; width: 100%;">
+                    <div class="logo-container" style="margin-top: 40px;">
+                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
                     </div>
-                    <div class="type-icons">
-                        ${typeImages}
+                    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <div class="clue-text">
+                            ${currentCard.actors[0]}
+                            <div style="margin: 10px 0;">&</div>
+                            ${currentCard.actors[1]}
+                        </div>
                     </div>
-                </div>
-                <div class="button-container">
-                    <button class="pass-button" onclick="game.passCard()">Pass</button>
+                    <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+                        <div class="type-icons">
+                            ${typeImages}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="footer-button pass" onclick="game.passCard()">Pass</button>
+                    </div>
                 </div>
                 ${this.isMultiplayer ? `
                 <div class="card-counter">
@@ -406,18 +379,25 @@ class DoubleActGame {
         const back = card.querySelector('.back');
         back.innerHTML = `
             <div class="card-content">
-                <div class="title-container">
-                    <div>
-                        <div class="character">${currentCard.character}</div>
-                        <div class="movies">
-                            ${currentCard.movies[0]}
-                            <div style="margin: 10px 0;">&</div>
-                            ${currentCard.movies[1]}
+                <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; width: 100%;">
+                    <div class="logo-container" style="margin-top: 40px;">
+                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <div class="title-container">
+                            <div>
+                                <div class="character">${currentCard.character}</div>
+                                <div class="movies">
+                                    ${currentCard.movies[0]}
+                                    <div style="margin: 10px 0;">&</div>
+                                    ${currentCard.movies[1]}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="button-container">
-                    <button class="correct-button" onclick="game.correctAnswer()">Correct</button>
+                    <div class="card-footer">
+                        <button class="footer-button correct" onclick="game.correctAnswer()">Correct</button>
+                    </div>
                 </div>
             </div>
         `;
@@ -454,42 +434,57 @@ class DoubleActGame {
         backElement.innerHTML = `
             <div class="card-content">
                 <div class="main-content">
-                    <h1 style="font-size: 1.5em; margin: 10px 0; text-align: center;">Rules</h1>
-                    
-                    <div style="color: #6bacfe; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1em; margin-bottom: 0px;">Blue Cards</div>
-                        <div style="margin-bottom: 0px; font-size: 0.8em;">Actors who have played the same character in movies</div>
-                        <img src="images/type1.png" style="width: 25px; height: 25px;" alt="Movie to Movie">
-                    </div>
-
-                    <div style="color: #fe88b1; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1em; margin-bottom: 0px;">Pink Cards</div>
-                        <div style="margin-bottom: 0px; font-size: 0.8em;">Actors who have played the same character in movies and TV</div>
-                        <div style="display: flex; justify-content: center; gap: 3px;">
-                            <img src="images/type1.png" style="width: 25px; height: 25px;" alt="Movie">
-                            <img src="images/type3.png" style="width: 25px; height: 25px;" alt="TV">
+                    <div style="display: flex; flex-direction: column; width: 100%;">
+                        <div class="logo-container" style="margin-top: 40px;">
+                            <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
                         </div>
-                    </div>
+                        <h1 style="font-size: 1.5em; text-align: center; margin: 10px 0;">Rules</h1>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 5px; align-items: center; margin-top: 20px;">
+                            <div style="color: #6bacfe; text-align: center; line-height: 1.2;">
+                                <div style="font-size: 1em;">Blue Cards</div>
+                                <div style="font-size: 0.8em;">Actors who have played the same character in movies</div>
+                                <img src="images/type1.png" style="width: 25px; height: 25px;" alt="Movie to Movie">
+                            </div>
 
-                    <div style="color: #dcb0f2; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1em; margin-bottom: 0px;">Purple Cards</div>
-                        <div style="margin-bottom: 0px; font-size: 0.8em;">Actors who have played the same character in TV shows</div>
-                        <div style="display: flex; justify-content: center; gap: 3px;">
-                            <img src="images/type3.png" style="width: 25px; height: 25px;" alt="TV">
-                            <img src="images/type3.png" style="width: 25px; height: 25px;" alt="TV">
+                            <b></b>
+
+                            <div style="color: #fe88b1; text-align: center; line-height: 1.2;">
+                                <div style="font-size: 1em;">Pink Cards</div>
+                                <div style="font-size: 0.8em;">Actors who have played the same character in movies and TV</div>
+                                <div style="display: flex; justify-content: center; gap: 3px;">
+                                    <img src="images/type1.png" style="width: 25px; height: 25px;" alt="Movie">
+                                    <img src="images/type3.png" style="width: 25px; height: 25px;" alt="TV">
+                                </div>
+                            </div>
+
+                            <b></b>
+
+                            <div style="color: #dcb0f2; text-align: center; line-height: 1.2;">
+                                <div style="font-size: 1em;">Purple Cards</div>
+                                <div style="font-size: 0.8em;">Actors who have played the same character in TV shows</div>
+                                <div style="display: flex; justify-content: center; gap: 3px;">
+                                    <img src="images/type3.png" style="width: 25px; height: 25px;" alt="TV">
+                                    <img src="images/type3.png" style="width: 25px; height: 25px;" alt="TV">
+                                </div>
+                            </div>
+
+                            <b></b>
+
+                            <div style="color: #87c55f; text-align: center; line-height: 1.2;">
+                                <div style="font-size: 1em;">Green Cards</div>
+                                <div style="font-size: 0.8em;">Actors who have played the same real life figure</div>
+                                <img src="images/type4.png" style="width: 25px; height: 25px;" alt="Real Life Figure">
+                            </div>
+
+                            <b></b>
+
+                            <div style="color: #ff7061; text-align: center; line-height: 1.2;">
+                                <div style="font-size: 1em;">Red Cards</div>
+                                <div style="font-size: 0.8em;">Actors who have played the same comic book character</div>
+                                <img src="images/type5.png" style="width: 25px; height: 25px;" alt="Comic Book Characters">
+                            </div>
                         </div>
-                    </div>
-
-                    <div style="color: #87c55f; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1em; margin-bottom: 0px;">Green Cards</div>
-                        <div style="margin-bottom: 0px; font-size: 0.8em;">Actors who have played the same real life figure</div>
-                        <img src="images/type4.png" style="width: 25px; height: 25px;" alt="Real Life Figure">
-                    </div>
-
-                    <div style="color: #ff7061; margin: 8px 0; text-align: center;">
-                        <div style="font-size: 1em; margin-bottom: 0px;">Red Cards</div>
-                        <div style="margin-bottom: 0px; font-size: 0.8em;">Actors who have played the same comic book character</div>
-                        <img src="images/type5.png" style="width: 25px; height: 25px;" alt="Comic Book Characters">
                     </div>
                 </div>
             </div>
@@ -604,16 +599,80 @@ class DoubleActGame {
         }
     }
 
-    showScoreCard() {
-        console.log('Showing score card...');
+    showSinglePlayerScore() {
+        console.log('Showing single player score...');
         const card = document.getElementById('currentCard');
         const front = card.querySelector('.front');
         front.className = 'front start-card';
         
+        front.innerHTML = `
+            <div class="card-content">
+                <div class="logo-container">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small">
+                </div>
+                <h2 style="text-align: center; margin: 10px 0 20px;">Score Card</h2>
+                <div class="main-content">
+                    <div style="text-align: center;">
+                        <p><strong>Player 1</strong></p>
+                    </div>
+                    <div class="single-player-score">
+                        <p>Correct: ${this.score}</p>
+                        <p>Passed: ${this.passedAnswers}</p>
+                    </div>
+                </div>
+                <div class="score-buttons">
+                    <button onclick="game.showCurrentCard()" class="green-button">Back to Game</button>
+                    <button onclick="game.showEndCard()" class="red-button">End Game</button>
+                </div>
+            </div>
+        `;
+        
+        this.disableNavigation = true;
+    }
+
+    showMultiPlayerScore() {
+        console.log('Showing multiplayer score...');
+        const card = document.getElementById('currentCard');
+        const front = card.querySelector('.front');
+        front.className = 'front start-card';
+
+        const playerScores = this.playerScores.map((score, index) => `
+            <div class="player-score">
+                <h3>Player ${index + 1}</h3>
+                <p>Correct: ${score.correct}</p>
+                <p>Passed: ${score.passed}</p>
+            </div>
+        `).join('');
+
+        front.innerHTML = `
+            <div class="card-content">
+                <div class="logo-container">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small">
+                </div>
+                <h2 style="text-align: center; margin: 10px 0 20px;">Score Card</h2>
+                <div class="main-content">
+                    <div class="multiplayer-scores-grid">
+                        ${playerScores}
+                    </div>
+                </div>
+                <div class="score-buttons">
+                    <button onclick="game.showCurrentCard()" class="green-button">Back to Game</button>
+                    <button onclick="game.showEndCard()" class="red-button">End Game</button>
+                </div>
+            </div>
+        `;
+        
+        this.disableNavigation = true;
+    }
+
+    showEndCard() {
+        console.log('Showing end card...');
+        const card = document.getElementById('currentCard');
+        const front = card.querySelector('.front');
+        front.className = 'front start-card';
+
+        let content;
         if (this.isMultiplayer) {
-            console.log('Number of players:', this.numberOfPlayers);
-            console.log('Player scores:', this.playerScores);
-            
             const scores = this.playerScores.map((score, index) => `
                 <div class="player-score">
                     <h3>Player ${index + 1}</h3>
@@ -622,69 +681,50 @@ class DoubleActGame {
                 </div>
             `).join('');
 
-            front.innerHTML = `
-                <div class="card-content score-card">
-                    <h2 class="score-title">Score Card</h2>
-                    <div class="scores-content">
-                        <div class="score-grid ${this.numberOfPlayers === 2 ? 'players-2' : ''}">
-                            ${scores}
-                        </div>
+            content = `
+                <div class="end-card-header">
+                    <div class="logo-container">
+                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
                     </div>
-                    <div class="button-container">
-                        <button onclick="game.returnToGame()" class="green-button">Back To Game</button>
-                        <button onclick="game.showEndCard()" class="red-button">End Game</button>
+                </div>
+                <div style="margin-top: 40%;">
+                    <h2 style="text-align: center; margin: 20px 0;">Game Over!</h2>
+                    <div class="multiplayer-scores-grid">
+                        ${scores}
                     </div>
+                    <div style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #000;">Winner: ${this.getWinnerText()}</div>
                 </div>
             `;
         } else {
-            front.innerHTML = `
-                <div class="card-content score-card">
-                    <h2 class="score-title">Score Card</h2>
-                    <div class="scores-content">
-                        <div class="player-score">
-                            <p>Correct: ${this.score}</p>
-                            <p>Passed: ${this.passedAnswers}</p>
-                        </div>
+            content = `
+                <div class="end-card-header">
+                    <div class="logo-container">
+                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
                     </div>
-                    <div class="button-container">
-                        <button onclick="game.returnToGame()" class="green-button">Back To Game</button>
-                        <button onclick="game.showEndCard()" class="red-button">End Game</button>
-                    </div>
+                </div>
+                <h2 style="text-align: center; margin: 20px 0;">Game Over!</h2>
+                <div style="text-align: center;">
+                    <p><strong>Player 1</strong></p>
+                </div>
+                <div class="final-score">
+                    <p>Correct: ${this.score}</p>
+                    <p>Passed: ${this.passedAnswers}</p>
                 </div>
             `;
         }
-    }
 
-    showSinglePlayerScore() {
-        console.log('Showing single player score...');
-        const card = document.getElementById('currentCard');
-        const front = card.querySelector('.front');
-        front.className = 'front start-card';
-        
         front.innerHTML = `
-            <div class="card-content score-card">
-                <h2 class="score-title">Score Card</h2>
-                <div class="scores-content">
-                    <h3>Player</h3>
-                    <div class="player-score">
-                        <p>Correct: ${this.score}</p>
-                        <p>Passed: ${this.passedAnswers}</p>
-                    </div>
+            <div class="card-content">
+                <div class="main-content">
+                    ${content}
                 </div>
-                <div class="button-container">
-                    <button onclick="game.returnToGame()" class="green-button">Back To Game</button>
-                    <button onclick="game.showEndCard()" class="red-button">End Game</button>
+                <div class="card-footer">
+                    <button onclick="game.showStartCard()" class="footer-button">Start New Game</button>
                 </div>
             </div>
         `;
-
-        // Disable all navigation controls
+        
         this.disableNavigation = true;
-    }
-
-    returnToGame() {
-        this.disableNavigation = false;
-        this.showCurrentCard();
     }
 
     getWinnerText() {
@@ -694,67 +734,23 @@ class DoubleActGame {
             .filter(player => player.score === maxScore);
 
         if (winners.length === 1) {
-            return `Winner! Player ${winners[0].player}`;
+            return `Player ${winners[0].player}`;
         } else {
             const winnerText = winners
                 .map(w => `Player ${w.player}`)
                 .join(winners.length > 2 ? ', ' : ' and ');
             if (winners.length > 2) {
                 const lastComma = winnerText.lastIndexOf(',');
-                return `Winners! ${winnerText.substring(0, lastComma)} and${winnerText.substring(lastComma + 1)}`;
+                return `${winnerText.substring(0, lastComma)} and${winnerText.substring(lastComma + 1)}`;
             }
-            return `Winners! ${winnerText}`;
+            return winnerText;
         }
     }
 
-    showEndCard() {
-        console.log('Showing end card...');
-        const card = document.getElementById('currentCard');
-        const front = card.querySelector('.front');
-        front.className = 'front start-card';
-
-        if (this.isMultiplayer) {
-            console.log('Number of players:', this.numberOfPlayers);
-            console.log('Player scores:', this.playerScores);
-            
-            const scores = this.playerScores.map((score, index) => `
-                <div class="player-score">
-                    <h3>Player ${index + 1}</h3>
-                    <p>Correct: ${score.correct}</p>
-                    <p>Passed: ${score.passed}</p>
-                </div>
-            `).join('');
-
-            front.innerHTML = `
-                <div class="card-content end-card">
-                    <h2>Game Over</h2>
-                    <div class="score-grid ${this.numberOfPlayers === 2 ? 'players-2' : ''}">
-                        ${scores}
-                    </div>
-                    <div class="winner-text">${this.getWinnerText()}</div>
-                    <p class="thank-you">Thank you for playing!</p>
-                    <div class="button-container">
-                        <button onclick="game.showStartCard()" class="green-button" style="width: fit-content">Start New Game</button>
-                    </div>
-                </div>
-            `;
-        } else {
-            // Single player end card remains unchanged
-            front.innerHTML = `
-                <div class="card-content end-card">
-                    <h2>Game Over</h2>
-                    <div class="single-player-end-score">
-                        <p>Correct: ${this.score}</p>
-                        <p>Passed: ${this.passedAnswers}</p>
-                    </div>
-                    <p class="thank-you">Thank you for playing!</p>
-                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
-                    <div class="button-container">
-                        <button onclick="game.showStartCard()" class="green-button" style="width: fit-content">Start New Game</button>
-                    </div>
-                </div>
-            `;
-        }
+    returnToGame() {
+        console.log('Returning to game...');
+        this.disableNavigation = false;
+        this.showCurrentCard();
     }
 }
 
