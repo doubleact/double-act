@@ -19,7 +19,8 @@ class DoubleActGame {
     constructor() {
         console.log('Initializing game...');
         // Initialize cards without duplicates
-        this.cards = [...new Set(cardData)];
+        this.allCards = [...new Set(cardData)];
+        this.cards = this.allCards;
         this.currentCardIndex = -1;
         this.score = 0;
         this.passedAnswers = 0;
@@ -28,6 +29,7 @@ class DoubleActGame {
         this.currentPlayer = 1;
         this.playerScores = [];
         this.disableNavigation = false;
+        this.selectedTypes = new Set();
         
         console.log('Setting up event listeners...');
         this.setupEventListeners();
@@ -42,6 +44,41 @@ class DoubleActGame {
             const j = Math.floor(Math.random() * (i + 1));
             [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
         }
+    }
+
+    filterCardsByType() {
+        console.log('Filtering cards by types:', Array.from(this.selectedTypes));
+        console.log('Total cards before filtering:', this.allCards.length);
+        
+        if (this.selectedTypes.size === 0) {
+            // If no types are selected, use all cards
+            this.cards = this.allCards;
+        } else {
+            // Filter cards to include any that match any of the selected types
+            this.cards = this.allCards.filter(card => {
+                return this.selectedTypes.has(card.type.toString());
+            });
+        }
+        
+        console.log('Cards after filtering:', this.cards.length);
+        this.shuffleCards();
+    }
+
+    toggleTypeSelection(type) {
+        // Convert type to string for consistent comparison
+        const typeStr = type.toString();
+        
+        // Toggle the type in the set
+        if (this.selectedTypes.has(typeStr)) {
+            this.selectedTypes.delete(typeStr);
+        } else {
+            this.selectedTypes.add(typeStr);
+        }
+        
+        // Update the filtered cards immediately when types change
+        this.filterCardsByType();
+        
+        return this.selectedTypes.has(typeStr);
     }
 
     setupEventListeners() {
@@ -204,13 +241,24 @@ class DoubleActGame {
 
     showStartCard() {
         console.log('Showing start card...');
+        // Reset game state
+        this.selectedTypes.clear();
+        this.currentCardIndex = -1;
+        this.score = 0;
+        this.passedAnswers = 0;
+        this.isMultiplayer = false;
+        this.numberOfPlayers = 0;
+        this.currentPlayer = 1;
+        this.playerScores = [];
+        this.cards = this.allCards;
+
         const card = document.getElementById('currentCard');
         const front = card.querySelector('.front');
         front.className = 'front start-card';
         front.innerHTML = `
             <div class="card-content">
                 <div class="logo-container">
-                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-large">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-large-da">
                 </div>
                 <div class="card-footer">
                     <button onclick="game.showModeSelection()" class="footer-button">Next</button>
@@ -227,7 +275,24 @@ class DoubleActGame {
         front.innerHTML = `
             <div class="card-content">
                 <div class="logo-container">
-                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-large-da">
+                </div>
+                <div class="type-selection-container">
+                    <div class="type-option">
+                        <img src="images/type1msc.png" alt="Movie to Movie" class="type-icon" data-type="1" title="Movie to Movie (Blue Deck)">
+                    </div>
+                    <div class="type-option">
+                        <img src="images/type1+3.png" alt="Movie to TV" class="type-icon" data-type="2" title="Movie to TV (Pink Deck)">
+                    </div>
+                    <div class="type-option">
+                        <img src="images/type3+3.png" alt="TV to TV" class="type-icon" data-type="3" title="TV to TV (Purple Deck)">
+                    </div>
+                    <div class="type-option">
+                        <img src="images/type4msc.png" alt="Real Life" class="type-icon" data-type="4" title="Real Life (Green Deck)">
+                    </div>
+                    <div class="type-option">
+                        <img src="images/type5msc.png" alt="Comicbook Character" class="type-icon" data-type="5" title="Comicbook Character (Red Deck)">
+                    </div>
                 </div>
                 <div class="mode-selection-container">
                     <button onclick="game.startSinglePlayer()" class="footer-button">Single Player</button>
@@ -235,6 +300,23 @@ class DoubleActGame {
                 </div>
             </div>
         `;
+
+        // Add click handlers to type icons
+        const typeIcons = document.querySelectorAll('.type-icon');
+        typeIcons.forEach(icon => {
+            icon.addEventListener('click', () => {
+                const type = icon.getAttribute('data-type');
+                this.handleTypeSelection(type);
+            });
+        });
+    }
+
+    handleTypeSelection(type) {
+        const isSelected = this.toggleTypeSelection(type);
+        const icon = document.querySelector(`.type-icon[data-type="${type}"]`);
+        if (icon) {
+            icon.classList.toggle('selected', isSelected);
+        }
     }
 
     showPlayerSelection() {
@@ -242,18 +324,18 @@ class DoubleActGame {
         const card = document.getElementById('currentCard');
         const front = card.querySelector('.front');
         front.className = 'front start-card';
-        this.isMultiplayer = true;  // Set multiplayer mode immediately
+        this.isMultiplayer = true;
         
         front.innerHTML = `
             <div class="card-content">
                 <div class="logo-container">
-                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-large-da">
                 </div>
                 <div class="number-selection">
                     <h2>Number of Players</h2>
                     <div class="player-grid">
                         ${[2,3,4,5,6,7,8,9,10].map(num => `
-                            <div class="player-grid-item" onclick="game.selectPlayerCount(${num}); game.startGame()">
+                            <div class="player-number" data-players="${num}">
                                 ${num}
                             </div>
                         `).join('')}
@@ -261,6 +343,35 @@ class DoubleActGame {
                 </div>
             </div>
         `;
+
+        // Add click handlers to type icons
+        const typeIcons = front.querySelectorAll('.type-icon');
+        typeIcons.forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const type = parseInt(icon.dataset.type);
+                this.handleTypeSelection(type);
+            });
+        });
+
+        // Add click handlers to player numbers
+        const playerNumbers = front.querySelectorAll('.player-number');
+        playerNumbers.forEach(number => {
+            number.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const players = parseInt(number.dataset.players);
+                this.selectPlayerCount(players);
+                this.startGame();
+            });
+        });
+
+        // Restore selected types visual state
+        this.selectedTypes.forEach(type => {
+            const icon = front.querySelector(`.type-icon[data-type="${type}"]`);
+            if (icon) icon.classList.add('selected');
+        });
     }
 
     selectPlayerCount(count) {
@@ -270,18 +381,15 @@ class DoubleActGame {
     }
 
     startSinglePlayer() {
-        console.log('Starting single player game...');
+        console.log('Starting single player mode');
+        console.log('Selected types:', Array.from(this.selectedTypes));
         this.isMultiplayer = false;
-        this.score = 0;
-        this.passedAnswers = 0;
-        this.currentCardIndex = 0;
-        this.shuffleCards();
-        this.disableNavigation = false; // Enable navigation when starting game
-        this.showCurrentCard();
+        this.startGame();
     }
 
     startGame() {
         console.log('Starting game...');
+        console.log('Selected types before filtering:', Array.from(this.selectedTypes));
         this.currentCardIndex = 0;
         
         if (this.isMultiplayer) {
@@ -296,17 +404,22 @@ class DoubleActGame {
             this.passedAnswers = 0;
         }
         
-        this.shuffleCards();
-        this.disableNavigation = false; // Enable navigation when starting game
+        this.filterCardsByType();
+        console.log('Filtered cards count:', this.cards.length);
+        this.disableNavigation = false;
         this.showCurrentCard();
     }
 
     showCurrentCard() {
         console.log('Showing current card...');
+        console.log('Current card index:', this.currentCardIndex);
+        console.log('Total cards:', this.cards.length);
+        
         const card = document.getElementById('currentCard');
         card.classList.remove('flipped', 'rules-flipped');
         
         if (this.currentCardIndex >= this.cards.length) {
+            console.log('Reached end of cards, showing end card');
             this.showEndCard();
             return;
         }
@@ -315,6 +428,7 @@ class DoubleActGame {
         this.disableNavigation = false;
 
         const currentCard = this.cards[this.currentCardIndex];
+        console.log('Current card:', currentCard);
         const front = card.querySelector('.front');
         front.className = `front clue-type-${currentCard.type}`;
 
@@ -351,7 +465,7 @@ class DoubleActGame {
                 </div>
                 <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; width: 100%;">
                     <div class="logo-container" style="margin-top: 40px;">
-                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
+                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium-da">
                     </div>
                     <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                         <div class="clue-text">
@@ -381,7 +495,7 @@ class DoubleActGame {
             <div class="card-content">
                 <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; width: 100%;">
                     <div class="logo-container" style="margin-top: 40px;">
-                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
+                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium-da">
                     </div>
                     <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                         <div class="title-container">
@@ -436,7 +550,7 @@ class DoubleActGame {
                 <div class="main-content">
                     <div style="display: flex; flex-direction: column; width: 100%;">
                         <div class="logo-container" style="margin-top: 40px;">
-                            <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
+                            <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium-da">
                         </div>
                         <h1 style="font-size: 1.5em; text-align: center; margin: 10px 0;">Rules</h1>
                         
@@ -608,7 +722,7 @@ class DoubleActGame {
         front.innerHTML = `
             <div class="card-content">
                 <div class="logo-container">
-                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small-da">
                 </div>
                 <h2 style="text-align: center; margin: 10px 0 20px;">Score Card</h2>
                 <div class="main-content">
@@ -621,8 +735,8 @@ class DoubleActGame {
                     </div>
                 </div>
                 <div class="score-buttons">
-                    <button onclick="game.showCurrentCard()" class="green-button">Back to Game</button>
-                    <button onclick="game.showEndCard()" class="red-button">End Game</button>
+                    <button onclick="game.showCurrentCard()" class="footer-button">Back to Game</button>
+                    <button onclick="game.showEndCard()" class="footer-button red-button">End Game</button>
                 </div>
             </div>
         `;
@@ -647,7 +761,7 @@ class DoubleActGame {
         front.innerHTML = `
             <div class="card-content">
                 <div class="logo-container">
-                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small">
+                    <img src="images/doubleactlogo.png" alt="Double Act" class="logo-small-da">
                 </div>
                 <h2 style="text-align: center; margin: 10px 0 20px;">Score Card</h2>
                 <div class="main-content">
@@ -656,8 +770,8 @@ class DoubleActGame {
                     </div>
                 </div>
                 <div class="score-buttons">
-                    <button onclick="game.showCurrentCard()" class="green-button">Back to Game</button>
-                    <button onclick="game.showEndCard()" class="red-button">End Game</button>
+                    <button onclick="game.showCurrentCard()" class="footer-button">Back to Game</button>
+                    <button onclick="game.showEndCard()" class="footer-button red-button">End Game</button>
                 </div>
             </div>
         `;
@@ -684,10 +798,10 @@ class DoubleActGame {
             content = `
                 <div class="end-card-header">
                     <div class="logo-container">
-                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
+                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium-da">
                     </div>
                 </div>
-                <div style="margin-top: 40%;">
+                <div style="margin-top: 50%;">
                     <h2 style="text-align: center; margin: 20px 0;">Game Over!</h2>
                     <div class="multiplayer-scores-grid">
                         ${scores}
@@ -699,7 +813,7 @@ class DoubleActGame {
             content = `
                 <div class="end-card-header">
                     <div class="logo-container">
-                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium">
+                        <img src="images/doubleactlogo.png" alt="Double Act" class="logo-medium-da">
                     </div>
                 </div>
                 <h2 style="text-align: center; margin: 20px 0;">Game Over!</h2>
