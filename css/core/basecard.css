@@ -49,6 +49,52 @@ body {
     outline: none; /* Remove focus outline */
 }
 
+.card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background: url("/images/background/defaultbackground.png") center center/cover no-repeat;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.start-card {
+    background: url("/images/background/startcardbackground.png") center center/cover no-repeat !important;
+}
+
+.mode-selection-card {
+    background: url("/images/background/modeselectionbackground.png") center center/cover no-repeat !important;
+}
+
+.mode-help-card {
+    background: url("/images/background/modehelpbackground.png") center center/cover no-repeat !important;
+}
+
+.number-of-players-card {
+    background: url("/images/background/numberofplayersbackground.png") center center/cover no-repeat !important;
+}
+
+.type-selection-card {
+    background: url("/images/background/typeselectionbackground.png") center center/cover no-repeat !important;
+}
+
+.singleplayer-answer-card {
+    background: url("/images/background/answercardbackground.png") center center/cover no-repeat !important;
+}
+
+.multiplayer-answer-card {
+    background: url("/images/background/answercardbackground.png") center center/cover no-repeat !important;
+}
+
+.score-card {
+    background: url("/images/background/scorecardbackground.png") center center/cover no-repeat !important;
+}
+
 /* Ensure old cards are removed */
 .card.removing {
     opacity: 0;

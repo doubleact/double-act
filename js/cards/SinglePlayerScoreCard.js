@@ -23,9 +23,9 @@ export class SinglePlayerScoreCard extends BaseCard {
     init() {
         this.createCardStructure();
         
-        // Add score-card class to the card element
+        // Set background
         const cardElement = this.container.querySelector('.card');
-        cardElement.classList.add('singleplayer-score-card');
+        cardElement.classList.add('score-card');
         
         // Clear header
         this.updateHeader('', '');
