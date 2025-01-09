@@ -24,7 +24,7 @@ export class MultiplayerScoreCard extends BaseCard {
         
         // Add small logo to sub-header
         this.updateSubHeader(`
-            <img src="images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
+            <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
         `);
         
         // Add scores grid to body

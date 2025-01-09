@@ -16,39 +16,47 @@ export class SinglePlayerAnswerCard extends BaseCard {
         // Set background based on card type
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('singleplayer-answer-card');
-        cardElement.style.background = `url("images/background/answercardbackground.png") center center/cover no-repeat`;
+        cardElement.style.background = `url("./images/background/answercardbackground.png") center center/cover no-repeat`;
         
         // Clear header
         this.updateHeader('', '');
         
         // Add small logo to sub-header
         this.updateSubHeader(`
-            <img src="/images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
+            <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
         `);
         
         // Add answer content to body
-        this.updateBody(`
-            <div class="answer-container">
-                <div class="character-name">${this.cardData.character}</div>
-                <div class="movie-container">
-                    <div class="movie-name">${this.cardData.movies[0]}</div>
-                    <div class="ampersand">&</div>
-                    <div class="movie-name">${this.cardData.movies[1]}</div>
-                </div>
-            </div>
-        `);
-
-        // Add response buttons to sub-footer
+        const bodyContent = document.createElement('div');
+        bodyContent.className = 'answer-container';
+        
+        const characterName = document.createElement('div');
+        characterName.className = 'character-name';
+        characterName.textContent = this.cardData.character;
+        
+        const movieContainer = document.createElement('div');
+        movieContainer.className = 'movie-container';
+        
+        bodyContent.appendChild(characterName);
+        bodyContent.appendChild(movieContainer);
+        
+        this.updateBody(bodyContent.outerHTML);
+        
+        // Now update the movies list in the container
+        const movieContainerElement = this.container.querySelector('.movie-container');
+        this.updateMoviesList(this.cardData.movies, movieContainerElement);
+        
+        // Add buttons to sub-footer
         this.updateSubFooter(`
-            <div class="answer-buttons">
+            <div class="button-container">
                 <button class="correct-button">Correct</button>
                 <button class="wrong-button">Wrong</button>
             </div>
         `);
-
+        
         // Clear footer
         this.updateFooter('');
-
+        
         this.attachEventListeners();
         this.setupDynamicTextSizing();
     }
@@ -116,33 +124,38 @@ export class SinglePlayerAnswerCard extends BaseCard {
         });
     }
 
-    updateMoviesList(movies) {
-        const moviesContainer = this.container.querySelector('.movies-container');
-        if (!moviesContainer) return;
+    updateMoviesList(movies, container) {
+        if (!Array.isArray(movies) || movies.length === 0) return;
 
-        // Split movies into two groups at the middle
-        const midPoint = Math.ceil(movies.length / 2);
-        const firstGroup = movies.slice(0, midPoint);
-        const secondGroup = movies.slice(midPoint);
+        // Process Movie1 and Movie2 separately
+        const processMovieString = (movieStr) => {
+            if (!movieStr) return [];
+            return movieStr.split(',').map(m => m.trim()).filter(m => m.length > 0);
+        };
 
-        let moviesHTML = '';
+        const movie1List = processMovieString(movies[0]);
+        const movie2List = movies.length > 1 ? processMovieString(movies[1]) : [];
+
+        // Create the HTML structure
+        let html = '<div class="movie-group">';
         
-        // Add first group
-        firstGroup.forEach(movie => {
-            moviesHTML += `<div class="movie-title">${movie}</div>`;
+        // Add Movie1 list
+        movie1List.forEach(movie => {
+            html += `<div class="movie-name">${movie}</div>`;
         });
 
-        // Add ampersand if there are movies in both groups
-        if (secondGroup.length > 0) {
-            moviesHTML += `<div class="movie-ampersand">&</div>`;
+        // Add ampersand if there's a second movie list
+        if (movie2List.length > 0) {
+            html += '<div class="ampersand">&</div>';
         }
 
-        // Add second group
-        secondGroup.forEach(movie => {
-            moviesHTML += `<div class="movie-title">${movie}</div>`;
+        // Add Movie2 list
+        movie2List.forEach(movie => {
+            html += `<div class="movie-name">${movie}</div>`;
         });
 
-        moviesContainer.innerHTML = moviesHTML;
+        html += '</div>';
+        container.innerHTML = html;
     }
 
     goToNextCard() {

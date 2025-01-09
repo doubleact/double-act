@@ -17,7 +17,7 @@ export class MultiplayerClueCard extends BaseCard {
         // Add clue-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('multiplayer-clue-card');
-        cardElement.style.background = `url("/images/background/type${this.cardData.type}background.png") center center/cover no-repeat`;
+        cardElement.style.background = `url("./images/background/type${this.cardData.type}background.png") center center/cover no-repeat`;
         
         // Add player turn and score button to header
         this.updateHeader(

@@ -13,14 +13,14 @@ export class DynamicClueHelpCard extends BaseCard {
         // Add dynamic-clue-help-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('dynamic-clue-help-card');
-        cardElement.style.background = `url("/images/background/type${this.cardType}background.png") center center/cover no-repeat`;
+        cardElement.style.background = `url("./images/background/type${this.cardType}background.png") center center/cover no-repeat`;
         
         // Clear header
         this.updateHeader('', '');
         
         // Add logo to sub-header
         this.updateSubHeader(`
-            <img src="images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
+            <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
         `);
         
         // Add help content based on card type

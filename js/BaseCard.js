@@ -222,6 +222,45 @@ export class BaseCard {
         }
     }
 
+    formatMoviesList(movies) {
+        if (!Array.isArray(movies)) return [];
+        
+        // Process each movie string and split by commas
+        const allMovies = movies.reduce((acc, movie) => {
+            if (typeof movie === 'string') {
+                // Split by comma and clean up whitespace
+                const splitMovies = movie.split(',').map(m => m.trim());
+                // Filter out empty strings
+                const validMovies = splitMovies.filter(m => m.length > 0);
+                acc.push(...validMovies);
+            }
+            return acc;
+        }, []);
+
+        // Remove duplicates while preserving order
+        return [...new Set(allMovies)];
+    }
+
+    updateMoviesList(movies, container) {
+        const formattedMovies = this.formatMoviesList(movies);
+        
+        if (formattedMovies.length === 0) return;
+
+        // Create a container for vertical stacking
+        const movieListContainer = document.createElement('div');
+        movieListContainer.className = 'movie-list';
+        
+        formattedMovies.forEach(movie => {
+            const movieDiv = document.createElement('div');
+            movieDiv.className = 'movie-name';
+            movieDiv.textContent = movie;
+            movieListContainer.appendChild(movieDiv);
+        });
+
+        container.innerHTML = '';
+        container.appendChild(movieListContainer);
+    }
+
     cleanup() {
         // Clean up Hammer.js
         if (this.hammer) {

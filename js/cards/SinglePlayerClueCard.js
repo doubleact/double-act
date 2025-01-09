@@ -32,7 +32,7 @@ export class SinglePlayerClueCard extends BaseCard {
         // Add clue-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('singleplayer-clue-card');
-        cardElement.style.background = `url("/images/background/type${this.cardData.type}background.png") center center/cover no-repeat`;
+        cardElement.style.background = `url("./images/background/type${this.cardData.type}background.png") center center/cover no-repeat`;
         
         // Format score as 3-digit number with leading zeros
         const formattedScore = `Score: ${String(window.game.correctAnswers || 0).padStart(3, '0')}`;

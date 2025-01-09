@@ -15,38 +15,47 @@ export class MultiplayerAnswerCard extends BaseCard {
         // Add answer-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('multiplayer-answer-card');
+        cardElement.style.background = `url("./images/background/answercardbackground.png") center center/cover no-repeat`;
         
         // Empty header
         this.updateHeader('', '');
         
         // Add small logo to sub-header
         this.updateSubHeader(`
-            <img src="images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
+            <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
         `);
         
         // Add answer content to body
-        this.updateBody(`
-            <div class="answer-container">
-                <div class="character-name">${this.cardData.character}</div>
-                <div class="movie-container">
-                    <div class="movie-name">${this.cardData.movies[0]}</div>
-                    <div class="ampersand">&</div>
-                    <div class="movie-name">${this.cardData.movies[1]}</div>
-                </div>
-            </div>
-        `);
-
-        // Add correct/wrong buttons to sub-footer
+        const bodyContent = document.createElement('div');
+        bodyContent.className = 'answer-container';
+        
+        const characterName = document.createElement('div');
+        characterName.className = 'character-name';
+        characterName.textContent = this.cardData.character;
+        
+        const movieContainer = document.createElement('div');
+        movieContainer.className = 'movie-container';
+        
+        bodyContent.appendChild(characterName);
+        bodyContent.appendChild(movieContainer);
+        
+        this.updateBody(bodyContent.outerHTML);
+        
+        // Now update the movies list in the container
+        const movieContainerElement = this.container.querySelector('.movie-container');
+        this.updateMoviesList(this.cardData.movies, movieContainerElement);
+        
+        // Add buttons to sub-footer
         this.updateSubFooter(`
-            <div class="answer-buttons">
+            <div class="button-container">
                 <button class="correct-button">Correct</button>
                 <button class="wrong-button">Wrong</button>
             </div>
         `);
-
-        // Empty footer
+        
+        // Clear footer
         this.updateFooter('');
-
+        
         this.attachEventListeners();
     }
 
@@ -108,5 +117,39 @@ export class MultiplayerAnswerCard extends BaseCard {
                 null
             );
         });
+    }
+
+    updateMoviesList(movies, container) {
+        if (!Array.isArray(movies) || movies.length === 0) return;
+
+        // Process Movie1 and Movie2 separately
+        const processMovieString = (movieStr) => {
+            if (!movieStr) return [];
+            return movieStr.split(',').map(m => m.trim()).filter(m => m.length > 0);
+        };
+
+        const movie1List = processMovieString(movies[0]);
+        const movie2List = movies.length > 1 ? processMovieString(movies[1]) : [];
+
+        // Create the HTML structure
+        let html = '<div class="movie-group">';
+        
+        // Add Movie1 list
+        movie1List.forEach(movie => {
+            html += `<div class="movie-name">${movie}</div>`;
+        });
+
+        // Add ampersand if there's a second movie list
+        if (movie2List.length > 0) {
+            html += '<div class="ampersand">&</div>';
+        }
+
+        // Add Movie2 list
+        movie2List.forEach(movie => {
+            html += `<div class="movie-name">${movie}</div>`;
+        });
+
+        html += '</div>';
+        container.innerHTML = html;
     }
 }

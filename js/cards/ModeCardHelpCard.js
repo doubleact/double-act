@@ -19,7 +19,7 @@ export class ModeCardHelpCard extends BaseCard {
         
         // Add small logo to sub-header
         this.updateSubHeader(`
-            <img src="images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
+            <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
         `);
         
         // Add help content to body
@@ -29,29 +29,29 @@ export class ModeCardHelpCard extends BaseCard {
                     <h2>Deck Types</h2>
                     <div class="deck-types">
                         <div class="deck-type">
-                            <img src="images/type1.png" alt="Movie & Movie">
+                            <img src="./images/type1.png" alt="Movie & Movie">
                             <span>Movie & Movie</span>
                         </div>
                         <div class="deck-type">
                             <div class="type-icon-pair">
-                                <img src="images/type1.png" alt="Movie">
-                                <img src="images/type3.png" alt="TV">
+                                <img src="./images/type1.png" alt="Movie">
+                                <img src="./images/type3.png" alt="TV">
                             </div>
                             <span>Movie & TV</span>
                         </div>
                         <div class="deck-type">
                             <div class="type-icon-pair">
-                                <img src="images/type3.png" alt="TV">
-                                <img src="images/type3.png" alt="TV">
+                                <img src="./images/type3.png" alt="TV">
+                                <img src="./images/type3.png" alt="TV">
                             </div>
                             <span>TV & TV</span>
                         </div>
                         <div class="deck-type">
-                            <img src="images/type4.png" alt="Real Life">
+                            <img src="./images/type4.png" alt="Real Life">
                             <span>Real Life</span>
                         </div>
                         <div class="deck-type">
-                            <img src="images/type5.png" alt="Comicbook">
+                            <img src="./images/type5.png" alt="Comicbook">
                             <span>Comicbook</span>
                         </div>
                     </div>
