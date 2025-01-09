@@ -15,6 +15,7 @@ export class MultiplayerAnswerCard extends BaseCard {
         // Add answer-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('multiplayer-answer-card');
+        cardElement.style.background = `url("./images/background/answercardbackground.png") center center/cover no-repeat`;
         
         // Empty header
         this.updateHeader('', '');

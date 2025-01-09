@@ -16,6 +16,7 @@ export class SinglePlayerAnswerCard extends BaseCard {
         // Set background based on card type
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('singleplayer-answer-card');
+        cardElement.style.background = `url("./images/background/answercardbackground.png") center center/cover no-repeat`;
         
         // Clear header
         this.updateHeader('', '');
