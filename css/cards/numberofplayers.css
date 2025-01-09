@@ -1,0 +1,121 @@
+@import '../core/basecard.css';
+
+.number-of-players-card {
+    background: url('/images/background/startcardbackground.png') center/cover no-repeat !important;
+}
+
+.number-of-players-card .card {
+    background: transparent !important;
+}
+
+/* Logo */
+.number-of-players-card .logo-small {
+    max-width: 40%;
+    height: auto;
+}
+
+/* Body content */
+.number-of-players-card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.player-select-title {
+    font-size: 1.8em;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 20px;
+    margin: 10px;
+}
+
+/* Number grid */
+.number-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 20px;
+    width: 100%;
+    max-width: 291px;
+    margin: 0 auto;
+}
+
+.number-button {
+    aspect-ratio: 1;
+    font-size: 1.5em;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.number-button:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.number-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Back button */
+.number-of-players-card .back-button {
+    padding: 10px 15px;
+    font-size: clamp(0.8em, 2.5vw, 1.2em);
+    background: white;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.number-of-players-card .back-button:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.number-of-players-card .back-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .number-grid {
+        gap: 10px;
+        padding: 15px;
+        transform: scale(0.97); /* Reduce size by 3% */
+    }
+
+    .number-button {
+        font-size: 1.3em;
+    }
+
+    .number-of-players-card .back-button {
+        padding: 8px 12px;
+        font-size: clamp(0.7em, 2.2vw, 1em);
+        flex: 0 1 auto;
+        min-width: 100px;
+    }
+}

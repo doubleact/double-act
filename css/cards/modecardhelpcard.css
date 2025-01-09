@@ -1,0 +1,136 @@
+@import '../core/basecard.css';
+
+.mode-card-help {
+    background: url('../../images/background/startcardbackground.png') center center/cover no-repeat !important;
+}
+
+.help-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
+    text-align: center;
+}
+
+.help-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.help-section h2 {
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.help-section p {
+    color: #666;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    font-size: 0.85em;
+}
+
+.deck-types {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.deck-type {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #fff;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+}
+
+.deck-type img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.deck-type .type-icon-pair {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.deck-type span {
+    margin-left: 4px;
+}
+
+.back-button {
+    background: white;
+    border: 2px solid #333;
+    border-radius: 25px;
+    padding: 8px 16px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .help-content {
+        gap: 12px;
+        padding: 0 12px;
+    }
+
+    .help-section {
+        padding: 10px;
+    }
+
+    .help-section h2 {
+        font-size: 0.95em;
+    }
+
+    .help-section p {
+        font-size: 0.8em;
+        line-height: 1.2;
+    }
+
+    .deck-type {
+        font-size: 0.75em;
+    }
+}
+
+.back-button:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .help-content {
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .help-section h2 {
+        font-size: 0.95em;
+    }
+
+    .help-section p {
+        font-size: 0.8em;
+        line-height: 1.2;
+    }
+
+    .deck-type {
+        font-size: 0.75em;
+    }
+}

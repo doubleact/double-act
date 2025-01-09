@@ -3,21 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Double Act Beta</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Double Act</title>
+    <link rel="stylesheet" href="css/core/basecard.css">
+    <link rel="stylesheet" href="css/cards/start.css">
+    <link rel="stylesheet" href="css/cards/modeselection.css">
+    <link rel="stylesheet" href="css/cards/modecardhelpcard.css">
+    <link rel="stylesheet" href="css/cards/singleplayerclue.css">
+    <link rel="stylesheet" href="css/cards/singleplayeranswer.css">
+    <link rel="stylesheet" href="css/cards/singleplayerscore.css">
+    <link rel="stylesheet" href="css/cards/singleplayercluehelpcard.css">
+    <link rel="stylesheet" href="css/cards/numberofplayers.css">
+    <link rel="stylesheet" href="css/cards/multiplayerclue.css">
+    <link rel="stylesheet" href="css/cards/multiplayerscore.css">
+    <link rel="stylesheet" href="css/cards/multiplayeranswer.css">
+    <link rel="stylesheet" href="css/cards/dynamiccluehelp.css">
 </head>
 <body>
-    <div class="game-container">
-        <div id="currentCard" class="card">
-            <div class="front">
-                <!-- Front content will be dynamically inserted -->
-            </div>
-            <div class="back">
-                <!-- Back content will be dynamically inserted -->
-            </div>
-        </div>
-    </div>
+    <div id="game-container"></div>
+    
+    <!-- Load Hammer.js for touch controls -->
     <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
-    <script type="module" src="script.js"></script>
+    
+    <!-- Initialize game -->
+    <script type="module">
+        import { StartCard } from './js/cards/StartCard.js';
+        import './script.js';  // This creates window.game
+        
+        // Initialize with start card when everything is loaded
+        window.addEventListener('load', () => {
+            const container = document.getElementById('game-container');
+            new StartCard(container);
+            
+            // Show debug mode instructions
+            console.log('Press Ctrl+D to toggle debug mode');
+        });
+    </script>
 </body>
 </html>
