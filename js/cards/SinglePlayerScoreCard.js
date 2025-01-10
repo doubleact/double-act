@@ -26,6 +26,10 @@ export class SinglePlayerScoreCard extends BaseCard {
         // Add score-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('singleplayer-score-card');
+        cardElement.style.backgroundImage = `url("./images/background/startcardbackground.png")`;
+        cardElement.style.backgroundPosition = 'center center';
+        cardElement.style.backgroundSize = 'cover';
+        cardElement.style.backgroundRepeat = 'no-repeat';
         
         // Clear header
         this.updateHeader('', '');

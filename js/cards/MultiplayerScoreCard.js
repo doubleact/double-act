@@ -15,9 +15,13 @@ export class MultiplayerScoreCard extends BaseCard {
     init() {
         this.createCardStructure();
         
-        // Add multiplayer-score-card class to the card element
+        // Add score-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('multiplayer-score-card');
+        cardElement.style.backgroundImage = `url("./images/background/startcardbackground.png")`;
+        cardElement.style.backgroundPosition = 'center center';
+        cardElement.style.backgroundSize = 'cover';
+        cardElement.style.backgroundRepeat = 'no-repeat';
         
         // Clear header - no text
         this.updateHeader('', '');
