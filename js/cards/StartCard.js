@@ -26,7 +26,7 @@ export class StartCard extends BaseCard {
         
         // Add logo to body
         this.updateBody(`
-            <img src="./double-act/images/doubleactlogo.png" alt="Double Act Logo" class="double-act-logo">
+            <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="double-act-logo">
         `);
 
         // Add next button to sub-footer (row 4)

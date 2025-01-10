@@ -30,7 +30,7 @@ export class ModeSelectionCard extends BaseCard {
         this.updateBody(`
             <div class="type-options">
                 <div class="type-option" data-type="1">
-                    <img src="./double-act/images/type1.png" alt="Movie & Movie" class="type-icon">
+                    <img src="./images/type1.png" alt="Movie & Movie" class="type-icon">
                     <div class="type-info">
                         <h3>Movie & Movie</h3>
                         <p>Actors who have played the same character in different movies</p>
@@ -39,8 +39,8 @@ export class ModeSelectionCard extends BaseCard {
                 </div>
                 <div class="type-option" data-type="2">
                     <div class="type-icon-pair">
-                        <img src="./double-act/images/type1.png" alt="Movie" class="type-icon">
-                        <img src="./double-act/images/type3.png" alt="TV" class="type-icon">
+                        <img src="./images/type1.png" alt="Movie" class="type-icon">
+                        <img src="./images/type3.png" alt="TV" class="type-icon">
                     </div>
                     <div class="type-info">
                         <h3>Movie & TV</h3>
@@ -50,8 +50,8 @@ export class ModeSelectionCard extends BaseCard {
                 </div>
                 <div class="type-option" data-type="3">
                     <div class="type-icon-pair">
-                        <img src="./double-act/images/type3.png" alt="TV" class="type-icon">
-                        <img src="./double-act/images/type3.png" alt="TV" class="type-icon">
+                        <img src="./images/type3.png" alt="TV" class="type-icon">
+                        <img src="./images/type3.png" alt="TV" class="type-icon">
                     </div>
                     <div class="type-info">
                         <h3>TV & TV</h3>
@@ -60,7 +60,7 @@ export class ModeSelectionCard extends BaseCard {
                     <div class="type-toggle"></div>
                 </div>
                 <div class="type-option" data-type="4">
-                    <img src="./double-act/images/type4.png" alt="Real Life Characters" class="type-icon">
+                    <img src="./images/type4.png" alt="Real Life Characters" class="type-icon">
                     <div class="type-info">
                         <h3>Real Life Characters</h3>
                         <p>Actors who have played the same real life person</p>
@@ -68,7 +68,7 @@ export class ModeSelectionCard extends BaseCard {
                     <div class="type-toggle"></div>
                 </div>
                 <div class="type-option" data-type="5">
-                    <img src="./double-act/images/type5.png" alt="Comicbook Characters" class="type-icon">
+                    <img src="./images/type5.png" alt="Comicbook Characters" class="type-icon">
                     <div class="type-info">
                         <h3>Comicbook Characters</h3>
                         <p>Actors who have played the same character in comicbook characters</p>
