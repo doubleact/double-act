@@ -196,7 +196,7 @@
 }
 
 .type-info h3 {
-    font-size: clamp(0.8em, 2.2vw, 1em);
+    font-size: 20px;
     margin: 0 0 2px 0;
     color: #333;
 }

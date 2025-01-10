@@ -13,31 +13,39 @@ export class MultiplayerEndCard extends BaseCard {
         
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('multiplayer-end-card');
+        cardElement.style.backgroundImage = `url("./images/background/startcardbackground.png")`;
+        cardElement.style.backgroundPosition = 'center center';
+        cardElement.style.backgroundSize = 'cover';
+        cardElement.style.backgroundRepeat = 'no-repeat';
         
-        // Add title to header
-        this.updateHeader('Game Over!');
+        // Empty header
+        this.updateHeader('');
         
         // Add logo to sub-header
         this.updateSubHeader(`
             <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
         `);
         
-        // Add score grid to body
+        // Add score grid and winner text to body
         this.updateBody(`
-            <div class="score-grid">
-                ${this.createScoreBoxes()}
+            <div class="game-over-text">GAME OVER!</div>
+            <div class="scores-container">
+                <div class="scores-grid">
+                    ${this.createScoreBoxes()}
+                </div>
+            </div>
+            <div class="winner-text-container">
+                ${this.getWinnerText()}
             </div>
         `);
 
-        // Add play again button to sub-footer
+        // Add start new game button to sub-footer
         this.updateSubFooter(`
-            <button class="play-again-button">Play Again</button>
+            <button class="play-again-button">Start New Game</button>
         `);
         
-        // Add home button to footer
-        this.updateFooter(`
-            <button class="home-button">Home</button>
-        `);
+        // Empty footer
+        this.updateFooter('');
 
         this.attachEventListeners();
     }
@@ -48,53 +56,71 @@ export class MultiplayerEndCard extends BaseCard {
             return '<div class="error">Error: Game state is invalid</div>';
         }
 
-        let boxes = '';
+        let grid = '';
         for (let i = 0; i < this.numberOfPlayers; i++) {
             const correct = window.game.playerCorrectAnswers[i] || 0;
             const wrong = window.game.playerWrongAnswers[i] || 0;
-            const total = window.game.totalCards || 0;
-            const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
-
-            boxes += `
-                <div class="score-box">
-                    <div class="player-name">Player ${i + 1}</div>
-                    <div class="score-details">
-                        <div class="correct">Correct: ${correct}</div>
-                        <div class="wrong">Wrong: ${wrong}</div>
-                        <div class="percentage">Success Rate: ${percentage}%</div>
+            grid += `
+                <div class="score-item">
+                    <div class="player-label">Player ${i + 1}</div>
+                    <div class="player-score">
+                        <div>Correct: ${correct}</div>
+                        <div>Wrong: ${wrong}</div>
                     </div>
                 </div>
             `;
         }
-        return boxes;
+        return grid;
+    }
+
+    getWinnerText() {
+        // Find the highest score
+        const scores = [];
+        for (let i = 0; i < this.numberOfPlayers; i++) {
+            const correct = window.game.playerCorrectAnswers[i] || 0;
+            scores.push({ player: i + 1, score: correct });
+        }
+        
+        // Sort by score in descending order
+        scores.sort((a, b) => b.score - a.score);
+        
+        // Find all players with the highest score
+        const highestScore = scores[0].score;
+        const winners = scores.filter(s => s.score === highestScore);
+        
+        // Format the winner text
+        if (winners.length === 1) {
+            return `Winner! Player ${winners[0].player}`;
+        } else {
+            const winnerText = winners.map(w => `Player ${w.player}`).join(', ');
+            // Replace the last comma with "and"
+            const lastComma = winnerText.lastIndexOf(',');
+            if (lastComma !== -1) {
+                return `Winner! ${winnerText.substring(0, lastComma)} and${winnerText.substring(lastComma + 1)}`;
+            }
+            return `Winner! ${winnerText}`;
+        }
     }
 
     attachEventListeners() {
         // Play Again button
         const playAgainButton = this.container.querySelector('.play-again-button');
         if (playAgainButton) {
-            playAgainButton.addEventListener('click', async () => {
-                try {
-                    const module = await import('./NumberOfPlayersCard.js');
-                    new module.NumberOfPlayersCard(this.container);
-                } catch (error) {
-                    console.error('Failed to load NumberOfPlayersCard:', error);
-                    alert('Failed to start new game. Please refresh the page.');
-                }
-            });
-        }
-
-        // Home button
-        const homeButton = this.container.querySelector('.home-button');
-        if (homeButton) {
-            homeButton.addEventListener('click', async () => {
-                try {
-                    const module = await import('./StartCard.js');
+            playAgainButton.addEventListener('click', () => {
+                // Reset game state
+                window.game.currentCardIndex = 0;
+                window.game.score = 0;
+                window.game.correctAnswers = 0;
+                window.game.wrongAnswers = 0;
+                window.game.selectedTypes = new Set(); // Clear selected types
+                window.game.previousSelections = new Set(); // Clear previous selections
+                window.game.playerCorrectAnswers = [];
+                window.game.playerWrongAnswers = [];
+                
+                // Return to start card
+                import('./StartCard.js').then(module => {
                     new module.StartCard(this.container);
-                } catch (error) {
-                    console.error('Failed to load StartCard:', error);
-                    alert('Failed to return to home. Please refresh the page.');
-                }
+                });
             });
         }
     }

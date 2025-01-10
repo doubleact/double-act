@@ -26,7 +26,6 @@ export class ModeCardHelpCard extends BaseCard {
         this.updateBody(`
             <div class="help-content">
                 <div class="help-section">
-                    <h2 class="help-title game-modes-title">Game Modes</h2>
                     <div class="deck-types deck-types-small">
                         <div class="deck-type">
                             <img src="./images/type1.png" alt="Movie & Movie">
@@ -60,8 +59,8 @@ export class ModeCardHelpCard extends BaseCard {
                 </div>
 
                 <div class="help-section">
-                    <h2>Game Modes</h2>
-                    <p>Single Player: Score points by guessing which actors played the same character.</p>
+                    <h2>Game modes</h2>
+                    <p>Single player: Score points by guessing which actors played the same character.</p>
                     <p>Multiplayer: 2-10 players take turns guessing. Most points wins!</p>
                 </div>
             </div>

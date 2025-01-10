@@ -104,18 +104,13 @@ export class MultiplayerScoreCard extends BaseCard {
     }
 
     onEndGame() {
-        // Reset game state
-        window.game.currentCardIndex = 0;
-        window.game.currentPlayer = 1;
-        window.game.playerScores = [];
-        window.game.playerCorrectAnswers = [];
-        window.game.playerWrongAnswers = [];
-        window.game.selectedTypes = new Set(); // Clear selected types
-        window.game.previousSelections = new Set(); // Clear previous selections
-        
-        // Return to start card
-        import('./StartCard.js').then(module => {
-            new module.StartCard(this.container);
+        // Show final scores
+        import('./MultiplayerEndCard.js').then(module => {
+            new module.MultiplayerEndCard(
+                this.container,
+                window.game.playerCorrectAnswers,
+                this.numberOfPlayers
+            );
         });
     }
 
