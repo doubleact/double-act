@@ -15,7 +15,7 @@ export class MultiplayerAnswerCard extends BaseCard {
         // Add answer-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('multiplayer-answer-card');
-        cardElement.style.backgroundImage = `url("./double-act/images/background/answercardbackground.png")`;
+        cardElement.style.backgroundImage = `url("./images/background/answercardbackground.png")`;
         cardElement.style.backgroundPosition = 'center center';
         cardElement.style.backgroundSize = 'cover';
         cardElement.style.backgroundRepeat = 'no-repeat';
@@ -25,7 +25,7 @@ export class MultiplayerAnswerCard extends BaseCard {
         
         // Add small logo to sub-header
         this.updateSubHeader(`
-            <img src="./double-act/images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
+            <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
         `);
         
         // Add answer content to body

@@ -13,7 +13,7 @@ export class ModeSelectionCard extends BaseCard {
         // Add mode-selection-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('mode-selection-card');
-        cardElement.style.backgroundImage = `url("./double-act/images/background/startcardbackground.png")`;
+        cardElement.style.backgroundImage = `url("./images/background/startcardbackground.png")`;
         cardElement.style.backgroundPosition = 'center center';
         cardElement.style.backgroundSize = 'cover';
         cardElement.style.backgroundRepeat = 'no-repeat';
@@ -23,7 +23,7 @@ export class ModeSelectionCard extends BaseCard {
         
         // Add small logo to sub-header
         this.updateSubHeader(`
-            <img src="./double-act/images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
+            <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
         `);
         
         // Add type selection to body
