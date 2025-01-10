@@ -1,7 +1,7 @@
 @import '../core/basecard.css';
 
 .mode-selection-card {
-    background: url('/images/background/startcardbackground.png') center center/cover no-repeat !important;
+    background: url('../../images/background/startcardbackground.png') center center/cover no-repeat !important;
 }
 
 /* Logo sizes */

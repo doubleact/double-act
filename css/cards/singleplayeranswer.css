@@ -1,7 +1,7 @@
 @import '../core/basecard.css';
 
 .singleplayer-answer-card {
-    background: url('/images/background/answercardbackground.png') center center/cover no-repeat !important;
+    background: url('../../images/background/answercardbackground.png') center center/cover no-repeat !important;
 }
 
 /* Logo */

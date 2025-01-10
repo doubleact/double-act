@@ -26,8 +26,8 @@ export class ModeCardHelpCard extends BaseCard {
         this.updateBody(`
             <div class="help-content">
                 <div class="help-section">
-                    <h2>Deck Types</h2>
-                    <div class="deck-types">
+                    <h2 class="help-title game-modes-title">Game Modes</h2>
+                    <div class="deck-types deck-types-small">
                         <div class="deck-type">
                             <img src="./images/type1.png" alt="Movie & Movie">
                             <span>Movie & Movie</span>

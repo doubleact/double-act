@@ -1,7 +1,7 @@
 @import '../core/basecard.css';
 
 .number-of-players-card {
-    background: url('/images/background/startcardbackground.png') center/cover no-repeat !important;
+    background: url('../../images/background/startcardbackground.png') center/cover no-repeat !important;
 }
 
 .number-of-players-card .card {

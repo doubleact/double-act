@@ -1,7 +1,7 @@
 @import '../core/basecard.css';
 
 .multiplayer-score-card {
-    background: url('/images/background/startcardbackground.png') center/cover no-repeat !important;
+    background: url('../../images/background/startcardbackground.png') center/cover no-repeat !important;
 }
 
 .multiplayer-score-card .card {

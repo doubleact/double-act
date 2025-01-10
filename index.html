@@ -27,6 +27,7 @@
     <!-- Initialize game -->
     <script type="module">
         import { StartCard } from './js/cards/StartCard.js';
+        import { DebugMode } from './js/utils/DebugMode.js';
         import './script.js';  // This creates window.game
         
         // Initialize with start card when everything is loaded
@@ -34,8 +35,9 @@
             const container = document.getElementById('game-container');
             new StartCard(container);
             
-            // Show debug mode instructions
-            console.log('Press Ctrl+D to toggle debug mode');
+            // Initialize debug mode
+            DebugMode.initialize();
+            console.log('Press Ctrl+M to toggle debug mode');
         });
     </script>
 </body>

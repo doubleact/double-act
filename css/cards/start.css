@@ -2,7 +2,7 @@
 
 /* Start card specific styles */
 .start-card {
-    background: url('/images/background/startcardbackground.png') center center/cover no-repeat !important;
+    background: url('../../images/background/startcardbackground.png') center center/cover no-repeat !important;
 }
 
 .start-card .card-body {
