@@ -18,7 +18,7 @@ export class NumberOfPlayersCard extends BaseCard {
         
         // Add logo to sub-header
         this.updateSubHeader(`
-            <img src="./double-act/images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
+            <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
         `);
         
         // Add title and number grid to body
