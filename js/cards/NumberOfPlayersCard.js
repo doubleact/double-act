@@ -12,7 +12,7 @@ export class NumberOfPlayersCard extends BaseCard {
         // Add number-of-players-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('number-of-players-card');
-        cardElement.style.backgroundImage = `url("./images/background/startcardbackground.png")`;
+        cardElement.style.backgroundImage = `url("./double-act/images/background/startcardbackground.png")`;
         cardElement.style.backgroundPosition = 'center center';
         cardElement.style.backgroundSize = 'cover';
         cardElement.style.backgroundRepeat = 'no-repeat';
@@ -22,7 +22,7 @@ export class NumberOfPlayersCard extends BaseCard {
         
         // Add logo to sub-header
         this.updateSubHeader(`
-            <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
+            <img src="./double-act/images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
         `);
         
         // Add title and number grid to body

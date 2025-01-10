@@ -13,7 +13,7 @@ export class StartCard extends BaseCard {
         // Add start-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('start-card');
-        cardElement.style.backgroundImage = `url("./images/background/startcardbackground.png")`;
+        cardElement.style.backgroundImage = `url("./double-act/images/background/startcardbackground.png")`;
         cardElement.style.backgroundPosition = 'center center';
         cardElement.style.backgroundSize = 'cover';
         cardElement.style.backgroundRepeat = 'no-repeat';
@@ -26,7 +26,7 @@ export class StartCard extends BaseCard {
         
         // Add logo to body
         this.updateBody(`
-            <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="double-act-logo">
+            <img src="./double-act/images/doubleactlogo.png" alt="Double Act Logo" class="double-act-logo">
         `);
 
         // Add next button to sub-footer (row 4)

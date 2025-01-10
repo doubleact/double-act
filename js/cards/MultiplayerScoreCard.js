@@ -18,7 +18,7 @@ export class MultiplayerScoreCard extends BaseCard {
         // Add score-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('multiplayer-score-card');
-        cardElement.style.backgroundImage = `url("./images/background/startcardbackground.png")`;
+        cardElement.style.backgroundImage = `url("./double-act/images/background/startcardbackground.png")`;
         cardElement.style.backgroundPosition = 'center center';
         cardElement.style.backgroundSize = 'cover';
         cardElement.style.backgroundRepeat = 'no-repeat';
@@ -28,7 +28,7 @@ export class MultiplayerScoreCard extends BaseCard {
         
         // Add small logo to sub-header
         this.updateSubHeader(`
-            <img src="./images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
+            <img src="./double-act/images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
         `);
         
         // Add scores grid to body
