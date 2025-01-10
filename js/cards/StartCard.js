@@ -13,6 +13,10 @@ export class StartCard extends BaseCard {
         // Add start-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('start-card');
+        cardElement.style.backgroundImage = `url("./images/background/startcardbackground.png")`;
+        cardElement.style.backgroundPosition = 'center center';
+        cardElement.style.backgroundSize = 'cover';
+        cardElement.style.backgroundRepeat = 'no-repeat';
         
         // Clear header (no left/right content)
         this.updateHeader('', '');
