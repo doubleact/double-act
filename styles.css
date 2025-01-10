@@ -206,7 +206,7 @@ body {
     background-position: center;
 }
 
-.start-card, .front.start-card, .front.end-card {
+.start-card, .front.start-card, .front.end-card, .mode-selection-card, .number-of-players-card {
     background-color: #34495e;
     background-image: url('images/background/startcardbackground.png');
     background-size: cover;
@@ -216,14 +216,6 @@ body {
 .back {
     background-color: #c9db74;
     background-image: url('images/background/answercardbackground.png');
-    background-size: cover;
-    background-position: center;
-    transform: rotateY(180deg);
-}
-
-.back.rules {
-    background-color: #34495e;
-    background-image: url('images/background/rulescardbackground.png');
     background-size: cover;
     background-position: center;
     transform: rotateY(180deg);
@@ -438,10 +430,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.end-card-header .logo-container {
-    margin: 0;
 }
 
 .end-card h2 {
@@ -8738,3 +8726,1033 @@ body {
 }
 
 /* Footer button styles */
+.footer-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.2s ease;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.footer-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.footer-button.red-button {
+    background-color: #ff4444;
+}
+
+.footer-button.red-button:hover {
+    background-color: #ff6666;
+}
+
+@media screen and (max-width: 768px) {
+    .footer-button {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+}
+
+/* Player selection grid styles */
+.player-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.player-grid-item {
+    padding: 15px;
+    text-align: center;
+    background-color: #87c55f;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.player-grid-item:hover {
+    background-color: #6fa84d;
+    transform: scale(1.05);
+}
+
+.score-display, .scores-grid {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.player-score {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.card-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    margin-top: auto;
+}
+
+.footer-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 150px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.footer-button.back {
+    background-color: #4CAF50;
+}
+
+.footer-button.back:hover {
+    background-color: #45a049;
+}
+
+.footer-button.end {
+    background-color: #ff4444;
+}
+
+.footer-button.end:hover {
+    background-color: #cc0000;
+}
+
+.winner {
+    font-size: 1.5em;
+    margin: 20px 0;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.final-score {
+    font-size: 1.3em;
+    margin: 20px 0;
+}
+
+.score-card-header {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 5%;
+    margin-bottom: 20px;
+}
+
+.multiplayer-scores-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px 20px;
+    width: 100%;
+    justify-items: center;
+    text-align: center;
+}
+
+.multiplayer-scores-grid .player-score {
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.multiplayer-scores-grid .player-score h3 {
+    margin-bottom: 5px;
+    font-size: 1em;
+    white-space: nowrap;
+}
+
+.multiplayer-scores-grid .player-score p {
+    margin: 2px 0;
+}
+
+/* For the last row when there's an odd number of players */
+.multiplayer-scores-grid .player-score:last-child:nth-child(3n-1) {
+    grid-column: 2;
+}
+
+.multiplayer-scores-grid .player-score:last-child:nth-child(3n-2) {
+    grid-column: 2;
+}
+
+.single-player-score {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    margin: 10px auto;
+    max-width: 200px;
+}
+
+.single-player-score p {
+    margin: 5px 0;
+}
+
+.logo-small {
+    width: 100px;
+    height: auto;
+    margin-top: 20px;
+}
+
+@media screen and (min-width: 769px) {
+    .card {
+        height: 94vh;
+        max-height: 950px;
+        width: 100%;
+        max-width: 550px;
+    }
+}
+
+/* Player grid styles */
+.player-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px auto;
+    max-width: 300px;
+}
+
+.player-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    margin: auto;
+}
+
+.player-number:hover {
+    transform: scale(1.1);
+    background-color: #45a049;
+}
+
+/* Mode selection container */
+.mode-selection-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.mode-selection-container .footer-button {
+    min-width: 120px;
+}
+
+@media screen and (max-width: 768px) {
+    .player-grid {
+        gap: 10px;
+    }
+
+    .player-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2em;
+    }
+
+    .mode-selection-container {
+        gap: 15px;
+    }
+
+    .mode-selection-container .footer-button {
+        min-width: 100px;
+        font-size: 0.9em;
+    }
+}
+
+/* Score card styles */
+.score-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.score-buttons .footer-button {
+    min-width: 120px;
+}
+
+@media screen and (max-width: 768px) {
+    .score-buttons {
+        gap: 10px;
+        padding: 0 10px;
+    }
+
+    .score-buttons .footer-button {
+        min-width: 100px;
+        font-size: 0.9em;
+    }
+}
+
+/* Footer button styles */
+.footer-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.2s ease;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.footer-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.footer-button.red-button {
+    background-color: #ff4444;
+}
+
+.footer-button.red-button:hover {
+    background-color: #ff6666;
+}
+
+@media screen and (max-width: 768px) {
+    .footer-button {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+}
+
+/* Player selection grid styles */
+.player-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.player-grid-item {
+    padding: 15px;
+    text-align: center;
+    background-color: #87c55f;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.player-grid-item:hover {
+    background-color: #6fa84d;
+    transform: scale(1.05);
+}
+
+.score-display, .scores-grid {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.player-score {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.card-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    margin-top: auto;
+}
+
+.footer-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 150px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.footer-button.back {
+    background-color: #4CAF50;
+}
+
+.footer-button.back:hover {
+    background-color: #45a049;
+}
+
+.footer-button.end {
+    background-color: #ff4444;
+}
+
+.footer-button.end:hover {
+    background-color: #cc0000;
+}
+
+.winner {
+    font-size: 1.5em;
+    margin: 20px 0;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.final-score {
+    font-size: 1.3em;
+    margin: 20px 0;
+}
+
+.score-card-header {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 5%;
+    margin-bottom: 20px;
+}
+
+.multiplayer-scores-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px 20px;
+    width: 100%;
+    justify-items: center;
+    text-align: center;
+}
+
+.multiplayer-scores-grid .player-score {
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.multiplayer-scores-grid .player-score h3 {
+    margin-bottom: 5px;
+    font-size: 1em;
+    white-space: nowrap;
+}
+
+.multiplayer-scores-grid .player-score p {
+    margin: 2px 0;
+}
+
+/* For the last row when there's an odd number of players */
+.multiplayer-scores-grid .player-score:last-child:nth-child(3n-1) {
+    grid-column: 2;
+}
+
+.multiplayer-scores-grid .player-score:last-child:nth-child(3n-2) {
+    grid-column: 2;
+}
+
+.single-player-score {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    margin: 10px auto;
+    max-width: 200px;
+}
+
+.single-player-score p {
+    margin: 5px 0;
+}
+
+.logo-small {
+    width: 100px;
+    height: auto;
+    margin-top: 20px;
+}
+
+@media screen and (min-width: 769px) {
+    .card {
+        height: 94vh;
+        max-height: 950px;
+        width: 100%;
+        max-width: 550px;
+    }
+}
+
+/* Player grid styles */
+.player-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px auto;
+    max-width: 300px;
+}
+
+.player-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    margin: auto;
+}
+
+.player-number:hover {
+    transform: scale(1.1);
+    background-color: #45a049;
+}
+
+/* Mode selection container */
+.mode-selection-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.mode-selection-container .footer-button {
+    min-width: 120px;
+}
+
+@media screen and (max-width: 768px) {
+    .player-grid {
+        gap: 10px;
+    }
+
+    .player-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2em;
+    }
+
+    .mode-selection-container {
+        gap: 15px;
+    }
+
+    .mode-selection-container .footer-button {
+        min-width: 100px;
+        font-size: 0.9em;
+    }
+}
+
+/* Score card styles */
+.score-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.score-buttons .footer-button {
+    min-width: 120px;
+}
+
+@media screen and (max-width: 768px) {
+    .score-buttons {
+        gap: 10px;
+        padding: 0 10px;
+    }
+
+    .score-buttons .footer-button {
+        min-width: 100px;
+        font-size: 0.9em;
+    }
+}
+
+/* Footer button styles */
+.footer-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.2s ease;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.footer-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.footer-button.red-button {
+    background-color: #ff4444;
+}
+
+.footer-button.red-button:hover {
+    background-color: #ff6666;
+}
+
+@media screen and (max-width: 768px) {
+    .footer-button {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+}
+
+/* Player selection grid styles */
+.player-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.player-grid-item {
+    padding: 15px;
+    text-align: center;
+    background-color: #87c55f;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.player-grid-item:hover {
+    background-color: #6fa84d;
+    transform: scale(1.05);
+}
+
+.score-display, .scores-grid {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.player-score {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.card-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    margin-top: auto;
+}
+
+.footer-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 150px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.footer-button.back {
+    background-color: #4CAF50;
+}
+
+.footer-button.back:hover {
+    background-color: #45a049;
+}
+
+.footer-button.end {
+    background-color: #ff4444;
+}
+
+.footer-button.end:hover {
+    background-color: #cc0000;
+}
+
+.winner {
+    font-size: 1.5em;
+    margin: 20px 0;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.final-score {
+    font-size: 1.3em;
+    margin: 20px 0;
+}
+
+.score-card-header {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 5%;
+    margin-bottom: 20px;
+}
+
+.multiplayer-scores-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px 20px;
+    width: 100%;
+    justify-items: center;
+    text-align: center;
+}
+
+.multiplayer-scores-grid .player-score {
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.multiplayer-scores-grid .player-score h3 {
+    margin-bottom: 5px;
+    font-size: 1em;
+    white-space: nowrap;
+}
+
+.multiplayer-scores-grid .player-score p {
+    margin: 2px 0;
+}
+
+/* For the last row when there's an odd number of players */
+.multiplayer-scores-grid .player-score:last-child:nth-child(3n-1) {
+    grid-column: 2;
+}
+
+.multiplayer-scores-grid .player-score:last-child:nth-child(3n-2) {
+    grid-column: 2;
+}
+
+.single-player-score {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    margin: 10px auto;
+    max-width: 200px;
+}
+
+.single-player-score p {
+    margin: 5px 0;
+}
+
+.logo-small {
+    width: 100px;
+    height: auto;
+    margin-top: 20px;
+}
+
+@media screen and (min-width: 769px) {
+    .card {
+        height: 94vh;
+        max-height: 950px;
+        width: 100%;
+        max-width: 550px;
+    }
+}
+
+/* Player grid styles */
+.player-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px auto;
+    max-width: 300px;
+}
+
+.player-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    margin: auto;
+}
+
+.player-number:hover {
+    transform: scale(1.1);
+    background-color: #45a049;
+}
+
+/* Mode selection container */
+.mode-selection-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.mode-selection-container .footer-button {
+    min-width: 120px;
+}
+
+@media screen and (max-width: 768px) {
+    .player-grid {
+        gap: 10px;
+    }
+
+    .player-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2em;
+    }
+
+    .mode-selection-container {
+        gap: 15px;
+    }
+
+    .mode-selection-container .footer-button {
+        min-width: 100px;
+        font-size: 0.9em;
+    }
+}
+
+/* Score card styles */
+.score-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.score-buttons .footer-button {
+    min-width: 120px;
+}
+
+@media screen and (max-width: 768px) {
+    .score-buttons {
+        gap: 10px;
+        padding: 0 10px;
+    }
+
+    .score-buttons .footer-button {
+        min-width: 100px;
+        font-size: 0.9em;
+    }
+}
+
+/* Footer button styles */
+.footer-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.2s ease;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.footer-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.footer-button.red-button {
+    background-color: #ff4444;
+}
+
+.footer-button.red-button:hover {
+    background-color: #ff6666;
+}
+
+@media screen and (max-width: 768px) {
+    .footer-button {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+}
+
+/* Player selection grid styles */
+.player-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.player-grid-item {
+    padding: 15px;
+    text-align: center;
+    background-color: #87c55f;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.player-grid-item:hover {
+    background-color: #6fa84d;
+    transform: scale(1.05);
+}
+
+.score-display, .scores-grid {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.player-score {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.card-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    margin-top: auto;
+}
+
+.footer-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 150px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.footer-button.back {
+    background-color: #4CAF50;
+}
+
+.footer-button.back:hover {
+    background-color: #45a049;
+}
+
+.footer-button.end {
+    background-color: #ff4444;
+}
+
+.footer-button.end:hover {
+    background-color: #cc0000;
+}
+
+.winner {
+    font-size: 1.5em;
+    margin: 20px 0;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.final-score {
+    font-size: 1.3em;
+    margin: 20px 0;
+}
+
+.score-card-header {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 5%;
+    margin-bottom: 20px;
+}
+
+.multiplayer-scores-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px 20px;
+    width: 100%;
+    justify-items: center;
+    text-align: center;
+}
+
+.multiplayer-scores-grid .player-score {
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.multiplayer-scores-grid .player-score h3 {
+    margin-bottom: 5px;
+    font-size: 1em;
+    white-space: nowrap;
+}
+
+.multiplayer-scores-grid .player-score p {
+    margin: 2px 0;
+}
+
+/* For the last row when there's an odd number of players */
+.multiplayer-scores-grid .player-score:last-child:nth-child(3n-1) {
+    grid-column: 2;
+}
+
+.multiplayer-scores-grid .player-score:last-child:nth-child(3n-2) {
+    grid-column: 2;
+}
+
+.single-player-score {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    margin: 10px auto;
+    max-width: 200px;
+}
+
+.single-player-score p {
+    margin: 5px 0;
+}
+
+.logo-small {
+    width: 100px;
+    height: auto;
+    margin-top: 20px;
+}

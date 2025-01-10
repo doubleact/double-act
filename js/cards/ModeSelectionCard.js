@@ -13,10 +13,6 @@ export class ModeSelectionCard extends BaseCard {
         // Add mode-selection-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('mode-selection-card');
-        cardElement.style.backgroundImage = `url("./images/background/startcardbackground.png")`;
-        cardElement.style.backgroundPosition = 'center center';
-        cardElement.style.backgroundSize = 'cover';
-        cardElement.style.backgroundRepeat = 'no-repeat';
         
         // Clear header
         this.updateHeader('', '');
