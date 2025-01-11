@@ -55,15 +55,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 15px;
     text-align: center;
     background: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 20px;
     border: 2px solid #333;
-    width: 90%;
-    max-width: 400px;
+    width: calc(100% - 0px);
+    max-width: none;
     overflow: hidden;
+    margin: 0 0px;
+    height: 300px;
 }
 
 .singleplayer-clue-card .actor-name {
@@ -105,6 +108,8 @@
 .singleplayer-clue-card .help-button {
     width: 30px;
     height: 30px;
+    min-width: 30px;
+    min-height: 30px;
     border-radius: 50%;
     border: 2px solid #333;
     background: white;
@@ -117,6 +122,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     margin-left: auto;
+    padding: 0;
 }
 
 /* Button styles */
@@ -130,7 +136,8 @@
 @media (max-width: 480px) {
     .singleplayer-clue-card .actors-container {
         padding: 15px 10px;
-        width: 95%;
+        width: calc(100% - 0px);
+        margin: 0 0px;
     }
     
     .singleplayer-clue-card .actor-name {

@@ -47,50 +47,46 @@ export class DynamicClueHelpCard extends BaseCard {
         const explanations = {
             1: {
                 title: "Movies & Movies",
-                description: "Two actors who have played the same character in different movies.",
+                description: "Actors who have portrayed the same character in different movies.",
                 example: "Jodie Foster\n&\nJulianne Moore",
-                answer: "Silence of the Lambs\n&\nHannibal"
+                answer: "Clarice Starling\n\nSilence of the Lambs\n&\nHannibal"
             },
             2: {
                 title: "Movies & TV",
-                description: "Two actors who have played the same character in a movie and TV shows.",
+                description: "Actors who have portrayed the same character in a movie and TV shows.",
                 example: "Kristy Swanson\n&\nSarah Michelle Geller",
-                answer: "Buffy the Vampire Slayer\n&\nBuffy the Vampire Slayer (TV)"
+                answer: "Buffy Anne Summers\n\nBuffy the Vampire Slayer\n&\nBuffy the Vampire Slayer (TV)"
             },
             3: {
                 title: "TV & TV",
-                description: "Two actors who have played the same character in different TV shows.",
+                description: "Actors who have portrayed the same character in TV shows.",
                 example: "Benedict Cumberbatch\n&\nTommy Lee Miller",
-                answer: "Sherlock\n&\nElementary"
+                answer: "Sherlock Holmes\n\nSherlock\n&\nElementary"
             },
             4: {
                 title: "Real Life Characters",
-                description: "Two actors who have played the same real life person in either movies or TV.",
+                description: "Actors who have portrayed the same real life person in either movies or TV shows.",
                 example: "Helen Mirren\n&\nClaire Foy",
-                answer: "The Queen\n&\nThe Crown"
+                answer: "Queen Elizabeth II\n\nThe Queen\n&\nThe Crown"
             },
             5: {
                 title: "Comic Book Characters",
-                description: "Two Actors who have played the same comic book character in either movies or TV.",
+                description: "Actors who have portrayed the same comic book character in either movies or TV shows.",
                 example: "Val Kilmer\n&\nGeorge Clooney",
-                answer: "Batman Forever\n&\nBatman & Robin"
+                answer: "Bruce Wayne\nBatman\n\nBatman Forever\n&\nBatman & Robin"
             }
         };
 
         const helpContent = explanations[this.cardType];
         return `
-            <div class="help-section description">
-                <h3>${helpContent.title}</h3>
-                <p>${helpContent.description}</p>
-            </div>
-            <div class="help-section example">
-                <h3>Example</h3>
-                <p style="white-space: pre-line">${helpContent.example}</p>
-            </div>
-            <div class="help-section answer">
-                <h3>Answer</h3>
-                <p style="white-space: pre-line">${helpContent.answer}</p>
-            </div>
+            <h3>${helpContent.title}</h3>
+            <p>${helpContent.description}</p>
+            <p>&nbsp;</p>
+            <h3>Example</h3>
+            <p style="white-space: pre-line">${helpContent.example}</p>
+            <p>&nbsp;</p>
+            <h3>Answer</h3>
+            <p style="white-space: pre-line">${helpContent.answer}</p>
         `;
     }
 

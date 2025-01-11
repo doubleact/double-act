@@ -18,6 +18,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: -20px;
 }
 
 .multiplayer-clue-card .score-counter {
@@ -36,9 +37,24 @@
     box-shadow: none;
 }
 
+.multiplayer-clue-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
 .multiplayer-clue-card .player-turn {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    background: rgba(255, 255, 255, 0.9);
     height: 30px;
     min-height: 30px;
+    padding: 0 16px;
+    border-radius: 15px;
+    border: 2px solid #333;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,20 +66,23 @@
     height: auto;
 }
 
-/* Actors container */
+/* Actors container with dynamic backgrounds */
 .multiplayer-clue-card .actors-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 15px;
     text-align: center;
     background: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 20px;
     border: 2px solid #333;
-    width: 90%;
-    max-width: 400px;
+    width: calc(100% - 0px);
+    max-width: none;
     overflow: hidden;
+    margin: 0 0px;
+    height: 300px;
 }
 
 .multiplayer-clue-card .actor-name {
@@ -106,6 +125,8 @@
 .multiplayer-clue-card .help-button {
     width: 30px;
     height: 30px;
+    min-width: 30px;
+    min-height: 30px;
     border-radius: 50%;
     border: 2px solid #333;
     background: white;
@@ -118,6 +139,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     margin-left: auto;
+    padding: 0;
 }
 
 /* Button styles */
@@ -129,15 +151,35 @@
 
 /* Mobile adjustments */
 @media (max-width: 480px) {
-    .multiplayer-clue-card .counter {
+    .multiplayer-clue-card .counter,
+    .multiplayer-clue-card .player-turn {
         font-size: 1em;
         padding: 0 12px;
-        border-radius: 25px;
+    }
+
+    .multiplayer-clue-card .card-header {
+        padding: 0 10px;
+    }
+
+    /* Row 1 adjustments */
+    .multiplayer-clue-card .player-turn {
+        margin-left: 10px;
+    }
+
+    .multiplayer-clue-card .score-counter {
+        margin-left: -20px;
+    }
+
+    /* Row 5 adjustment */
+    .multiplayer-clue-card .footer-container .counter {
+        margin-left: -20px;
     }
 
     .multiplayer-clue-card .actors-container {
         padding: 15px 10px;
-        width: 95%;
+        width: calc(100% - 0px);
+        max-width: none;
+        margin: 0 0px;
     }
 
     .multiplayer-clue-card .actor-name {

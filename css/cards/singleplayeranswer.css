@@ -21,9 +21,10 @@
     padding: 25px 20px;
     border-radius: 20px;
     border: 2px solid #333;
-    width: 90%;
-    max-width: 400px;
+    width: calc(100% - 0px);
+    max-width: none;
     overflow: hidden;
+    margin: 0 0px;
 }
 
 .singleplayer-answer-card .character-name {
@@ -113,13 +114,15 @@
 }
 
 .singleplayer-answer-card .help-button {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
     border-radius: 50%;
     border: 2px solid #333;
     background: white;
     color: #333;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     display: flex;
     justify-content: center;
@@ -127,6 +130,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     margin-left: auto;
+    padding: 0;
 }
 
 .singleplayer-answer-card .help-button:hover {
@@ -136,6 +140,13 @@
 
 /* Mobile adjustments */
 @media (max-width: 480px) {
+    .singleplayer-answer-card .answer-container {
+        padding: 20px 15px;
+        width: calc(100% - 0px);
+        max-width: none;
+        margin: 0;
+    }
+
     .singleplayer-answer-card .character-name {
         font-size: clamp(0.9em, 3.5vw, 1.8em);
     }
@@ -161,8 +172,11 @@
     }
 
     .singleplayer-answer-card .help-button {
-        width: 35px;
-        height: 35px;
-        font-size: 18px;
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        min-height: 30px;
+        padding: 0;
+        font-size: 14px;
     }
 }

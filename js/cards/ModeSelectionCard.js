@@ -1,5 +1,5 @@
 import { BaseCard } from '../BaseCard.js';
-import { ModeCardHelpCard } from './ModeCardHelpCard.js';
+import { ModeCardHelp } from './modecardhelp.js';
 
 export class ModeSelectionCard extends BaseCard {
     constructor(container) {
@@ -208,6 +208,6 @@ export class ModeSelectionCard extends BaseCard {
         this.cleanup();
         
         // Show help card
-        new ModeCardHelpCard(this.container);
+        new ModeCardHelp(this.container);
     }
 }

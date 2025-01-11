@@ -21,7 +21,7 @@ export class MultiplayerClueCard extends BaseCard {
         
         // Add player turn and score button to header
         this.updateHeader(
-            `<div class="counter player-turn">Player ${window.game.currentPlayer}'s Turn</div>`,
+            `<div class="player-turn">Player ${window.game.currentPlayer}'s Turn</div>`,
             `<div class="counter score-counter">Score</div>`
         );
         

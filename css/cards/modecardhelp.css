@@ -1,0 +1,189 @@
+@import '../core/basecard.css';
+
+.mode-help-card {
+    background: url('../../images/background/startcardbackground.png') center center/cover no-repeat !important;
+}
+
+.mode-help-card .card-body {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    flex: 1;
+    font-size: 16px;
+}
+
+.mode-help-card .logo-small {
+    max-width: 40%;
+    height: auto;
+}
+
+.help-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.white-box {
+    width: calc(100% - 40px);
+    height: 350px;
+    margin: 0 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 20px;
+    border: 2px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    overflow-y: auto;
+    font-size: 16px;
+}
+
+.help-section {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.help-section h2 {
+    color: #333;
+    margin: 16px 0 8px;
+    font-size: 20px;
+}
+
+.help-section h3 {
+    color: #444;
+    margin: 12px 0 4px;
+    font-size: 18px;
+}
+
+.help-section p {
+    color: #666;
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.mode-explanation {
+    margin: 12px 0;
+    padding: 0 16px;
+}
+
+.deck-types {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin: 12px 0;
+}
+
+.deck-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.deck-type img {
+    width: 32px;
+    height: 32px;
+}
+
+.type-icon-pair {
+    display: flex;
+    gap: 4px;
+}
+
+.deck-type span {
+    font-weight: bold;
+    color: #333;
+}
+
+.deck-type p {
+    flex: 1;
+    text-align: left;
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+}
+
+.back-button {
+    padding: 8px 24px;
+    font-size: 16px;
+    background: #fff;
+    border: 2px solid #333;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.back-button:hover {
+    background: #eee;
+}
+
+/* Mobile styles */
+@media (max-width: 480px) {
+    .mode-help-card .card-body {
+        gap: 10px;
+    }
+
+    .white-box {
+        font-size: 15px;
+        padding: 12px;
+        gap: 8px;
+        margin: 0 12px;
+        height: auto;
+    }
+
+    .help-section {
+        margin: 4px 0;
+    }
+
+    .help-section h2 {
+        font-size: 18px;
+        margin: 12px 0 4px;
+    }
+
+    .help-section h3 {
+        font-size: 16px;
+        margin: 8px 0 2px;
+    }
+
+    .help-section p {
+        font-size: 14px;
+        margin: 2px 0;
+    }
+
+    .deck-types {
+        gap: 8px;
+        margin: 8px 0;
+    }
+
+    .deck-type {
+        padding: 4px;
+        gap: 8px;
+    }
+
+    .deck-type img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .deck-type span {
+        font-size: 14px;
+    }
+
+    .deck-type p {
+        font-size: 12px;
+    }
+
+    .back-button {
+        font-size: 14px;
+        padding: 6px 18px;
+    }
+}

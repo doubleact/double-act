@@ -13,22 +13,20 @@
 .dynamic-clue-help-card .help-content {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.95);
+    gap: 0;
+    padding: 20px;
+    background: white;
     border-radius: 15px;
-    width: 90%;
-    max-width: 500px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 580px;
     height: auto;
     min-height: min-content;
+    margin: 0 auto;
 }
 
 .dynamic-clue-help-card .help-section {
     padding: 6px;
     border-radius: 5px;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dynamic-clue-help-card .type-number {
@@ -44,8 +42,8 @@
 
 .dynamic-clue-help-card h3 {
     color: #333;
-    margin: 0 0 6px 0;
-    font-size: 22px;
+    margin: 0;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -53,7 +51,7 @@
     margin: 0;
     line-height: 1.2;
     color: #444;
-    font-size: 21px;
+    font-size: 19px;
 }
 
 .dynamic-clue-help-card .sub-footer {
@@ -105,8 +103,10 @@
 /* Mobile adjustments */
 @media (max-width: 480px) {
     .dynamic-clue-help-card .help-content {
-        gap: 10px;
-        padding: 10px;
+        width: 100%;
+        max-width: none;
+        padding: 20px;
+        border-radius: 0;
     }
 
     .dynamic-clue-help-card .help-section {
