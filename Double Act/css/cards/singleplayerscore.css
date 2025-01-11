@@ -1,0 +1,301 @@
+@import '../core/basecard.css';
+
+.singleplayer-score-card {
+    background: url('../../images/background/startcardbackground.png') center/cover no-repeat !important;
+}
+
+.singleplayer-score-card .card {
+    background: transparent !important;
+}
+
+.score-title {
+    font-size: 1.8em;
+    color: #333;
+    text-align: center;
+    margin: 0;
+}
+
+.score-spacer {
+    height: 60px;
+}
+
+.score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 20px;
+    border: 2px solid #333;
+    text-align: center;
+    width: 80%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.player-title {
+    font-size: 2em;
+    color: #333;
+    margin: 0;
+}
+
+.score-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.score-row {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.response-buttons {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.response-button {
+    padding: 10px 15px;
+    font-size: clamp(0.8em, 2.5vw, 1.2em);
+    background: white;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+.correct-button {
+    background: #4CAF50;
+}
+
+.wrong-button {
+    background: #f44336;
+}
+
+.response-button:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.response-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+.continue-button {
+    padding: 10px 15px;
+    font-size: clamp(0.8em, 2.5vw, 1.2em);
+    background: white;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+.continue-button:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.continue-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.end-game-button {
+    padding: 10px 15px;
+    font-size: clamp(0.8em, 2.5vw, 1.2em);
+    background: white;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+.end-game-button:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+
+.end-game-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Score text colors */
+.singleplayer-score-card .correct-text {
+    color: #28a745; /* Green */
+}
+
+.singleplayer-score-card .wrong-text {
+    color: #dc3545; /* Red */
+}
+
+/* Button styles */
+.singleplayer-score-card .button-container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+    padding: 0 15px;
+}
+
+.singleplayer-score-card .continue-button,
+.singleplayer-score-card .restart-button {
+    padding: 10px 15px;
+    font-size: clamp(0.8em, 2.5vw, 1.2em);
+    background: white;
+    border: 2px solid #333;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+.singleplayer-score-card .continue-button {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.singleplayer-score-card .restart-button {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.singleplayer-score-card .continue-button:hover {
+    background: #28a745;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.singleplayer-score-card .restart-button:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+
+.singleplayer-score-card .continue-button:active,
+.singleplayer-score-card .restart-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .score-title {
+        font-size: 1.5em;
+    }
+
+    .score-spacer {
+        height: 40px;
+    }
+
+    .score-container {
+        padding: 20px;
+        gap: 15px;
+        width: 90%;
+    }
+
+    .player-title {
+        font-size: 1.8em;
+    }
+
+    .score-row {
+        font-size: 1.3em;
+    }
+
+    .response-buttons {
+        flex-direction: column;
+        gap: 15px;
+        padding: 0 15px;
+    }
+
+    .response-button {
+        width: 100%;
+        min-width: unset;
+        padding: 8px 12px;
+        font-size: clamp(0.7em, 2.2vw, 1em);
+    }
+
+    .continue-button,
+    .end-game-button {
+        padding: 8px 12px;
+        font-size: clamp(0.7em, 2.2vw, 1em);
+        flex: 0 1 auto;
+        min-width: 100px;
+    }
+}
+
+/* Mobile specific adjustments */
+@media (max-width: 480px) {
+    .singleplayer-score-card .score-content {
+        padding: 15px;
+    }
+
+    .singleplayer-score-card .score-container {
+        padding: 20px 15px;
+    }
+
+    .singleplayer-score-card .button-container {
+        padding: 0 10px;
+        gap: 8px;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .singleplayer-score-card .continue-button,
+    .singleplayer-score-card .restart-button {
+        padding: 8px 12px;
+        font-size: clamp(0.7em, 2.2vw, 1em);
+        flex: 0 1 auto;
+        min-width: 100px;
+    }
+}

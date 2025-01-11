@@ -1,0 +1,87 @@
+@import '../core/basecard.css';
+
+.singleplayer-clue-help-card {
+    background: url('../../images/background/startcardbackground.png') center/cover no-repeat !important;
+}
+
+.singleplayer-clue-help-card .card {
+    background: transparent !important;
+}
+
+.help-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 20px;
+    border: 2px solid #333;
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.help-content h2 {
+    font-size: 2em;
+    color: #333;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.help-content p {
+    font-size: 1.2em;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Next button styling from start card */
+.next-button {
+    padding: 15px 40px;
+    font-size: 1.2em;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    min-width: 200px;
+}
+
+.next-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
+}
+
+.next-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .help-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .help-content h2 {
+        font-size: 1.6em;
+    }
+
+    .help-content p {
+        font-size: 1.1em;
+    }
+
+    .next-button {
+        width: 100%;
+        min-width: unset;
+        padding: 12px 24px;
+        font-size: 1.1em;
+    }
+}
