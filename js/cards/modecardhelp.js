@@ -12,6 +12,7 @@ export class ModeCardHelp extends BaseCard {
         // Add test-card class to the card element
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('test-card');
+        cardElement.classList.add('mode-help-card');
         
         // Clear header
         this.updateHeader('', '');
@@ -58,7 +59,7 @@ export class ModeCardHelp extends BaseCard {
                 </div>
 
                 <div class="help-section">
-                    <h2>Game modes</h2>
+                    <h2>Game Modes</h2>
                     <p>Single player: Score points by guessing which actors played the same character.</p>
                     <p>Multiplayer: 2-10 players take turns guessing. Most points wins!</p>
                 </div>
@@ -67,7 +68,9 @@ export class ModeCardHelp extends BaseCard {
         
         // Add back button to card-subfooter
         this.updateSubFooter(`
-            <button class="back-button">Back</button>
+            <div class="button-container">
+                <button class="back-button">Back</button>
+            </div>
         `);
         
         this.attachEventListeners();

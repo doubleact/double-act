@@ -15,16 +15,17 @@
 }
 
 .mode-help-card .card-subheader {
-    height: 100px !important;
-    min-height: 100px !important;
+    height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
 }
 
 .mode-help-card .logo-small {
     max-width: 40%;
     height: auto;
+    display: block;
     margin: auto;
 }
 
@@ -159,44 +160,92 @@
 
 .mode-help-card .button-container {
     display: flex;
+    gap: 8px;
     justify-content: center;
-    align-items: center;
     width: 100%;
-    padding: 0;
+    padding: 0 15px;
 }
 
 .mode-help-card .card-subfooter {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 0;
+    width: 100%;
+    padding: 0 20px;
 }
 
-.mode-help-card .card-subfooter .back-button {
-    width: 200px !important;
-    min-width: 200px !important;
-    max-width: 200px !important;
+.mode-help-card .back-button {
     padding: 10px 15px;
-    font-size: 16px;
+    font-size: clamp(0.7em, 2.3vw, 1.1em);
     background: white;
     color: #333;
     border: 2px solid #333;
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 auto;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+    max-width: 200px;
 }
 
-.mode-help-card .card-subfooter .back-button:hover {
+.mode-help-card .back-button:hover {
     background: #f5f5f5;
     transform: translateY(-2px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.mode-help-card .card-subfooter .back-button:active {
+.mode-help-card .back-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.mode-help-card.test-card .card-subfooter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.mode-help-card.test-card .button-container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+    padding: 0 15px;
+}
+
+.mode-help-card.test-card .back-button {
+    padding: 10px 15px;
+    font-size: clamp(0.7em, 2.3vw, 1.1em);
+    background: white;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+    max-width: 200px;
+}
+
+.mode-help-card.test-card .back-button:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mode-help-card.test-card .back-button:active {
     transform: translateY(0);
     box-shadow: none;
 }
@@ -257,6 +306,21 @@
         font-size: 12px;
     }
 
+    .mode-help-card .card-subheader {
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+    
+    .mode-help-card .logo-small {
+        max-width: 60%;
+        height: auto;
+        display: block;
+        margin: auto;
+    }
+
     .mode-help-card .help-content {
         width: 90%;
         padding: 20px;
@@ -270,10 +334,27 @@
         font-size: 1.1em;
     }
 
-    .mode-help-card .card-subfooter .back-button {
-        width: 100px !important;
-        min-width: 100px !important;
-        max-width: 100px !important;
+    .mode-help-card .back-button {
+        max-width: 100px;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .mode-help-card.test-card .help-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .mode-help-card.test-card h2 {
+        font-size: 1.6em;
+    }
+
+    .mode-help-card.test-card p {
+        font-size: 1.1em;
+    }
+
+    .mode-help-card.test-card .back-button {
+        max-width: 100px;
         padding: 8px 12px;
         font-size: 14px;
     }
