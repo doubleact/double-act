@@ -7,7 +7,16 @@
 .dynamic-clue-help-card .logo-small {
     max-width: 40%;
     height: auto;
-    margin-bottom: 20px;
+    margin: 0;
+}
+
+.dynamic-clue-help-card .card-subheader {
+    height: 200px;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 .dynamic-clue-help-card .help-content {
@@ -27,6 +36,7 @@
 .dynamic-clue-help-card .help-section {
     padding: 6px;
     border-radius: 5px;
+    font-size: 14px;
 }
 
 .dynamic-clue-help-card .type-number {
@@ -37,13 +47,13 @@
 
 .dynamic-clue-help-card .type-number h2 {
     margin: 0;
-    font-size: 1.7em;
+    font-size: 1.6em;
 }
 
 .dynamic-clue-help-card h3 {
     color: #333;
     margin: 0;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: bold;
 }
 
@@ -51,7 +61,7 @@
     margin: 0;
     line-height: 1.2;
     color: #444;
-    font-size: 19px;
+    font-size: 18px;
 }
 
 .dynamic-clue-help-card .sub-footer {
@@ -72,7 +82,7 @@
 
 .dynamic-clue-help-card .back-button {
     padding: 10px 15px;
-    font-size: clamp(0.8em, 2.5vw, 1.2em);
+    font-size: clamp(0.7em, 2.3vw, 1.1em);
     background: white;
     color: #333;
     border: 2px solid #333;
@@ -102,27 +112,46 @@
 
 /* Mobile adjustments */
 @media (max-width: 480px) {
+    .dynamic-clue-help-card .card-subheader {
+        height: 150px;
+        min-height: 150px;
+    }
+
+    .dynamic-clue-help-card .card-body {
+        overflow-x: hidden;
+        width: 100%;
+        padding: 20px;
+    }
+
     .dynamic-clue-help-card .help-content {
         width: 100%;
         max-width: none;
         padding: 20px;
-        border-radius: 0;
+        border-radius: 20px;
+        border: 2px solid #333;
+        margin: 0;
+        box-sizing: border-box;
+        height: 300px;
+        overflow-y: auto;
     }
 
     .dynamic-clue-help-card .help-section {
         padding: 6px;
+        font-size: 11px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .dynamic-clue-help-card .type-number h2 {
-        font-size: 1.5em;
+        font-size: 1.2em;
     }
 
     .dynamic-clue-help-card h3 {
-        font-size: 1.3em;
+        font-size: 1em;
     }
 
     .dynamic-clue-help-card p {
-        font-size: 1.1em;
+        font-size: 0.8em;
     }
 
     .dynamic-clue-help-card .button-container {
@@ -134,7 +163,7 @@
 
     .dynamic-clue-help-card .back-button {
         padding: 8px 12px;
-        font-size: clamp(0.7em, 2.2vw, 1em);
+        font-size: clamp(0.6em, 2vw, 0.9em);
         flex: 0 1 auto;
         min-width: 100px;
     }

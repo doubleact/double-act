@@ -65,19 +65,15 @@ export class ModeCardHelp extends BaseCard {
             </div>
         `);
         
-        // Add back button to sub-footer
+        // Add back button to card-subfooter
         this.updateSubFooter(`
             <button class="back-button">Back</button>
         `);
-        
-        // Empty footer
-        this.updateFooter('');
         
         this.attachEventListeners();
     }
 
     attachEventListeners() {
-        // Back button
         const backButton = this.container.querySelector('.back-button');
         if (backButton) {
             backButton.addEventListener('click', () => {
