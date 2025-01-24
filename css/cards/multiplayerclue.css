@@ -74,7 +74,7 @@
     justify-content: center;
     gap: 15px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.9);
+    background: white !important;
     padding: 20px;
     border-radius: 20px;
     border: 2px solid #333;
@@ -149,8 +149,33 @@
     min-height: 40px;
 }
 
+.multiplayer-clue-card .clue-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 15px !important;
+    text-align: center !important;
+    background: white !important;
+    background-color: white !important;
+    background-image: none !important;
+    padding: 20px 30px !important;
+    border-radius: 20px !important;
+    border: 2px solid #333 !important;
+    width: calc(100% - 0px) !important;
+    max-width: none !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    min-height: 300px !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+}
+
 /* Mobile adjustments */
 @media (max-width: 480px) {
+    .multiplayer-clue-card .actor-name {
+        font-size: clamp(21px, 4.5vw, 32px);
+    }
     .multiplayer-clue-card .counter,
     .multiplayer-clue-card .player-turn {
         font-size: 1em;
@@ -180,10 +205,6 @@
         width: calc(100% - 0px);
         max-width: none;
         margin: 0 0px;
-    }
-
-    .multiplayer-clue-card .actor-name {
-        font-size: clamp(0.9em, 3.5vw, 1.5em);
     }
 
     .multiplayer-clue-card .button-container {

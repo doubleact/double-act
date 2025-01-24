@@ -192,6 +192,17 @@
     box-shadow: none;
 }
 
+/* Styles for the end game only button */
+.buttons-container.end-game-only {
+    display: flex;
+    justify-content: center;
+}
+
+.buttons-container.end-game-only .end-game-button {
+    margin: 0;
+    width: 497px;
+}
+
 /* Score text colors */
 .singleplayer-score-card .correct-text {
     color: #28a745; /* Green */

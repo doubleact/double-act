@@ -61,6 +61,16 @@
     padding: 0 15px;
 }
 
+.buttons-container.end-game-only {
+    display: flex;
+    justify-content: center;
+}
+
+.buttons-container.end-game-only .end-game-button {
+    margin: 0;
+    width: 249px;
+}
+
 .button-container {
     display: flex;
     gap: 8px;
