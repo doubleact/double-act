@@ -4,6 +4,7 @@ import { cardDataType3 } from './carddatatype3.js';
 import { cardDataType4 } from './carddatatype4.js';
 import { cardDataType5 } from './carddatatype5.js';
 import { SinglePlayerClueCard } from './js/cards/SinglePlayerClueCard.js';
+import { selectBalancedGameCards, selectCardsFromDecks } from './js/gameLogic.js';
 
 const cardData = [
     ...cardDataType1,
@@ -76,20 +77,24 @@ export class DoubleActGame {
     filterCardsByType() {
         console.log('Filtering cards by types:', Array.from(this.selectedTypes));
         
-        // Reset cards to all cards before filtering
-        this.cards = [...this.allCards];
+        const selectedTypeArray = Array.from(this.selectedTypes);
+        const allDecks = {
+            cardDataType1,
+            cardDataType2,
+            cardDataType3,
+            cardDataType4,
+            cardDataType5
+        };
         
-        if (this.selectedTypes.size > 0) {
-            // Filter cards to only include selected types
-            this.cards = this.cards.filter(card => 
-                this.selectedTypes.has(card.type.toString())
-            );
+        // Use the new balanced card selection
+        if (selectedTypeArray.length > 0) {
+            this.cards = selectCardsFromDecks(selectedTypeArray, allDecks);
+        } else {
+            // If no types selected, use all cards but still balance them
+            this.cards = selectBalancedGameCards(this.allCards);
         }
         
         console.log('Cards after filtering:', this.cards.length);
-        
-        // Always shuffle after filtering
-        this.shuffleCards();
         
         // Store total possible points
         this.totalPossiblePoints = this.cards.length;
@@ -191,7 +196,7 @@ export class DoubleActGame {
         const gameContainer = document.getElementById('game-container');
         gameContainer.innerHTML = '';
 
-        // Create new base card structure
+        // Create new base card structure with introduction
         gameContainer.innerHTML = `
             <div class="card">
                 <div class="front start-card">
@@ -200,7 +205,7 @@ export class DoubleActGame {
                             <img src="images/doubleactlogo.png" alt="Double Act" class="logo-large-da">
                         </div>
                         <div class="card-footer">
-                            <button onclick="game.showModeSelection()" class="footer-button">Next</button>
+                            <button onclick="game.showIntroduction()" class="footer-button">Next</button>
                         </div>
                     </div>
                 </div>
@@ -211,11 +216,23 @@ export class DoubleActGame {
         this.setupEventListeners();
     }
 
+    showIntroduction() {
+        console.log('Showing introduction...');
+        // Import and use IntroductionCard
+        import('./js/cards/IntroductionCard.js').then(module => {
+            const IntroductionCard = module.IntroductionCard;
+            const container = document.getElementById('game-container');
+            new IntroductionCard(container);
+        });
+    }
+
     showModeSelection() {
         console.log('Showing mode selection...');
         const card = document.getElementById('currentCard');
         const front = card.querySelector('.front');
         front.className = 'front start-card';
+        this.isMultiplayer = false;
+        
         front.innerHTML = `
             <div class="card-content">
                 <div class="logo-container">
@@ -357,10 +374,30 @@ export class DoubleActGame {
         });
     }
 
+    getMultiplayerCardCounts(playerCount) {
+        // Returns [totalCards, cardsPerPlayer]
+        switch(playerCount) {
+            case 2: return [20, 10];  // 20 cards, 10 each
+            case 3: return [30, 10];  // 30 cards, 10 each
+            case 4: return [40, 10];  // 40 cards, 10 each
+            case 5: return [50, 10];  // 50 cards, 10 each
+            case 6: return [48, 8];   // 48 cards, 8 each
+            case 7: return [49, 7];   // 49 cards, 7 each
+            case 8: return [48, 6];   // 48 cards, 6 each
+            case 9: return [45, 5];   // 45 cards, 5 each
+            case 10: return [50, 5];  // 50 cards, 5 each
+            default: return [20, 10]; // Default to 2 player setup
+        }
+    }
+
     startMultiplayerGame() {
         console.log('Starting multiplayer game...');
         
-        // Filter and shuffle cards
+        // Get card counts based on number of players
+        const [totalCards, cardsPerPlayer] = this.getMultiplayerCardCounts(this.numberOfPlayers);
+        console.log(`Setting up game for ${this.numberOfPlayers} players: ${totalCards} total cards, ${cardsPerPlayer} each`);
+        
+        // Filter and shuffle cards with the specified total
         this.filterCardsByType();
         
         if (this.cards.length === 0) {
@@ -369,12 +406,19 @@ export class DoubleActGame {
             return;
         }
         
+        // Limit cards to the specified total for this player count
+        this.cards = this.cards.slice(0, totalCards);
+        
         // Reset game state
         this.currentCardIndex = 0;
         this.isMultiplayer = true;
         
         // Initialize player scores and stats
-        this.playerScores = new Array(this.numberOfPlayers).fill(0);
+        this.playerScores = new Array(this.numberOfPlayers).fill().map(() => ({
+            correct: 0,
+            passed: 0,
+            remainingCards: cardsPerPlayer // Track remaining cards for each player
+        }));
         this.playerCorrectAnswers = new Array(this.numberOfPlayers).fill(0);
         this.playerWrongAnswers = new Array(this.numberOfPlayers).fill(0);
         this.currentPlayer = 1;
@@ -386,7 +430,9 @@ export class DoubleActGame {
                 container,
                 this.cards[0],
                 1,
-                this.cards.length
+                totalCards, // Use total cards as max
+                this.currentPlayer,
+                this.playerScores[this.currentPlayer - 1].remainingCards // Show remaining cards for current player
             );
         });
     }
@@ -565,8 +611,11 @@ export class DoubleActGame {
     correctAnswer() {
         console.log('Correct answer selected...');
         if (this.isMultiplayer) {
-            this.playerCorrectAnswers[this.currentPlayer - 1]++;
-            this.playerScores[this.currentPlayer - 1].correct++;
+            const currentPlayerIndex = this.currentPlayer - 1;
+            this.playerCorrectAnswers[currentPlayerIndex]++;
+            this.playerScores[currentPlayerIndex].correct++;
+            this.playerScores[currentPlayerIndex].remainingCards--;
+            
             const card = document.getElementById('currentCard');
             const back = card.querySelector('.back');
             
@@ -574,16 +623,30 @@ export class DoubleActGame {
             setTimeout(() => {
                 back.className = 'back';
                 this.currentCardIndex++;
-                if (this.currentCardIndex >= this.cards.length) {
-                    setTimeout(() => {
-                        this.showEndCard();
-                    }, 20);
-                } else {
-                    this.currentPlayer = (this.currentPlayer % this.numberOfPlayers) + 1;
-                    setTimeout(() => {
-                        this.showCurrentCard();
-                    }, 20);
+                
+                // Check if current player has used all their cards or if we've reached the end
+                if (this.playerScores[currentPlayerIndex].remainingCards <= 0 || 
+                    this.currentCardIndex >= this.cards.length) {
+                    
+                    // Check if any player still has cards left
+                    const anyCardsRemaining = this.playerScores.some(score => score.remainingCards > 0);
+                    
+                    if (!anyCardsRemaining || this.currentCardIndex >= this.cards.length) {
+                        setTimeout(() => {
+                            this.showMultiPlayerScore();
+                        }, 20);
+                        return;
+                    }
                 }
+                
+                // Find next player with remaining cards
+                do {
+                    this.currentPlayer = (this.currentPlayer % this.numberOfPlayers) + 1;
+                } while (this.playerScores[this.currentPlayer - 1].remainingCards <= 0);
+                
+                setTimeout(() => {
+                    this.showCurrentCard();
+                }, 20);
             }, 200);
         } else {
             this.score += 10;
@@ -595,9 +658,15 @@ export class DoubleActGame {
             setTimeout(() => {
                 back.className = 'back';
                 this.currentCardIndex++;
-                setTimeout(() => {
-                    this.showCurrentCard();
-                }, 20);
+                if (this.currentCardIndex >= 50 || this.currentCardIndex >= this.cards.length) {
+                    setTimeout(() => {
+                        this.showSinglePlayerScore();
+                    }, 20);
+                } else {
+                    setTimeout(() => {
+                        this.showCurrentCard();
+                    }, 20);
+                }
             }, 200);
         }
     }
@@ -620,19 +689,40 @@ export class DoubleActGame {
     passCard() {
         console.log('Passing card...');
         if (this.isMultiplayer) {
-            this.playerWrongAnswers[this.currentPlayer - 1]++;
-            this.playerScores[this.currentPlayer - 1].passed++;
+            const currentPlayerIndex = this.currentPlayer - 1;
+            this.playerWrongAnswers[currentPlayerIndex]++;
+            this.playerScores[currentPlayerIndex].passed++;
+            this.playerScores[currentPlayerIndex].remainingCards--;
+            
             this.currentCardIndex++;
-            if (this.currentCardIndex >= this.cards.length) {
-                this.showEndCard();
-            } else {
-                this.currentPlayer = (this.currentPlayer % this.numberOfPlayers) + 1;
-                this.showCurrentCard();
+            
+            // Check if current player has used all their cards or if we've reached the end
+            if (this.playerScores[currentPlayerIndex].remainingCards <= 0 || 
+                this.currentCardIndex >= this.cards.length) {
+                
+                // Check if any player still has cards left
+                const anyCardsRemaining = this.playerScores.some(score => score.remainingCards > 0);
+                
+                if (!anyCardsRemaining || this.currentCardIndex >= this.cards.length) {
+                    this.showMultiPlayerScore();
+                    return;
+                }
             }
+            
+            // Find next player with remaining cards
+            do {
+                this.currentPlayer = (this.currentPlayer % this.numberOfPlayers) + 1;
+            } while (this.playerScores[this.currentPlayer - 1].remainingCards <= 0);
+            
+            this.showCurrentCard();
         } else {
             this.passedAnswers++;
             this.currentCardIndex++;
-            this.showCurrentCard();
+            if (this.currentCardIndex >= 50 || this.currentCardIndex >= this.cards.length) {
+                this.showSinglePlayerScore();
+            } else {
+                this.showCurrentCard();
+            }
         }
     }
 
@@ -811,7 +901,29 @@ export class DoubleActGame {
             this.cards.length
         );
     }
+
+    updateMovieGroupFontSizes() {
+        // Update character name font size
+        const characterNames = document.querySelectorAll('.character-name');
+        characterNames.forEach(charName => {
+            const length = charName.textContent.trim().length;
+            charName.style.setProperty('--character-length', length);
+        });
+
+        // Update movie group font sizes
+        const movieGroups = document.querySelectorAll('.movie-group');
+        movieGroups.forEach(group => {
+            const movieNames = group.querySelectorAll('.movie-name');
+            let maxLength = 0;
+            movieNames.forEach(movie => {
+                maxLength = Math.max(maxLength, movie.textContent.trim().length);
+            });
+            group.style.setProperty('--longest-title-length', maxLength);
+        });
+    }
 }
 
 // Create global game instance when the module loads
 window.game = new DoubleActGame();
+
+document.addEventListener('DOMContentLoaded', game.updateMovieGroupFontSizes);

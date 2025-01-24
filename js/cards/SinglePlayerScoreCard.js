@@ -54,9 +54,10 @@ export class SinglePlayerScoreCard extends BaseCard {
         `);
 
         // Add buttons to sub-footer
+        const isLastCard = this.correctAnswers + this.wrongAnswers >= this.totalCards;
         this.updateSubFooter(`
-            <div class="buttons-container">
-                <button class="continue-button">Back</button>
+            <div class="buttons-container ${isLastCard ? 'end-game-only' : ''}">
+                ${!isLastCard ? '<button class="continue-button">Back</button>' : ''}
                 <button class="end-game-button">End Game</button>
             </div>
         `);

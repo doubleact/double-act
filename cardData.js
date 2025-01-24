@@ -1,4 +1,4 @@
-const cardData = [
+export const cardData = [
     {
         actors: ['Tom Cruise', 'Stuart Townsend'],
         character: 'Lestat de Lioncourt',
@@ -101,7 +101,7 @@ const cardData = [
         movies: ["Superman", "Man of Steel"],         
         type: 5   // 017
     },    
-    {       
+    { 
         actors: ["Kevin Costner", "John Schneider"], 
         character: "Robin Hood", 
         movies: ["Man of Steel", "Smallville (TV)"],
@@ -1476,3 +1476,4 @@ const cardData = [
     }
 
 ];
+export default cardData;

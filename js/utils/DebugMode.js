@@ -8,11 +8,6 @@ export class DebugMode {
     static initialize() {
         // Add keyboard event listeners
         document.addEventListener('keydown', (event) => {
-            // Check for Ctrl+M
-            if (event.ctrlKey && event.key.toLowerCase() === 'm') {
-                event.preventDefault();
-                this.toggleDebugMode();
-            }
             // Check for Ctrl+L
             if (event.ctrlKey && event.key.toLowerCase() === 'l') {
                 event.preventDefault();
@@ -180,7 +175,7 @@ export class DebugMode {
             document.head.appendChild(this.#debugStylesheet);
             document.body.appendChild(this.#debugTooltip);
             document.addEventListener('mousemove', this.#handleMouseMove.bind(this));
-            console.log('Debug mode enabled - Press Ctrl+M to disable');
+            console.log('Debug mode enabled');
         } else {
             document.body.classList.remove('debug-mode');
             if (!this.#isLinkDebugMode) {

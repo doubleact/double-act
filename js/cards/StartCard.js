@@ -1,5 +1,4 @@
 import { BaseCard } from '../BaseCard.js';
-import { ModeSelectionCard } from './ModeSelectionCard.js';
 
 export class StartCard extends BaseCard {
     constructor(container) {
@@ -28,23 +27,18 @@ export class StartCard extends BaseCard {
         // Add next button to sub-footer (row 4)
         this.updateSubFooter(`
             <div class="button-container">
-                <button class="next-button">Next</button>
+                <button onclick="game.showIntroduction()" class="next-button">Next</button>
             </div>
         `);
 
         // Clear footer
         this.updateFooter('');
 
-        this.attachEventListeners();
+        // Add event listeners
+        this.addEventListeners();
     }
 
-    attachEventListeners() {
-        const nextButton = this.container.querySelector('.next-button');
-        if (nextButton) {
-            nextButton.addEventListener('click', () => {
-                this.cleanup();
-                new ModeSelectionCard(this.container);
-            });
-        }
+    addEventListeners() {
+        // Add any additional event listeners if needed
     }
 }

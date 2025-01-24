@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="images/doubleacticon.ico">
     <link rel="stylesheet" href="css/core/basecard.css">
     <link rel="stylesheet" href="css/cards/start.css">
+    <link rel="stylesheet" href="css/cards/introduction.css">
     <link rel="stylesheet" href="css/cards/modeselection.css">
     <link rel="stylesheet" href="css/cards/modecardhelp.css">
     <link rel="stylesheet" href="css/cards/testcard.css">
@@ -23,23 +24,28 @@
 <body>
     <div id="game-container"></div>
     
-    <!-- Load Hammer.js for touch controls -->
-    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
-    
     <!-- Initialize game -->
     <script type="module">
         import { StartCard } from './js/cards/StartCard.js';
         import { DebugMode } from './js/utils/DebugMode.js';
+        import { CardExporter } from './js/utils/CardExporter.js';
         import './script.js';  // This creates window.game
         
         // Initialize with start card when everything is loaded
         window.addEventListener('load', () => {
             const container = document.getElementById('game-container');
             new StartCard(container);
-            
-            // Initialize debug mode
-            DebugMode.initialize();
-            console.log('Press Ctrl+M to toggle debug mode');
+
+            // Add debug mode functionality
+            document.addEventListener('keydown', async (e) => {
+                if (e.ctrlKey && e.key === 'd') {
+                    e.preventDefault();
+                    window.game.currentCard?.toggleDebugMode();
+                } else if (e.ctrlKey && e.key === 'b') {
+                    e.preventDefault();
+                    window.game.currentCard?.toggleButtonDebugMode();
+                }
+            });
         });
     </script>
 </body>

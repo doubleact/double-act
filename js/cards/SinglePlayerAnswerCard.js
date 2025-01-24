@@ -1,4 +1,5 @@
 import { BaseCard } from '../BaseCard.js';
+import { adjustAllTextElements } from '../utils/dynamicFontSize.js';
 
 export class SinglePlayerAnswerCard extends BaseCard {
     constructor(container, cardData, currentCard, totalCards, score) {
@@ -19,7 +20,6 @@ export class SinglePlayerAnswerCard extends BaseCard {
         cardElement.style.backgroundImage = `url("./images/background/answercardbackground.png")`;
         cardElement.style.backgroundPosition = 'center center';
         cardElement.style.backgroundSize = 'cover';
-        cardElement.style.backgroundRepeat = 'no-repeat';
         
         // Clear header
         this.updateHeader('', '');
@@ -35,7 +35,8 @@ export class SinglePlayerAnswerCard extends BaseCard {
         
         const characterName = document.createElement('div');
         characterName.className = 'character-name';
-        characterName.textContent = this.cardData.character;
+        // Replace "/" with line break
+        characterName.innerHTML = this.cardData.character.replace(/\s*\/\s*/g, '<br>');
         
         const movieContainer = document.createElement('div');
         movieContainer.className = 'movie-container';
@@ -60,8 +61,16 @@ export class SinglePlayerAnswerCard extends BaseCard {
         // Clear footer
         this.updateFooter('');
         
+        // Adjust font sizes after content is created
+        setTimeout(() => adjustAllTextElements(), 0);
+        
+        // Add resize listener for this specific card
+        this.resizeObserver = new ResizeObserver(() => {
+            adjustAllTextElements();
+        });
+        this.resizeObserver.observe(cardElement);
+        
         this.attachEventListeners();
-        this.setupDynamicTextSizing();
     }
 
     attachEventListeners() {
@@ -89,42 +98,12 @@ export class SinglePlayerAnswerCard extends BaseCard {
         }
     }
 
-    setupDynamicTextSizing() {
-        // Function to adjust text size
-        const adjustTextSize = (element) => {
-            const maxWidth = element.offsetWidth;
-            let fontSize = parseInt(window.getComputedStyle(element).fontSize);
-            element.style.whiteSpace = 'nowrap';
-            
-            while (element.scrollWidth > maxWidth && fontSize > 12) {
-                fontSize--;
-                element.style.fontSize = fontSize + 'px';
-            }
-        };
-
-        // Adjust character name
-        const characterElement = this.container.querySelector('.character-name');
-        if (characterElement) {
-            adjustTextSize(characterElement);
+    destroy() {
+        // Clean up resize observer when card is destroyed
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
         }
-
-        // Adjust movie titles
-        const movieElements = this.container.querySelectorAll('.movie-name');
-        movieElements.forEach(element => {
-            adjustTextSize(element);
-        });
-
-        // Add resize listener
-        window.addEventListener('resize', () => {
-            if (characterElement) {
-                characterElement.style.fontSize = '';
-                adjustTextSize(characterElement);
-            }
-            movieElements.forEach(element => {
-                element.style.fontSize = '';
-                adjustTextSize(element);
-            });
-        });
+        super.destroy();
     }
 
     updateMoviesList(movies, container) {
@@ -170,20 +149,27 @@ export class SinglePlayerAnswerCard extends BaseCard {
                     window.game.score || 0,
                     window.game.correctAnswers || 0,
                     window.game.wrongAnswers || 0,
-                    this.totalCards
+                    this.totalCards,
+                    this.totalCards * 10
                 );
+            }).catch(error => {
+                console.error('Error loading score card:', error);
             });
             return;
         }
 
-        // Go to next card
+        // If not the last card, continue to next clue card
+        const nextCardNumber = this.currentCard + 1;
         import('./SinglePlayerClueCard.js').then(module => {
             new module.SinglePlayerClueCard(
                 this.container,
-                window.game.cards[window.game.currentCardIndex],
-                this.currentCard + 1,
-                this.totalCards
+                window.game.cards[nextCardNumber - 1],
+                nextCardNumber,
+                this.totalCards,
+                window.game.score || 0
             );
+        }).catch(error => {
+            console.error('Error loading next card:', error);
         });
     }
 }

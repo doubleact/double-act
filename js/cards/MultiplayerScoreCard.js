@@ -41,9 +41,10 @@ export class MultiplayerScoreCard extends BaseCard {
         `);
 
         // Add buttons to sub-footer
+        const isLastCard = window.game.currentCardIndex >= window.game.cards.length;
         this.updateSubFooter(`
-            <div class="buttons-container">
-                <button class="continue-button">Back</button>
+            <div class="buttons-container ${isLastCard ? 'end-game-only' : ''}">
+                ${!isLastCard ? '<button class="continue-button">Back</button>' : ''}
                 <button class="end-game-button">End Game</button>
             </div>
         `);
@@ -92,6 +93,12 @@ export class MultiplayerScoreCard extends BaseCard {
     }
 
     onContinue() {
+        // If we're at the end of the game, clicking back should end the game
+        if (window.game.currentCardIndex >= window.game.cards.length) {
+            this.onEndGame();
+            return;
+        }
+
         // Show clue card for current player (don't advance to next player)
         import('./MultiplayerClueCard.js').then(module => {
             new module.MultiplayerClueCard(

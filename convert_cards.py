@@ -3,10 +3,12 @@ import pandas as pd
 def clean_movie_list(movie_str):
     if pd.isna(movie_str):
         return []
-    # Split by comma and clean up whitespace
-    movies = [movie.strip() for movie in str(movie_str).split(',')]
-    # Remove empty strings
-    return [movie for movie in movies if movie]
+    # Return the movie string as is, without splitting
+    return [movie_str.strip()]
+
+def escape_single_quotes(text):
+    # Escape single quotes in text by replacing ' with \'
+    return str(text).replace("'", "\\'")
 
 def convert_excel_to_js():
     xl = pd.ExcelFile('carddata.xlsx')
@@ -20,45 +22,47 @@ def convert_excel_to_js():
         
         cards = []
         for _, row in df.iterrows():
-            # Handle Movie1 and Movie2 as potentially comma-separated lists
+            # Handle Movie1 and Movie2 as separate entries
             movies = []
             if pd.notna(row['Movie1']):
                 movies.extend(clean_movie_list(row['Movie1']))
             if pd.notna(row['Movie2']):
                 movies.extend(clean_movie_list(row['Movie2']))
             
+            # Remove any duplicates while preserving order
+            movies = list(dict.fromkeys(movies))
+            
+            # Escape single quotes in character names and movies
+            escaped_character = escape_single_quotes(row['Character'])
+            escaped_actors = [escape_single_quotes(row['Actor1']), escape_single_quotes(row['Actor2'])]
+            escaped_movies = [escape_single_quotes(movie) for movie in movies]
+            
             card = {
-                'actors': [row['Actor1'], row['Actor2']],
-                'character': row['Character'],
-                'movies': movies,
+                'actors': escaped_actors,
+                'character': escaped_character,
+                'movies': escaped_movies,
                 'type': int(type_num)
             }
             cards.append(card)
         
-        # Write to JavaScript file with pretty formatting
+        # Write to JavaScript file with format matching carddatatype1.js
         filename = f'carddatatype{type_num}.js'
         with open(filename, 'w', encoding='utf-8') as f:
             f.write(f'// Card Type {type_num} cards\n')
-            f.write(f'const cardDataType{type_num} = [\n')
+            f.write(f'export const cardDataType{type_num} = [\n')
             
-            # Write each card with proper indentation
+            # Write each card on a single line
             for i, card in enumerate(cards):
-                f.write('    {\n')
-                f.write(f'        "actors": {str(card["actors"])},\n')
-                f.write(f'        "character": "{card["character"]}",\n')
-                # Format movies array vertically if more than one movie
-                if len(card['movies']) > 1:
-                    f.write('        "movies": [\n')
-                    for movie in card['movies']:
-                        f.write(f'            "{movie}",\n')
-                    f.write('        ],\n')
-                else:
-                    f.write(f'        "movies": {str(card["movies"])},\n')
-                f.write(f'        "type": {card["type"]}\n')
-                f.write('    }' + (',' if i < len(cards) - 1 else '') + '\n')
+                # Format the card manually to ensure proper escaping
+                card_str = (
+                    "{'actors': ['" + "', '".join(card['actors']) + "'], " +
+                    "'character': '" + card['character'] + "', " +
+                    "'movies': ['" + "', '".join(card['movies']) + "'], " +
+                    "'type': " + str(card['type']) + "}"
+                )
+                f.write(f'    {card_str}' + (',' if i < len(cards) - 1 else '') + ' \n')
             
-            f.write('];\n\n')
-            f.write(f'export {{ cardDataType{type_num} }};\n')
+            f.write('];\n')
         
         print(f"Created {filename} with {len(cards)} cards")
 

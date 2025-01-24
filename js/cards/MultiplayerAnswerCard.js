@@ -1,24 +1,25 @@
 import { BaseCard } from '../BaseCard.js';
+import { adjustAllTextElements } from '../utils/dynamicFontSize.js';
 
 export class MultiplayerAnswerCard extends BaseCard {
-    constructor(container, cardData, currentCard, totalCards) {
+    constructor(container, cardData, currentCard, totalCards, score) {
         super(container);
         this.cardData = cardData;
         this.currentCard = currentCard;
         this.totalCards = totalCards;
+        this.score = score;
         this.init();
     }
 
     init() {
         this.createCardStructure();
         
-        // Add answer-card class to the card element
+        // Set background based on card type
         const cardElement = this.container.querySelector('.card');
         cardElement.classList.add('multiplayer-answer-card');
         cardElement.style.backgroundImage = `url("./images/background/answercardbackground.png")`;
         cardElement.style.backgroundPosition = 'center center';
         cardElement.style.backgroundSize = 'cover';
-        cardElement.style.backgroundRepeat = 'no-repeat';
         
         // Empty header
         this.updateHeader('', '');
@@ -34,7 +35,8 @@ export class MultiplayerAnswerCard extends BaseCard {
         
         const characterName = document.createElement('div');
         characterName.className = 'character-name';
-        characterName.textContent = this.cardData.character;
+        // Replace "/" with line break
+        characterName.innerHTML = this.cardData.character.replace(/\s*\/\s*/g, '<br>');
         
         const movieContainer = document.createElement('div');
         movieContainer.className = 'movie-container';
@@ -59,7 +61,24 @@ export class MultiplayerAnswerCard extends BaseCard {
         // Clear footer
         this.updateFooter('');
         
+        // Adjust font sizes after content is created
+        setTimeout(() => adjustAllTextElements(), 0);
+        
+        // Add resize listener for this specific card
+        this.resizeObserver = new ResizeObserver(() => {
+            adjustAllTextElements();
+        });
+        this.resizeObserver.observe(cardElement);
+        
         this.attachEventListeners();
+    }
+
+    destroy() {
+        // Clean up resize observer when card is destroyed
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+        }
+        super.destroy();
     }
 
     attachEventListeners() {

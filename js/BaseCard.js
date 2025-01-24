@@ -17,88 +17,6 @@ export class BaseCard {
                 this.toggleButtonDebugMode();
             }
         });
-
-        // Initialize Hammer.js for swipe gestures
-        this.initializeSwipeGestures();
-    }
-
-    initializeSwipeGestures() {
-        const cardElement = this.container.querySelector('.card');
-        if (cardElement) {
-            const hammer = new Hammer(cardElement);
-            hammer.get('swipe').set({ 
-                direction: Hammer.DIRECTION_VERTICAL,
-                threshold: 10,  // Smaller threshold for easier detection
-                velocity: 0.3   // Lower velocity requirement
-            });
-            
-            let lastSwipeTime = 0;
-            const SWIPE_DELAY = 500; // Increased time window for double swipe
-
-            hammer.on('swipeup swipedown', (ev) => {
-                const currentTime = new Date().getTime();
-                const swipeDelay = currentTime - lastSwipeTime;
-
-                // Double swipe up for row debug
-                if (ev.type === 'swipeup') {
-                    if (swipeDelay < SWIPE_DELAY) {
-                        this.toggleDebugMode();
-                    }
-                    lastSwipeTime = currentTime;
-                }
-                // Double swipe down for button debug
-                else if (ev.type === 'swipedown') {
-                    if (swipeDelay < SWIPE_DELAY) {
-                        this.toggleButtonDebugMode();
-                    }
-                    lastSwipeTime = currentTime;
-                }
-            });
-        }
-    }
-
-    createCardStructure() {
-        // Create new card
-        const newCard = document.createElement('div');
-        newCard.id = 'currentCard';
-        newCard.className = 'card';
-        newCard.innerHTML = `
-            <div class="card-header"></div>
-            <div class="card-subheader"></div>
-            <div class="card-body"></div>
-            <div class="card-subfooter"></div>
-            <div class="card-footer"></div>
-        `;
-
-        // Remove any existing cards
-        const existingCard = this.container.querySelector('.card');
-        if (existingCard) {
-            existingCard.remove();
-        }
-        
-        // Add the new card
-        this.container.appendChild(newCard);
-
-        // Initialize Hammer.js for swipe controls
-        this.hammer = new Hammer(newCard);
-        
-        // Configure for horizontal swipes
-        this.hammer.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
-        
-        // Add swipe handlers
-        this.hammer.on('swipeleft', () => {
-            console.log('Swipe left detected: navigating to next card');
-            this.container.dispatchEvent(new CustomEvent('cardAction', {
-                detail: { action: 'next' }
-            }));
-        });
-        
-        this.hammer.on('swiperight', () => {
-            console.log('Swipe right detected: navigating to previous card');
-            this.container.dispatchEvent(new CustomEvent('cardAction', {
-                detail: { action: 'previous' }
-            }));
-        });
     }
 
     initializeDebugMode() {
@@ -219,6 +137,41 @@ export class BaseCard {
                     el.appendChild(debugInfo);
                 });
             }
+        }
+    }
+
+    createCardStructure() {
+        // Create new card
+        const newCard = document.createElement('div');
+        newCard.id = 'currentCard';
+        newCard.className = 'card';
+        newCard.innerHTML = `
+            <div class="card-header"></div>
+            <div class="card-subheader"></div>
+            <div class="card-body"></div>
+            <div class="card-subfooter"></div>
+            <div class="card-footer"></div>
+        `;
+
+        // Remove any existing cards
+        const existingCard = this.container.querySelector('.card');
+        if (existingCard) {
+            existingCard.remove();
+        }
+        
+        // Add the new card
+        this.container.appendChild(newCard);
+
+        // Only initialize Hammer if we're not in export mode
+        if (!this.container.classList.contains('temp-export-container')) {
+            this.initializeSwipeGestures();
+        }
+    }
+
+    initializeSwipeGestures() {
+        if (typeof Hammer !== 'undefined') {
+            this.hammer = new Hammer(this.container.querySelector('.card'));
+            this.hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
         }
     }
 
