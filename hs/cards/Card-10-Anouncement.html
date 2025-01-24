@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card 10 - Announcement</title>
+    <link rel="stylesheet" href="../css/core/basecard.css">
+    <link rel="stylesheet" href="../css/cards/singleplayerclue.css">
+    <style>
+        .card {
+            background: url("../images/background/startcardbackground.png") center center/cover no-repeat !important;
+        }
+        .clue-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .announcement-text {
+            font-size: 2.7em;
+            font-weight: bold;
+            color: #FF1493;
+            text-align: center;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+            animation: celebrate 2s ease-in-out infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 72%;
+            text-shadow: 
+                2px 2px 0 #fff,
+                -2px -2px 0 #fff,
+                2px -2px 0 #fff,
+                -2px 2px 0 #fff;
+        }
+        .announcement-text::before,
+        .announcement-text::after {
+            content: '🎉';
+            position: absolute;
+            font-size: 1.2em;
+            animation: float 3s ease-in-out infinite;
+        }
+        .announcement-text::before {
+            left: -20px;
+            top: -20px;
+        }
+        .announcement-text::after {
+            right: -20px;
+            bottom: -20px;
+            animation-delay: 1.5s;
+        }
+        @keyframes celebrate {
+            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) scale(1.08) rotate(-2deg); }
+            75% { transform: translate(-50%, -50%) scale(1.08) rotate(2deg); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(15deg); }
+        }
+        .sparkle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .sparkle span {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-in-out infinite;
+            opacity: 0;
+        }
+        @keyframes sparkle {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1) rotate(180deg); opacity: 1; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div class="card singleplayer-clue-card">
+            <div class="card-header">
+                <div class="counter">Card 10/50</div>
+                <div class="counter">Score</div>
+            </div>
+            <div class="card-subheader">
+                <img src="../images/doubleactlogo.png" alt="Double Act Logo" class="logo-small">
+            </div>
+            <div class="card-body">
+                <div class="clue-container">
+                    <div class="sparkle">
+                        <span style="top: 20%; left: 20%; animation-delay: 0s;"></span>
+                        <span style="top: 30%; left: 80%; animation-delay: 0.3s;"></span>
+                        <span style="top: 70%; left: 15%; animation-delay: 0.6s;"></span>
+                        <span style="top: 80%; left: 75%; animation-delay: 0.9s;"></span>
+                        <span style="top: 40%; left: 30%; animation-delay: 1.2s;"></span>
+                    </div>
+                    <div class="announcement-text">
+                        🎈 You're going to be 🎈<br>
+                        an Uncle again!<br>
+                        🎉 🎊 🎈
+                    </div>
+                </div>
+            </div>
+            <div class="card-subfooter">
+                <a href="Card-01-Clue.html" class="answer-button" style="text-decoration: none;">Start Over</a>
+            </div>
+            <div class="card-footer">
+                <div class="footer-container">
+                    <button class="help-button">?</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
