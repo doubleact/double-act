@@ -1,0 +1,170 @@
+@import '../core/basecard.css';
+
+.dynamic-clue-help-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.dynamic-clue-help-card .logo-small {
+    max-width: 40%;
+    height: auto;
+    margin: 0;
+}
+
+.dynamic-clue-help-card .card-subheader {
+    height: 200px;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.dynamic-clue-help-card .help-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 580px;
+    height: auto;
+    min-height: min-content;
+    margin: 0 auto;
+}
+
+.dynamic-clue-help-card .help-section {
+    padding: 6px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.dynamic-clue-help-card .type-number {
+    text-align: center;
+    background: #333;
+    color: white;
+}
+
+.dynamic-clue-help-card .type-number h2 {
+    margin: 0;
+    font-size: 1.6em;
+}
+
+.dynamic-clue-help-card h3 {
+    color: #333;
+    margin: 0;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.dynamic-clue-help-card p {
+    margin: 0;
+    line-height: 1.2;
+    color: #444;
+    font-size: 18px;
+}
+
+.dynamic-clue-help-card .sub-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.dynamic-clue-help-card .button-container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+    padding: 0 15px;
+}
+
+.dynamic-clue-help-card .back-button {
+    padding: 10px 15px;
+    font-size: clamp(0.7em, 2.3vw, 1.1em);
+    background: white;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+    max-width: 200px;
+}
+
+.dynamic-clue-help-card .back-button:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dynamic-clue-help-card .back-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .dynamic-clue-help-card .card-subheader {
+        height: 150px;
+        min-height: 150px;
+    }
+
+    .dynamic-clue-help-card .card-body {
+        overflow-x: hidden;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .dynamic-clue-help-card .help-content {
+        width: 100%;
+        max-width: none;
+        padding: 20px;
+        border-radius: 20px;
+        border: 2px solid #333;
+        margin: 0;
+        box-sizing: border-box;
+        height: 300px;
+        overflow-y: auto;
+    }
+
+    .dynamic-clue-help-card .help-section {
+        padding: 6px;
+        font-size: 11px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .dynamic-clue-help-card .type-number h2 {
+        font-size: 1.2em;
+    }
+
+    .dynamic-clue-help-card h3 {
+        font-size: 1em;
+    }
+
+    .dynamic-clue-help-card p {
+        font-size: 0.8em;
+    }
+
+    .dynamic-clue-help-card .button-container {
+        padding: 0 10px;
+        gap: 8px;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .dynamic-clue-help-card .back-button {
+        padding: 8px 12px;
+        font-size: clamp(0.6em, 2vw, 0.9em);
+        flex: 0 1 auto;
+        min-width: 100px;
+    }
+}

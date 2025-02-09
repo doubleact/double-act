@@ -1,0 +1,257 @@
+@import '../core/basecard.css';
+
+.multiplayer-score-card {
+    background: url('../../images/background/startcardbackground.png') center/cover no-repeat !important;
+}
+
+.multiplayer-score-card .card {
+    background: transparent !important;
+}
+
+.scores-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.scores-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.score-item {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #333;
+    border-radius: 15px;
+    padding: 10px 5px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.score-item.current {
+    border-color: #28a745;
+    background: rgba(40, 167, 69, 0.1);
+}
+
+.player-label {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.player-score {
+    font-size: 0.8em;
+    color: #666;
+}
+
+.player-score div {
+    margin: 2px 0;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+    padding: 0 15px;
+}
+
+.buttons-container.end-game-only {
+    display: flex;
+    justify-content: center;
+}
+
+.buttons-container.end-game-only .end-game-button {
+    margin: 0;
+    width: 249px;
+}
+
+.button-container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+    padding: 0 15px;
+}
+
+.back-button {
+    padding: 10px 15px;
+    font-size: clamp(0.8em, 2.5vw, 1.2em);
+    background: white;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+.back-button:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.end-game-button {
+    padding: 10px 15px;
+    font-size: clamp(0.8em, 2.5vw, 1.2em);
+    background: white;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+.end-game-button:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+
+.end-game-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Score text colors */
+.multiplayer-score-card .correct-text {
+    color: #28a745; /* Green */
+}
+
+.multiplayer-score-card .wrong-text {
+    color: #dc3545; /* Red */
+}
+
+/* Button styles */
+.multiplayer-score-card .button-container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+    padding: 0 15px;
+}
+
+.multiplayer-score-card .continue-button,
+.multiplayer-score-card .restart-button {
+    padding: 10px 15px;
+    font-size: clamp(0.8em, 2.5vw, 1.2em);
+    background: white;
+    border: 2px solid #333;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+.multiplayer-score-card .continue-button {
+    color: #333;
+    border-color: #333;
+    background: white;
+}
+
+.multiplayer-score-card .continue-button:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.multiplayer-score-card .end-game-button {
+    color: #dc3545;
+    border-color: #dc3545;
+    background: white;
+}
+
+.multiplayer-score-card .end-game-button:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+
+.multiplayer-score-card .continue-button:active,
+.multiplayer-score-card .end-game-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.multiplayer-score-card .restart-button {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.multiplayer-score-card .restart-button:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+
+.multiplayer-score-card .restart-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .multiplayer-score-card .score-content {
+        padding: 15px;
+    }
+
+    .scores-container {
+        padding: 10px;
+    }
+
+    .scores-grid {
+        gap: 8px;
+    }
+
+    .score-item {
+        padding: 8px 4px;
+    }
+
+    .player-label {
+        font-size: 0.8em;
+    }
+
+    .player-score {
+        font-size: 0.7em;
+    }
+
+    .back-button,
+    .end-game-button {
+        padding: 8px 12px;
+        font-size: clamp(0.7em, 2.2vw, 1em);
+        min-width: 100px;
+    }
+}

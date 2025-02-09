@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page View Stats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        .total {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Page View Statistics</h1>
+        
+        <div class="card">
+            <h2>Total Views</h2>
+            <div class="total" id="totalViews">Loading...</div>
+        </div>
+
+        <div class="card">
+            <h2>Views by Page</h2>
+            <table id="pageStats">
+                <thead>
+                    <tr>
+                        <th>Page</th>
+                        <th>Views</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Recent Views</h2>
+            <table id="recentViews">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Page</th>
+                        <th>User Agent</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Function to format date
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleString();
+        }
+
+        // Function to update stats
+        async function updateStats() {
+            try {
+                const response = await fetch('/api/stats');
+                const stats = await response.json();
+
+                // Update total views
+                document.getElementById('totalViews').textContent = stats.total;
+
+                // Update page stats
+                const pageStatsBody = document.querySelector('#pageStats tbody');
+                pageStatsBody.innerHTML = '';
+                stats.pages.forEach(page => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${page.page}</td>
+                        <td>${page.count}</td>
+                    `;
+                    pageStatsBody.appendChild(row);
+                });
+
+                // Update recent views
+                const recentViewsBody = document.querySelector('#recentViews tbody');
+                recentViewsBody.innerHTML = '';
+                stats.recent.forEach(view => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${formatDate(view.timestamp)}</td>
+                        <td>${view.page}</td>
+                        <td>${view.userAgent}</td>
+                    `;
+                    recentViewsBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+            }
+        }
+
+        // Update stats every 30 seconds
+        updateStats();
+        setInterval(updateStats, 30000);
+    </script>
+</body>
+</html>

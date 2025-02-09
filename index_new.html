@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Double Act</title>
+    <link rel="icon" type="image/x-icon" href="images/doubleacticon.ico">
+    <link rel="stylesheet" href="css/core/basecard.css">
+    <link rel="stylesheet" href="css/cards/start.css">
+    <link rel="stylesheet" href="css/cards/introduction.css">
+    <link rel="stylesheet" href="css/cards/modeselection.css">
+    <link rel="stylesheet" href="css/cards/modecardhelp.css">
+    <link rel="stylesheet" href="css/cards/testcard.css">
+    <link rel="stylesheet" href="css/cards/singleplayerclue.css">
+    <link rel="stylesheet" href="css/cards/singleplayeranswer.css">
+    <link rel="stylesheet" href="css/cards/singleplayerscore.css">
+    <link rel="stylesheet" href="css/cards/singleplayercluehelpcard.css">
+    <link rel="stylesheet" href="css/cards/numberofplayers.css">
+    <link rel="stylesheet" href="css/cards/multiplayerclue.css">
+    <link rel="stylesheet" href="css/cards/multiplayerscore.css">
+    <link rel="stylesheet" href="css/cards/multiplayeranswer.css">
+    <link rel="stylesheet" href="css/cards/dynamiccluehelp.css">
+</head>
+<body>
+    <div id="game-container"></div>
+    
+    <!-- Load Hammer.js for touch controls -->
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+    
+    <!-- Initialize game -->
+    <script type="module">
+        import { StartCard } from './js/cards/StartCard.js';
+        import { DebugMode } from './js/utils/DebugMode.js';
+        import './script.js';  // This creates window.game
+        
+        // Initialize with start card when everything is loaded
+        window.addEventListener('load', () => {
+            const container = document.getElementById('game-container');
+            new StartCard(container);
+            
+            // Initialize debug mode
+            DebugMode.initialize();
+        });
+    </script>
+    <script src="/js/page-tracker.js"></script>
+</body>
+</html>
